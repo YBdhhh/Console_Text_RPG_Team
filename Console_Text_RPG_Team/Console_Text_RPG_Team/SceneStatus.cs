@@ -8,7 +8,7 @@ namespace Console_Text_RPG_Team
 {
 	internal class SceneStatus
 	{
-		Player player = new Player();
+		public Player player = new Player();
 		StringBuilder sb = new StringBuilder();
 
 		public void Start()
@@ -25,10 +25,10 @@ namespace Console_Text_RPG_Team
 			sb.Append($"방어력	: {player.def}").Append("\n"); 
 			sb.Append($"돈	: {player.gold}").Append("\n");
 			sb.Append("\n");
-			sb.Append("0. 나가기");
+			sb.Append("0. 나가기").Append("\n\n");
 			sb.Append("원하시는 행동을 입력해주세요.").Append("\n");
 			sb.Append(">> ");
-			Console.WriteLine(sb.ToString());
+			Console.Write(sb.ToString());
 		}
 
 		public void Input()
