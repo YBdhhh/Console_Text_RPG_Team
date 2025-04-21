@@ -9,6 +9,28 @@ namespace Console_Text_RPG_Team
 {
     internal class SceneBattleAttack
     {
+        public Player player;
+        public List<Monster> monsters;
+
+        public SceneBattleAttack()
+        {
+            player = new Player();
+            monsters = new List<Monster>
+            {
+                new Monster("미니언", 15, 5, 2),
+                new Monster("대포미니언", 25, 8, 5),
+                new Monster("공허충", 10, 4, 3)
+            };
+        }
+
+        public void Start()
+        {
+            while (true)
+            {
+                
+            }
+        }
+
         public static void AttackLog(Player attacker, Monster target, int damage)
         {
             Console.Clear();
