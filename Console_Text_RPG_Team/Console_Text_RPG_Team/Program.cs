@@ -4,7 +4,10 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
-        }
+            SceneStatus sceneStatus = new SceneStatus();
+
+            sceneStatus.Start();
+            sceneStatus.Input();
+		}
     }
 }
