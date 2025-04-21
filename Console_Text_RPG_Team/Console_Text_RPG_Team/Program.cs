@@ -4,10 +4,10 @@
     {
         static void Main(string[] args)
         {
-           // SceneStatus sceneStatus = new SceneStatus();
+         
+
+
             PlayerCreate playerCreate = new PlayerCreate();
-            //sceneStatus.Start();
-            //sceneStatus.Input();
             playerCreate.Start();
         }
     }

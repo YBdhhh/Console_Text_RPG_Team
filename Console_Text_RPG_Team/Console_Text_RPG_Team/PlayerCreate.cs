@@ -19,7 +19,7 @@ namespace Console_Text_RPG_Team
             Input();
             //JobInput();
         }
-        public void Input()//public Player(string name) this.name = name;// player 클래스의 생성자에 name을 넣어줌
+        public void Input()
         {
 
         {
