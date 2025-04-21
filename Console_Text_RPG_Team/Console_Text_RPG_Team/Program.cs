@@ -4,10 +4,12 @@
     {
         static void Main(string[] args)
         {
-            SceneStatus sceneStatus = new SceneStatus();
+            JobSelect jobselect = new JobSelect();
 
-            sceneStatus.Start();
-            sceneStatus.Input();
+            jobselect.Start();
+            jobselect.Input();
+            jobselect.sceneStatus.Start();
+            jobselect.sceneStatus.Input();
 		}
     }
 }

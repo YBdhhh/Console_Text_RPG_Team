@@ -8,17 +8,18 @@ namespace Console_Text_RPG_Team
 {
 	internal class Job
 	{
-		public string job;
+		public string name;
 		public int hp;
 		public int atk;
 		public int def;
 
-		public Job(string job, int hp, int atk, int def)
+		public Job(string name, int hp, int atk, int def)
 		{
-			this.job = job;
+			this.name = name;
 			this.hp = hp;
 			this.atk = atk;
 			this.def = def;
 		}
+
 	}
 }
