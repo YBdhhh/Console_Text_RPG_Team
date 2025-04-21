@@ -13,7 +13,7 @@ namespace Console_Text_RPG_Team
 		public float hp;
 		public float atk;
 		public int level;
-		public int PreviousHP;
+		public float PreviousHP;
 
 		public Monster(string name, float hp, float atk, int level)
 		{
@@ -28,6 +28,14 @@ namespace Console_Text_RPG_Team
 			return hp > 0;
 		}
 
-
-	}
+        public void TakeDamage(float damage)
+        {
+            PreviousHP = hp;            
+            hp -= damage;
+            if (hp < 0)
+            {
+                hp = 0;
+            }
+        }
+    }
 }
