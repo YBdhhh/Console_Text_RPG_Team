@@ -17,7 +17,10 @@ namespace Console_Text_RPG_Team
 		public int gold = 1500;
 		public int level = 1;
 		
-
+		public bool IsAlive()
+		{
+			return hp > 0;
+		}
 
 	}
 }

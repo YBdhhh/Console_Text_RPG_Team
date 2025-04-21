@@ -23,6 +23,11 @@ namespace Console_Text_RPG_Team
 			this.level = level;
 		}
 
+		public bool IsAlive()
+		{
+			return hp > 0;
+		}
+
 
 	}
 }
