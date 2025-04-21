@@ -13,6 +13,7 @@ namespace Console_Text_RPG_Team
 		public float hp;
 		public float atk;
 		public int level;
+		public int PreviousHP;
 
 		public Monster(string name, float hp, float atk, int level)
 		{
