@@ -94,10 +94,17 @@ namespace Console_Text_RPG_Team
             return false;
         }
 
-       
+        private Random rand = new Random();
+
         public float GetRandomDamage(float defaultDamage)
         {
-            return defaultDamage;
+            float error = defaultDamage * 0.1f;
+            int roundedError = (int)(error + 0.999f); // 올림 작업
+
+            int minDamage = (int)(defaultDamage - roundedError);
+            int maxDamage = (int)(defaultDamage + roundedError);
+
+            return rand.Next(minDamage, maxDamage + 1);
         }
         public void BattleMenu()
         {
@@ -158,7 +165,39 @@ namespace Console_Text_RPG_Team
 
         public void Result(bool isVictory)
         {
+            Console.Clear();
+            StringBuilder sb = new StringBuilder();
 
+            sb.AppendLine("Battle!! - Result\n");
+
+            if(isVictory)
+            {
+                sb.AppendLine("Victory\n");
+
+                int killCount = 0;
+
+                foreach(var monster in monsters)
+                {
+                    if (monster.hp <= 0)
+                        killCount++;
+                }
+
+                sb.AppendLine($"던전에서 몬스터 {killCount}마리를 잡았습니다.\n");
+            }
+            else
+            {
+                sb.AppendLine("You Lose\n");
+            }
+
+            // 플레이어 현재 상태 출력
+
+            sb.AppendLine($"Lv.{player.level} {player.name}");
+            sb.AppendLine($"HP {player.PreviousHP} -> {(player.hp <= 0 ? "0" : player.hp.ToString())}");
+
+            sb.AppendLine("\n0. 다음");
+            sb.Append(">> ");
+            Console.WriteLine(sb.ToString());
+            Console.ReadLine();
         }
 
 
