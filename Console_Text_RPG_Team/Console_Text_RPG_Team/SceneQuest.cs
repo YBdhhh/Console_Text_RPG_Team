@@ -27,21 +27,23 @@ namespace Console_Text_RPG_Team
 				string name = quest[i].name.Length > 6
 					? quest[i].name.Substring(0, 6) + "..."
 					: quest[i].name;
-
+				/*
 				string rewardItem = quest[i].rewardItem.name.Length > 10
 					? quest[i].rewardItem.name.Substring(0, 20) + "..."
 					: quest[i].rewardItem.name;
-
+				*/
 				string toString = quest[i].rewardExp.ToString();
 				string rewardExp = toString.Length > 5 ? toString.Substring(0, 5) : toString;
-
+				/*
 				sb.Append($"{i + 1}. 제목 : {name,-6 - 2} 보상 : {rewardItem,-10 - 2} {rewardExp,-5 - 2} ").Append("\n");
+				*/
 			}
 			sb.Append("\n");
 			sb.Append("흥미 있는 퀘스트를 선택해주세요").Append("\n\n");
 			sb.Append("원하시는 행동을 입력해주세요.").Append("\n");
 			sb.Append(">> ");
 			Console.Write(sb.ToString());
+			sb.Clear();
 		}
 
 		public void Quest()
@@ -79,7 +81,9 @@ namespace Console_Text_RPG_Team
 			sb.AppendLine($"{index + 1}");
 			sb.AppendLine($"퀘스트 : {quest[index].name}");
 			sb.AppendLine($"{quest[index].explain}");
+			/*
 			sb.AppendLine($"보상 : {quest[index].rewardItem} {quest[index].rewardExp}");
+			*/
 			sb.AppendLine();
 			if (selectedQuest != null)
 			{
@@ -88,6 +92,7 @@ namespace Console_Text_RPG_Team
 				sbb.AppendLine("");
 				sbb.AppendLine("아무키나 눌러서 나가기");
 				Console.WriteLine(sbb.ToString());
+				sbb.Clear();
 				Console.ReadLine();
 			}
 
@@ -96,6 +101,7 @@ namespace Console_Text_RPG_Team
 			sb.AppendLine();
 			sb.Append(">> ");
 			Console.Write(sb.ToString());
+			sb.Clear();
 			while (true)
 			{
 				try
@@ -125,7 +131,7 @@ namespace Console_Text_RPG_Team
 			}
 		}
 
-		public void IsQuestClear()
+		/*public void IsQuestClear()
 		{
 			if (selectedQuest.curProgress == selectedQuest.endProgress)
 			{
@@ -133,10 +139,10 @@ namespace Console_Text_RPG_Team
 				//player.Item = selectedQuest.rewardItem;
 				//player.exp = selectedQuest.rewardExp;
 				sb.Clear();
-				sb.AppendLine($"{selectedQuest.Rewarditem}
+				sb.AppendLine($"{selectedQuest.Rewarditem}");
 				selectedQuest = null;
 
 			}
-		}
+		}*/
 	}
 }

@@ -11,15 +11,14 @@ namespace Console_Text_RPG_Team
     internal class SceneBattle
     {
 
-        public void BattleStart()
+        public void StartBattle(Player player)
         {
             StringBuilder sb = new StringBuilder();
-            Player player = new Player();
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Battle!!\n");
             Console.ResetColor();
-            MonsterSpawn();
+            SpawnMonster();
             sb.AppendLine("[내정보]");
             sb.AppendLine($"Lv.	: {player.level}");
             sb.AppendLine($"직업	: {player.job}");
@@ -33,7 +32,7 @@ namespace Console_Text_RPG_Team
 
         }
 
-        public void MonsterSpawn()
+        public void SpawnMonster()
         {
             Monster minion = new Monster("미니언", 15, 5, 2);
             Monster cannonMinion = new Monster("대포미니언", 25, 8, 5);

@@ -4,12 +4,8 @@
     {
         static void Main(string[] args)
         {
-            JobSelect jobselect = new JobSelect();
-
-            jobselect.Start();
-            jobselect.Input();
-            jobselect.sceneStatus.Start();
-            jobselect.sceneStatus.Input();
+            GameLogic gameLogic = new GameLogic();
+            gameLogic.Start();
 		}
     }
 }
