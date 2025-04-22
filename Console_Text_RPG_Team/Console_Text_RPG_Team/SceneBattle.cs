@@ -27,6 +27,7 @@ namespace Console_Text_RPG_Team
             sb.AppendLine("원하시는 행동을 입력해주세요.");
             sb.Append(">> ");
             Console.Write(sb.ToString());
+            sb.Clear();
             InputAttack();
 
 
@@ -36,12 +37,17 @@ namespace Console_Text_RPG_Team
         {
             Monster minion = new Monster("미니언", 15, 5, 2);
             Monster cannonMinion = new Monster("대포미니언", 25, 8, 5);
-            Monster voidBug = new Monster("공허충", 10, 7, 3);
+            Monster voidBug = new Monster("공허충", 10, 9, 3);
 
             Random random = new Random();
             int[] monsters = new int[4];
 
             monsters[0] = random.Next(1, 4);        // 최소 한마리는 생성할수 있게
+
+            for (int i = 1; i < monsters.Length; i++)
+            {
+                monsters[i] = random.Next(0, 4);
+            }
             for (int i = 0; i < monsters.Length; i++)
             {
                 monsters[i] = random.Next(0, 4);

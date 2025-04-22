@@ -13,6 +13,7 @@ enum State
 
 namespace Console_Text_RPG_Team
 {
+
 	internal class SceneStart
 	{
 		SceneStatus sceneStatus = new SceneStatus();
