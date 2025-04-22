@@ -128,7 +128,7 @@ namespace Console_Text_RPG_Team
                 string status = m.IsAlive() ? $"HP: {m.hp}" : "Dead";
                 Console.WriteLine($"{i + 1}. {m.name} (Lv.{m.level}) - {status}");
             }
-            Console.WriteLine("\0. 돌아가기");
+            Console.WriteLine("\n0. 돌아가기");
             Console.Write(">> ");
         }
 
