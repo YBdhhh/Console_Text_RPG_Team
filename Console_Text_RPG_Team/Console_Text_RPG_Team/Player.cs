@@ -17,7 +17,7 @@ namespace Console_Text_RPG_Team
 		public int gold = 1500;
 		public int level = 1;
 		public float PreviousHP;
-
+		
 		public bool IsAlive()
 		{
 			return hp > 0;
@@ -32,10 +32,10 @@ namespace Console_Text_RPG_Team
 				reduced = 0;
 			}
 			hp -= reduced;
-			if (hp < 0)
+			if(hp < 0)
 			{
 				hp = 0;
-			}
+			}	
 		}
 	}
 }
