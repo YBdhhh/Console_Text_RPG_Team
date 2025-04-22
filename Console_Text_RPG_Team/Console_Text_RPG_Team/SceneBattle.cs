@@ -22,7 +22,7 @@ namespace Console_Text_RPG_Team
             sb.AppendLine("[내정보]");
             sb.AppendLine($"Lv.	: {player.level}");
             sb.AppendLine($"직업	: {player.job}");
-            sb.AppendLine($"체  력	: {player.hp}/{player.hp}");
+            sb.AppendLine($"체  력	: {player.PreviousHP}/{player.hp}");
             sb.AppendLine("1. 공격").Append("\n");
             sb.AppendLine("원하시는 행동을 입력해주세요.");
             sb.Append(">> ");
