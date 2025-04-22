@@ -1,4 +1,7 @@
-﻿namespace Console_Text_RPG_Team
+﻿using System;
+using System.Collections.Generic;
+
+namespace Console_Text_RPG_Team
 {
     internal class Program
     {
@@ -6,6 +9,7 @@
         {
             GameLogic gameLogic = new GameLogic();
             gameLogic.Start();
-		}
+		} 
+
     }
 }
