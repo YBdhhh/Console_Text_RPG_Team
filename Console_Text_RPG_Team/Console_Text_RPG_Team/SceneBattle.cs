@@ -28,6 +28,7 @@ namespace Console_Text_RPG_Team
             sb.AppendLine("원하시는 행동을 입력해주세요.");
             sb.Append(">> ");
             Console.Write(sb.ToString());
+            sb.Clear();
             InputAttack();
 
 
