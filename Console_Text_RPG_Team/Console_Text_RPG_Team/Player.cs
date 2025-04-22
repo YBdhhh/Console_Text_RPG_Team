@@ -16,8 +16,8 @@ namespace Console_Text_RPG_Team
 		public float def = 5;
 		public int gold = 1500;
 		public int level = 1;
-		
-
+		public int exp = 0;
+		public int mp = 0;
 
 	}
 }
