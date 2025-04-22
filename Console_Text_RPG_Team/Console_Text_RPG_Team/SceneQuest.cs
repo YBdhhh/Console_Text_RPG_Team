@@ -133,8 +133,8 @@ namespace Console_Text_RPG_Team
 				//player.Item = selectedQuest.rewardItem;
 				//player.exp = selectedQuest.rewardExp;
 				sb.Clear();
-				sb.AppendLine($"{selectedQuest.Rewarditem}
-				selectedQuest = null;
+				//sb.AppendLine($"{selectedQuest.Rewarditem}
+				//selectedQuest = null;
 
 			}
 		}
