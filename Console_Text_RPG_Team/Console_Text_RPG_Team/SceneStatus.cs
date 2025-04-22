@@ -18,6 +18,7 @@ namespace Console_Text_RPG_Team
 			Console.ResetColor();
 			sb.Append("캐릭터의 정보가 표시됩니다").Append("\n");
 			sb.AppendLine("");
+			sb.Append($"이  름	:{player.name}").Append("\n");
 			sb.Append($"Lv.	: {player.level}").Append("\n");
 			sb.Append($"직업	: {player.job}").Append("\n");
 			sb.Append($"체  력	: {player.hp}").Append("\n"); 
