@@ -28,6 +28,18 @@ namespace Console_Text_RPG_Team
             PlayerAttack();
         }
 
+        public void BattleLoop()
+        {
+            while (true)
+            {
+                PlayerAttack();
+                if (CheckBattleEnd()) break;
+
+                EnemyPhase();
+                if (CheckBattleEnd()) break;
+            }
+        }
+
         public void PlayerAttack()
         {
             while (true)
