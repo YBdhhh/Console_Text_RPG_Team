@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -10,7 +10,14 @@ namespace Console_Text_RPG_Team
 {
     internal class SceneBattle
     {
-        SceneBattleAttack sceneBattleAttack = new SceneBattleAttack();
+        SceneBattleAttack sceneBattleAttack = new SceneBattleAttack();  //임시
+
+        public List<Monster> monsters = new List<Monster>
+            {
+                new Monster("미니언", 15f, 5f, 2),
+                new Monster("공허충", 10f, 9f, 3),
+                new Monster("대포미니언", 25f, 8f, 5)
+            };
 
         public void StartBattle(Player player)
         {
@@ -29,42 +36,39 @@ namespace Console_Text_RPG_Team
             sb.Append(">> ");
             Console.Write(sb.ToString());
             sb.Clear();
-            InputAttack(player);
 
-
+            InputAttack();
         }
 
         public void SpawnMonster()
         {
-            Monster minion = new Monster("미니언", 15, 5, 2);
-            Monster cannonMinion = new Monster("대포미니언", 25, 8, 5);
-            Monster voidBug = new Monster("공허충", 10, 9, 3);
+            int dungeonFloor = 1;       //일단 생성해둠
 
+            int typeCount = 3;           //나오게 할 몬스터 종류 개수
+            int monsterCount = 4;        //나오게 할 몬스터 개수 (나오지 않는 경우 포함)
+            int monsterTypeStart = 0;   //나오게 할 몬스터타입 시작점       던전층수따라 변환 예정
+            int monsterTypeEnd = 4;     //나오게 할 몬스터타입 끝지점       던전층수따라 변환 예정
+            int probability = 4;        //나오게 할 확률 (1/n)
+            int spawn;                  //소환 확률용 변수
+
+            List<int> spawnList = new List<int>(monsterCount);        //랜덤값 지정을 위한 int 리스트
             Random random = new Random();
-            int[] monsters = new int[4];
 
-            monsters[0] = random.Next(1, 4);        // 최소 한마리는 생성할수 있게
-
-            for (int i = 1; i < monsters.Length; i++)
+            for (int i = monsterTypeStart; i < monsterTypeEnd; i++)
             {
-                monsters[i] = random.Next(0, 4);
-            }
-            for (int i = 0; i < monsters.Length; i++)
-            {
-                monsters[i] = random.Next(0, 4);
-                switch (monsters[i])
+                spawnList.Add(random.Next(monsterTypeStart, typeCount));   // 스폰리스트에 랜덤한 몬스터 타입 추가
+                if (i == 0)
                 {
-                    case 1:
-                        Console.WriteLine($"Lv.{minion.level} {minion.name} HP {minion.hp}");
-                        break;
-                    case 2:
-                        Console.WriteLine($"Lv.{cannonMinion.level} {cannonMinion.name} HP {cannonMinion.hp}");
-                        break;
-                    case 3:
-                        Console.WriteLine($"Lv.{voidBug.level} {voidBug.name} HP {voidBug.hp}");
-                        break;
-                    default:
-                        break;
+                    spawn = random.Next(1, probability);      //첫 몬스터는 확정으로 소환
+                }
+                else
+                {
+                    spawn = random.Next(0, probability);      //이후로는 확률 1/4
+                }
+
+                if (spawn != 0)
+                {
+                    Console.WriteLine($"Lv.{monsters[spawnList[i]].level} {monsters[spawnList[i]].name} HP {monsters[spawnList[i]].hp}");
                 }
             }
             Console.WriteLine();
@@ -80,9 +84,11 @@ namespace Console_Text_RPG_Team
                     switch (input)
                     {
                         case 1:
-                            Console.WriteLine("1. 전투시작"); // SceneBattleAttack
-                            sceneBattleAttack.BattleLoop(player);
-							return;
+                            Console.Clear();
+                            Console.WriteLine("전투시작");
+                            sceneBattleAttack.Start();
+                            return;
+
                         default:
                             Console.WriteLine("다시 입력해주십시오");
                             continue;
@@ -93,7 +99,6 @@ namespace Console_Text_RPG_Team
                     Console.WriteLine("다시 입력해주십시오");
                     continue;
                 }
-
             }
         }
     }
