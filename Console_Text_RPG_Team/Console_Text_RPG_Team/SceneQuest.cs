@@ -10,8 +10,16 @@ namespace Console_Text_RPG_Team
 {
 	internal class SceneQuest
 	{
-		public List<Quest> quest;
+		public List<Quest> quest = new List<Quest>
+		{
+			new Quest("몬스터 잡기", "던전에 서식하는 몬스터를 10마리 잡아주세요", 0, 10, EventType.KillOther, 10, ""),
+			new Quest("500골드 사용", "상점에서 500골드를 사용하세요", 0, 500, EventType.UseGold, 100, ""),
+			new Quest("노가다 목장갑 착용", "노가다하는 당신께 선물을 준비하세요", 0, 1, EventType.EquipItem, 500, "노가다목장갑"),
+			new Quest("1층 보스 잡기!", "1층 보스를 만나고 그를 이기세요", 0, 1, EventType.UseGold, 100, "머쉬맘"),
+		};
 		public Quest? selectedQuest = null;
+			
+
 		StringBuilder sb = new StringBuilder();
 
 		public void Start()

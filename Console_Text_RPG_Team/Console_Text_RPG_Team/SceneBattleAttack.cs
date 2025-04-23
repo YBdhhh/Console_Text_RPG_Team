@@ -11,7 +11,7 @@ namespace Console_Text_RPG_Team
     internal class SceneBattleAttack
     {
         public List<Monster> monsters = new List<Monster>(4);
-
+        
         public SceneBattleAttack()
         {
         }

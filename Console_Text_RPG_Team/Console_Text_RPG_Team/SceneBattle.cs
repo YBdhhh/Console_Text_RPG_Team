@@ -29,7 +29,8 @@ namespace Console_Text_RPG_Team
         };
 
 
-        public void StartBattle(Player player)
+
+		public void StartBattle(Player player)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -48,6 +49,7 @@ namespace Console_Text_RPG_Team
             sb.Clear();
             InputAttack(player);
 
+
         }
 
         public void SpawnMonster()
@@ -61,11 +63,12 @@ namespace Console_Text_RPG_Team
             int probability = 4;        //나오게 할 확률 (1/n)
             int spawn;                  //소환 확률용 변수
 
+
             Random random = new Random();
 
             for (int i = monsterTypeStart; i < monsterCount; i++)
             {
-                // 스폰리스트에 랜덤한 몬스터 타입 추가
+
                 if (i == 0)
                 {
                     spawn = random.Next(1, probability);      //첫 몬스터는 확정으로 소환
@@ -80,13 +83,13 @@ namespace Console_Text_RPG_Team
 
                     int rand = random.Next(monsterTypeStart+((dungeonFloor-1)*6), monsterTypeEnd+ ((dungeonFloor - 1) * 6));
                     spawnList.Add(new Monster(monsters[rand]));
-
                 }
             }
             for (int j = 0; j < spawnList.Count; j++)
             {
                 Console.WriteLine($"Lv.{spawnList[j].level} {spawnList[j].name} HP {spawnList[j].hp}");
             }
+
             Console.WriteLine();
         }
 
