@@ -82,7 +82,7 @@ namespace Console_Text_RPG_Team
         {
             if(!player.IsAlive())
             {
-                Result(false);
+                Result(false, player);
                 return true;
             }
 
@@ -95,7 +95,7 @@ namespace Console_Text_RPG_Team
 
             if (aliveCount == 0)
             {
-                Result(true);
+                Result(true, player);
                 return true;
             }
 
@@ -180,7 +180,7 @@ namespace Console_Text_RPG_Team
 
         }
 
-        public void Result(bool isVictory)
+        public void Result(bool isVictory, Player player)
         {
             Console.Clear();
             StringBuilder sb = new StringBuilder();
