@@ -42,7 +42,7 @@ namespace Console_Text_RPG_Team
                     }
                 }
                 while (true)
-                {
+                {    
                     int input = int.Parse(Console.ReadLine());
                     if (input == 1)
                     {
