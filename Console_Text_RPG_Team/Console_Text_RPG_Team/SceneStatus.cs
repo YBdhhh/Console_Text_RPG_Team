@@ -8,10 +8,9 @@ namespace Console_Text_RPG_Team
 {
 	internal class SceneStatus
 	{
-		public Player player = new Player();
 		StringBuilder sb = new StringBuilder();
 
-		public void Start()
+		public void Start(Player player)
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
 			Console.WriteLine("상태 보기");

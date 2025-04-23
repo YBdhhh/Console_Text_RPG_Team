@@ -9,8 +9,8 @@ namespace Console_Text_RPG_Team
        
         static void Main(string[] args)
         {
-            SceneShop sceneShop = new SceneShop();
-            sceneShop.Start();
+            GameLogic gameLogic = new GameLogic();
+            gameLogic.Start();
         }
     }
 }
