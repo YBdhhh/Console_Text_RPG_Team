@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -95,10 +95,11 @@ namespace Console_Text_RPG_Team
                     {
                         case 1:
                             Console.Clear();
-                            Console.WriteLine("공격창");
-                            sceneBattleAttack.BattleLoop(player, spawnList);
+                            Console.WriteLine("전투시작");
+                            sceneBattleAttack.Start();
 
                             return;
+
                         default:
                             Console.WriteLine("다시 입력해주십시오");
                             continue;

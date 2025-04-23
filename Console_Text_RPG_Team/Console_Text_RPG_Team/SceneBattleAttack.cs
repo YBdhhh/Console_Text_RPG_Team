@@ -40,7 +40,7 @@ namespace Console_Text_RPG_Team
         {
             while (true)
             {
-                BattleMenu();
+                BattleMenu(); //3
 
                 string input = Console.ReadLine();
                 if (input == "0") return;
