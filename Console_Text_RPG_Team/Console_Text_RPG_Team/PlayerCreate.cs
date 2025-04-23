@@ -20,12 +20,13 @@ namespace Console_Text_RPG_Team
 
         private void Input()
         {
+            //Console.WriteLine("이름을 입력해주세요.");
             sb.AppendLine("이름을 입력해주세요.");
             sb.Append(">> ");
             Console.Write(sb.ToString());
             sb.Clear();
             while (true)
-            {            
+            {
                 string playername = Console.ReadLine();
 
                 if (string.IsNullOrWhiteSpace(playername))
@@ -46,7 +47,7 @@ namespace Console_Text_RPG_Team
                     Console.Write(sb.ToString());
                     sb.Clear();
                     string input = Console.ReadLine();
-                    if (!int.TryParse(input, out int choice))
+                    if (!int.TryParse(input, out int choice))//tryparse는 bool형으로 성공여부를 반환합니다.    
                     {
                         sb.AppendLine("올바른 숫자를 입력해주세요.");
                         sb.Append(">> ");
@@ -68,7 +69,7 @@ namespace Console_Text_RPG_Team
                         sb.Append(">> ");
                         Console.Write(sb.ToString());
                         sb.Clear();
-                        break; 
+                        break;  // 외부 while 루프로 이동
                     }
                     else
                     {

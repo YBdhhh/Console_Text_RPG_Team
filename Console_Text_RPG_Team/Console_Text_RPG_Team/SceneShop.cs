@@ -81,7 +81,7 @@ namespace Console_Text_RPG_Team
                     }
                     else if (choice >= 1 && choice <= shopItems.Count)
                     {
-                        var selected = shopItems[choice - 1];
+                        var selected = shopItems[choice - 1];// 0
 
                         if (selected.purchaseItem)
                         {
