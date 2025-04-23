@@ -20,7 +20,7 @@ namespace Console_Text_RPG_Team
         {
             for (int i = 0; i < monster.Count; i++)
             {
-                monsters.Add(monster[i]);
+                monsters.Add((monster[i]));
             }
         }
 
@@ -185,6 +185,7 @@ namespace Console_Text_RPG_Team
         {
             Console.Clear();
             StringBuilder sb = new StringBuilder();
+			
 
             // 전투 전 상태 백업
             int previousLevel = player.level;
