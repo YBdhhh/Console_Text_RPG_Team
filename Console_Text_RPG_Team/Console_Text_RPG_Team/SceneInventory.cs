@@ -162,57 +162,45 @@ namespace Console_Text_RPG_Team
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("===== 장착 해제할 아이템 선택 =====");
+                Console.WriteLine("===== 해제할 아이템 선택 =====");
                 Console.ResetColor();
 
                 for (int i = 0; i < items.Count; i++)
                 {
                     var item = items[i];
-                    string equip = item.unEquippedItem ?  string.Empty : "[E] | " ;
+                    // 수정: unEquippedItem 대신 equippedItem 플래그 사용
+                    // 해제 대상만 보여주기 위해, 장착된 아이템만 리스트업
+                    if (!item.equippedItem) continue;
+
                     string defTxt = item.def > 0 ? $" | DEF: {item.def}" : string.Empty;
                     string atkTxt = item.atk > 0 ? $" | ATK: {item.atk}" : string.Empty;
-                    sb.AppendLine($"{i + 1}. {equip}{item.name} | {item.toolTip}{atkTxt}{defTxt}");
-                    Console.WriteLine(sb.ToString());
-                    sb.Clear();
+                    Console.WriteLine($"{i + 1}. [E] {item.name} | {item.toolTip}{atkTxt}{defTxt}");
                 }
-                sb.AppendLine();
-                sb.AppendLine("0: 취소");
-                sb.AppendLine("[장착 해제하실 아이템을 선택해주세요]");
-                sb.Append(" >> ");
-                Console.Write(sb.ToString());
-                sb.Clear();
+                Console.WriteLine();
+                Console.WriteLine("0: 취소");
+                Console.Write(" >> ");
+
                 string input = Console.ReadLine();
                 if (int.TryParse(input, out int choice))
                 {
-                    if (choice == 0)
-                    {
-                        // 장착 메뉴 종료
-                        break;
-                    }
+                    if (choice == 0) break;
                     if (choice >= 1 && choice <= items.Count)
                     {
                         var selected = items[choice - 1];
-                        if (selected.unEquippedItem)
+                        if (selected.equippedItem)
                         {
-                            sb.AppendLine("이미 장착 해제된 아이템입니다.");
-                            Console.WriteLine(sb.ToString());
-                            sb.Clear();
+                            selected.equippedItem = false;  // 장착 해제
+                            Console.WriteLine($"{selected.name}을(를) 해제했습니다.");
                         }
                         else
                         {
-                            selected.unEquippedItem = true;
-                            sb.AppendLine($"{selected.name}을(를) 해제했습니다.");
-                            Console.WriteLine(sb.ToString());
-                            sb.Clear();
+                            Console.WriteLine("해제할 장착된 아이템이 아닙니다.");
                         }
                         Thread.Sleep(1000);
                         continue;
                     }
                 }
-                // 잘못된 입력 처리
-                sb.AppendLine("잘못된 입력입니다. 다시 입력해주세요.");
-                Console.WriteLine(sb.ToString());
-                sb.Clear();
+                Console.WriteLine("잘못된 입력입니다.");
                 Thread.Sleep(1000);
             }
         }
