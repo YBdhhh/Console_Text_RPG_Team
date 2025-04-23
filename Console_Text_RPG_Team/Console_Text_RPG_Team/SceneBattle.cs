@@ -10,17 +10,18 @@ using System.Threading.Tasks;
 namespace Console_Text_RPG_Team
 {
     internal class SceneBattle
+    {
 
-    SceneBattleAttack sceneBattleAttack = new SceneBattleAttack();  //임시
-		public List<Monster> spawnList = new List<Monster>(4);
-		public List<Monster> monsters = new List<Monster>
-			{
-				new Monster("미니언", 15f, 5f, 2),
-				new Monster("공허충", 10f, 9f, 3),
-				new Monster("대포미니언", 25f, 8f, 5)
-			};
+        SceneBattleAttack sceneBattleAttack = new SceneBattleAttack();  //임시
+        public List<Monster> spawnList = new List<Monster>(4);
+        public List<Monster> monsters = new List<Monster>
+            {
+                new Monster("미니언", 15f, 5f, 2),
+                new Monster("공허충", 10f, 9f, 3),
+                new Monster("대포미니언", 25f, 8f, 5)
+            };
 
-		public void StartBattle(Player player)
+        public void StartBattle(Player player)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -55,12 +56,10 @@ namespace Console_Text_RPG_Team
             int spawn;                  //소환 확률용 변수
 
             Random random = new Random();
-            int[] monsters = new int[4];
-
 
             for (int i = monsterTypeStart; i < monsterCount; i++)
             {
-                  // 스폰리스트에 랜덤한 몬스터 타입 추가
+                // 스폰리스트에 랜덤한 몬스터 타입 추가
                 if (i == 0)
                 {
                     spawn = random.Next(1, probability);      //첫 몬스터는 확정으로 소환
@@ -73,19 +72,19 @@ namespace Console_Text_RPG_Team
                 if (spawn != 0)
                 {
 
-					        int rand = random.Next(0, 3);
-					        spawnList.Add(monsters[rand]);
-					
+                    int rand = random.Next(0, 3);
+                    spawnList.Add(monsters[rand]);
+
                 }
             }
             for (int j = 0; j < spawnList.Count; j++)
             {
-				Console.WriteLine($"Lv.{spawnList[j].level} {spawnList[j].name} HP {spawnList[j].hp}");
-			}
+                Console.WriteLine($"Lv.{spawnList[j].level} {spawnList[j].name} HP {spawnList[j].hp}");
+            }
             Console.WriteLine();
         }
 
-        public void InputAttack()
+        public void InputAttack(Player player)
         {
             while (true)
             {
