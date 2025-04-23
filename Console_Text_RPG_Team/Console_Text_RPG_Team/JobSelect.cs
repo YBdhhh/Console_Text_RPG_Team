@@ -11,18 +11,16 @@ namespace Console_Text_RPG_Team
 	{
 		//Player player = new Player(); 
 		StringBuilder sb = new StringBuilder();
-		List<Job> job = new List<Job>();
-
-		public void JobList()
+		List<Job> job = new List<Job>(4)
 		{
-			job.Add(new Job("Warrior", 200, 10, 20));
-			job.Add(new Job("Wizzard", 70, 50, 10));
-			job.Add(new Job("Archor", 100, 20, 15));
-		}
+			new Job("전사"        , 100+50, 15+ 3, 0+4),
+			new Job("궁수"        , 100+20, 15+12, 0+3),
+			new Job("마법사"		, 100+10, 15+ 6, 0+2),
+			new Job("도적"        , 100+30, 15+12, 0+3)
+		};
 
 		public void Start()
 		{
-			JobList(); // 직업 생성
 			Console.ForegroundColor = ConsoleColor.Green;
 			Console.WriteLine("직업 선택");
 			Console.ResetColor();

@@ -13,13 +13,23 @@ namespace Console_Text_RPG_Team
     {
 
         SceneBattleAttack sceneBattleAttack = new SceneBattleAttack();  //임시
-        public List<Monster> spawnList = new List<Monster>(4);
+        public List<Monster> spawnList = new List<Monster>(6);
         public List<Monster> monsters = new List<Monster>
             {
-                new Monster("미니언", 15f, 5f, 2),
-                new Monster("공허충", 10f, 9f, 3),
-                new Monster("대포미니언", 25f, 8f, 5)
-            };
+
+                new Monster("슬라임", 20, 6, 0),
+                new Monster("초록버섯", 30, 6, 1),
+                new Monster("리본돼지", 30, 6, 3),
+				new Monster("스톤골렘", 40, 9, 3),
+				new Monster("웨어울프", 60, 12, 4),
+				new Monster("주황버섯", 100, 9, 5)
+
+        public List<Monster> BossMonsters = new List<Monster>(3)
+        {
+            new Monster("머쉬맘", 230f, 21f, 10)
+
+        };
+
 
 
 		public void StartBattle(Player player)
@@ -53,7 +63,7 @@ namespace Console_Text_RPG_Team
             int typeCount = 3;           //나오게 할 몬스터 종류 개수
             int monsterCount = 4;        //나오게 할 몬스터 개수 (나오지 않는 경우 포함)
             int monsterTypeStart = 0;   //나오게 할 몬스터타입 시작점       던전층수따라 변환 예정
-            int monsterTypeEnd = 4;     //나오게 할 몬스터타입 끝지점       던전층수따라 변환 예정
+            int monsterTypeEnd = 6;     //나오게 할 몬스터타입 끝지점       던전층수따라 변환 예정
             int probability = 4;        //나오게 할 확률 (1/n)
             int spawn;                  //소환 확률용 변수
 
@@ -75,8 +85,8 @@ namespace Console_Text_RPG_Team
                 if (spawn != 0)
                 {
 
-                    int rand = random.Next(0, 3);
-                    spawnList.Add(monsters[rand]);
+                    int rand = random.Next(monsterTypeStart+((dungeonFloor-1)*6), monsterTypeEnd+ ((dungeonFloor - 1) * 6));
+                    spawnList.Add(new Monster(monsters[rand]));
                 }
             }
             for (int j = 0; j < spawnList.Count; j++)
@@ -98,8 +108,10 @@ namespace Console_Text_RPG_Team
                     {
                         case 1:
                             Console.Clear();
-                            Console.WriteLine("전투시작");
-                            sceneBattleAttack.Start();
+
+                            Console.WriteLine("공격창");
+                            sceneBattleAttack.BattleLoop(player, spawnList);
+                            spawnList.Clear();
 
                             return;
 

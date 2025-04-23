@@ -6,19 +6,18 @@ namespace Console_Text_RPG_Team
     internal class PlayerCreate
     {
         private StringBuilder sb = new StringBuilder();
-        private Player player;
-        public void Start()
+
+        public void Start(Player player)
         {
-            player = new Player();
             sb.AppendLine("스파르타 던전에 오신 여러분 환영합니다.");
             sb.AppendLine("원하시는 이름을 설정해주세요.");
             Console.WriteLine(sb.ToString());
             sb.Clear();
 
-            Input();
+            Input(player);
         }
 
-        private void Input()
+        private void Input(Player player)
         {
             //Console.WriteLine("이름을 입력해주세요.");
             sb.AppendLine("이름을 입력해주세요.");
