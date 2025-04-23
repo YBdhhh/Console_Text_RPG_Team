@@ -43,7 +43,12 @@ namespace Console_Text_RPG_Team
 		{
 			while (true)
 			{
+<<<<<<< Updated upstream
 				try
+=======
+				int input = int.Parse(Console.ReadLine());
+				if (input > 0 && input <= job.Count)
+>>>>>>> Stashed changes
 				{
 					int input = int.Parse(Console.ReadLine());
 					if (input > 0 && input <= 3)
