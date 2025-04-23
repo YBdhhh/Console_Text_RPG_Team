@@ -9,6 +9,7 @@ namespace Console_Text_RPG_Team
 {
     internal class SceneBattleAttack
     {
+<<<<<<< Updated upstream
         public Player player;
         public List<Monster> monsters;
 
@@ -16,11 +17,20 @@ namespace Console_Text_RPG_Team
         {
             player = new Player();
             monsters = new List<Monster>
+=======
+        public List<Monster> monsters = new List<Monster>();
+
+        public SceneBattleAttack()
+        {
+        }
+
+        public void CreateMonster(List<Monster> monster)
+        {
+            for (int i = 0; i < monster.Count; i++)
+>>>>>>> Stashed changes
             {
-                new Monster("미니언", 15f, 5f, 2),
-                new Monster("대포미니언", 25f, 8f, 5),
-                new Monster("공허충", 10f, 4f, 3)
-            };
+                monsters.Add(monster[i]);
+            }
         }
 
         public void Start()
@@ -28,8 +38,13 @@ namespace Console_Text_RPG_Team
             PlayerAttack();
         }
 
+<<<<<<< Updated upstream
         public void BattleLoop()
+=======
+        public void BattleLoop(Player player, List<Monster> monster)
+>>>>>>> Stashed changes
         {
+            CreateMonster(monster);
             while (true)
             {
                 PlayerAttack();
@@ -211,7 +226,7 @@ namespace Console_Text_RPG_Team
             }
 
             // 플레이어 현재 상태 출력
-
+            monsters.Clear();
             sb.AppendLine($"Lv.{player.level} {player.name}");
             sb.AppendLine($"HP {player.PreviousHP} -> {(player.hp <= 0 ? "0" : player.hp.ToString())}");
 
