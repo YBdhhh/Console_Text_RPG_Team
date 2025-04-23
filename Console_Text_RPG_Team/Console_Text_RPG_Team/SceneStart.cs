@@ -18,9 +18,11 @@ namespace Console_Text_RPG_Team
 	{
 		SceneStatus sceneStatus = new SceneStatus();
 		SceneBattle sceneBattle = new SceneBattle();
+		SceneRest sceneRest = new SceneRest();
         private SceneShop sceneShop = new SceneShop();
         private SceneInventory sceneInventory = new SceneInventory();
         private Inventory inventory = new Inventory();
+
         List<Skill> skills = new List<Skill>
 		{//string name, string explain, int damageType, int[] damage, int valueMp, int price
 			new Skill("새비지 블로우", "단검으로 적을 타격한다. Mp 1.5 소모 | 공격력 3배의 피해", (int)DamageType.Atk , new int[] {300}, (int)ValueType.Mp ,1.5f ,1000),
@@ -43,19 +45,19 @@ namespace Console_Text_RPG_Team
 			sb.AppendLine("2.전투 시작");
             sb.AppendLine("3.인벤토리 보기");
             sb.AppendLine("4.상점 이동");
+			sb.AppendLine("5.휴식 하기");
             sb.AppendLine("0.게임 종료");
 			sb.AppendLine();
 			sb.AppendLine("원하시는 행동을 입력해주세요.");
 			Console.WriteLine(sb.ToString());
 			sb.Clear();
-			int result = Checkinpvt(0, 4);
+			int result = Checkinpvt(0, 5);
 
 			switch (result)
 			{
 				case 1:
 					sceneStatus.Start(player);
 					break;
-
 				case 2:
 					sceneBattle.StartBattle(player);
 					break;
@@ -65,6 +67,10 @@ namespace Console_Text_RPG_Team
                 case 4:
                     sceneShop.Start(player, inventory);
                     break;
+				case 5:
+					sceneRest.Start(player);
+					break;
+
             }
 		}
 

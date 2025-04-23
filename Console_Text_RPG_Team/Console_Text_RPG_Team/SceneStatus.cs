@@ -12,6 +12,7 @@ namespace Console_Text_RPG_Team
 
 		public void Start(Player player)
 		{
+			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.Green;
 			Console.WriteLine("상태 보기");
 			Console.ResetColor();
@@ -29,6 +30,7 @@ namespace Console_Text_RPG_Team
 			sb.Append("원하시는 행동을 입력해주세요.").Append("\n");
 			sb.Append(">> ");
 			Console.Write(sb.ToString());
+			sb.Clear();
 
 			Input();
 		}

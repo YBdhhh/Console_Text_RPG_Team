@@ -32,6 +32,7 @@ namespace Console_Text_RPG_Team
 
 		public void StartBattle(Player player)
         {
+            Console.Clear();
             StringBuilder sb = new StringBuilder();
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
