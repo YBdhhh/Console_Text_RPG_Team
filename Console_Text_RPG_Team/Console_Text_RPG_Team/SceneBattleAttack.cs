@@ -9,7 +9,6 @@ namespace Console_Text_RPG_Team
 {
     internal class SceneBattleAttack
     {
-        public Player player;
         public List<Monster> monsters = new List<Monster>(4);
 
         public SceneBattleAttack()
@@ -29,15 +28,15 @@ namespace Console_Text_RPG_Team
             CreateMonster(monster);
             while (true)
             {
-                PlayerAttack();
-                if (CheckBattleEnd()) break;
+                PlayerAttack(player);
+                if (CheckBattleEnd(player)) break;
 
-                EnemyPhase();
-                if (CheckBattleEnd()) break;
+                EnemyPhase(player);
+                if (CheckBattleEnd(player)) break;
             }
         }
 
-        public void PlayerAttack()
+        public void PlayerAttack(Player player)
         {
             while (true)
             {
@@ -66,7 +65,7 @@ namespace Console_Text_RPG_Team
             }
         }
 
-        public void EnemyPhase()
+        public void EnemyPhase(Player player)
         {
             foreach(var monster in monsters)
             {
@@ -79,7 +78,7 @@ namespace Console_Text_RPG_Team
             }
         }
 
-        public bool CheckBattleEnd()
+        public bool CheckBattleEnd(Player player)
         {
             if(!player.IsAlive())
             {
