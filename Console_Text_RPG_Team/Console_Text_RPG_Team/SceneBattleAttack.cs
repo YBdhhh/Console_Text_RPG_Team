@@ -257,7 +257,7 @@ namespace Console_Text_RPG_Team
             Random rand = new Random();
             foreach (var item in dropItems)
             {
-                int dropCount = rand.Next(0, 3); // 0~2개 드랍
+                int dropCount = rand.Next(0, 2); // 0~2개 드랍
                 for (int i = 0; i < dropCount; i++)
                 {
                     if (items.ContainsKey(item))

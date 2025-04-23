@@ -17,7 +17,7 @@ namespace Console_Text_RPG_Team
 	internal class SceneStart
 	{
 		SceneStatus sceneStatus = new SceneStatus();
-		SceneBattleAttack sceneBattle = new SceneBattleAttack();
+		SceneBattle sceneBattle = new SceneBattle();
 		List<Skill> skills = new List<Skill>
 		{//string name, string explain, int damageType, int[] damage, int valueMp, int price
 			new Skill("새비지 블로우", "단검으로 적을 타격한다. Mp 1.5 소모 | 공격력 3배의 피해", (int)DamageType.Atk , new int[] {300}, (int)ValueType.Mp ,1.5f ,1000),
@@ -52,7 +52,7 @@ namespace Console_Text_RPG_Team
 					break;
 
 				case 2:
-					sceneBattle.BattleLoop(player);
+					sceneBattle.StartBattle(player);
 					break;
 			}
 		}

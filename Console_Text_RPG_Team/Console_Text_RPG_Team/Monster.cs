@@ -11,15 +11,17 @@ namespace Console_Text_RPG_Team
 		public string name;
 		public float hp;
 		public float atk;
+		public float def;
 		public int level;
 		public float PreviousHP;
 		public List<string> dropItems;
 
-		public Monster(string name, float hp, float atk, int level, List<string> dropItems)
+		public Monster(string name, float hp, float atk, float def, int level, List<string> dropItems)
 		{
 			this.name = name;
 			this.hp = hp;
 			this.atk = atk;
+			this.def = def;
 			this.level = level;
 			this.dropItems = dropItems;
 		}
