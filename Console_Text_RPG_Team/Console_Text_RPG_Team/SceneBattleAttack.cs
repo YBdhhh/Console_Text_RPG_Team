@@ -28,6 +28,18 @@ namespace Console_Text_RPG_Team
             PlayerAttack();
         }
 
+        public void BattleLoop()
+        {
+            while (true)
+            {
+                PlayerAttack();
+                if (CheckBattleEnd()) break;
+
+                EnemyPhase();
+                if (CheckBattleEnd()) break;
+            }
+        }
+
         public void PlayerAttack()
         {
             while (true)
@@ -108,10 +120,19 @@ namespace Console_Text_RPG_Team
         }
         public void BattleMenu()
         {
-
+            Console.Clear();
+            Console.WriteLine("공격할 몬스터를 선택하세요:");
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                var m = monsters[i];
+                string status = m.IsAlive() ? $"HP: {m.hp}" : "Dead";
+                Console.WriteLine($"{i + 1}. {m.name} (Lv.{m.level}) - {status}");
+            }
+            Console.WriteLine("\n0. 돌아가기");
+            Console.Write(">> ");
         }
 
-        public static void PlayerAttackLog(Player attacker, Monster target, float damage)
+        public void PlayerAttackLog(Player attacker, Monster target, float damage)
         {
             Console.Clear();
             StringBuilder sb = new StringBuilder();
@@ -137,7 +158,7 @@ namespace Console_Text_RPG_Team
 
         }
 
-        public static void MonsterAttackLog(Monster attacker, Player target, float damage)
+        public void MonsterAttackLog(Monster attacker, Player target, float damage)
         {
             Console.Clear();
             StringBuilder sb = new StringBuilder();
