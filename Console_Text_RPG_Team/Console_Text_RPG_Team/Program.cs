@@ -11,6 +11,7 @@ namespace Console_Text_RPG_Team
         {
             GameLogic gameLogic = new GameLogic();
             gameLogic.Start();
+
         }
     }
 }

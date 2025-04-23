@@ -13,10 +13,12 @@ namespace Console_Text_RPG_Team
 		Player player = new Player();
 		SceneStart sceneStart = new SceneStart();
 
-		public void Start()
+
+
+        public void Start()
 		{
 			//player.Example();
-			playerCreate.Start();
+			playerCreate.Start(player);
 			jobSelect.Start();
 			while (player.job == null)
 			{
