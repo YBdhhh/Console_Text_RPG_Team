@@ -26,17 +26,18 @@ namespace Console_Text_RPG_Team
 		//public EventType eventType;
 
 		public Event eventType; //이벤트? if( ) 값 -> 람다식 
-		public Item rewardItem;
+		//public Item rewardItem;
 		public int rewardExp;
 
-		public Quest(string Name, string Explain, int CurProgress, int EndProgress, Event EventType, Item RewardItem, int RewardExp)
+		public Quest(string Name, string Explain, int CurProgress, int EndProgress, Event EventType, int RewardExp)
 		{
+			// Item RewardItem
 			this.name = Name;
 			this.explain = Explain;
 			curProgress = 0;
 			endProgress = EndProgress;
 			eventType = EventType;
-			rewardItem = RewardItem;
+			//rewardItem = RewardItem;
 			rewardExp = RewardExp;
 		}
 	}

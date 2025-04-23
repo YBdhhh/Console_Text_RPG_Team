@@ -19,10 +19,9 @@ namespace Console_Text_RPG_Team
                 new Monster("대포미니언", 25f, 8f, 5)
             };
 
-        public void StartBattle()
+        public void StartBattle(Player player)
         {
             StringBuilder sb = new StringBuilder();
-            Player player = new Player();
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Battle!!\n");
