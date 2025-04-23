@@ -14,10 +14,44 @@ namespace Console_Text_RPG_Team
 		public float hp = 100;
 		public float atk = 10;
 		public float def = 5;
+		public float mp = 10;
+
+		public int stat = 5;
 		public int gold = 1500;
 		public int level = 1;
+		public int[] expCount = new int[5] { 10, 35, 65, 100, 150 };
+		public int exp = 0;
+
+		public void Example()
+		{
+			Exp += 50;
+			Exp += 50;
+			Exp += 50;
+			Console.ReadLine();
+		}
+
+		public int Exp
+		{
+			get { return exp; }
+			set { exp = value; IsLevelUp(); }
+		}
 		public float PreviousHP;
-		
+
+		public void IsLevelUp()
+		{
+			if (exp > expCount[level - 1])
+			{
+				exp -= expCount[level - 1];
+				level += 1;
+				stat += 1;
+				hp += 10;
+				atk += 3;
+				def += 1;
+				Console.WriteLine($"레벨이 {level - 1} -> {level} 로 상승하셨습니다.!");
+				Console.WriteLine($"남은 경험치 : {exp}");
+			}
+		}
+
 		public bool IsAlive()
 		{
 			return hp > 0;
@@ -27,9 +61,9 @@ namespace Console_Text_RPG_Team
 		{
 			PreviousHP = hp;
 			float reduced = damage - def;
-			if (reduced < 0)
+			if (reduced <= 0)
 			{
-				reduced = 0;
+				reduced = 1;
 			}
 			hp -= reduced;
 			if(hp < 0)
