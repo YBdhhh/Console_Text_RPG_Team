@@ -18,7 +18,7 @@ namespace Console_Text_RPG_Team
 			Console.ResetColor();
 			sb.AppendLine("\"이용료는 한 번에 30G입니다.\"");
 			sb.AppendLine("\"체력의 30%를 회복시켜드립니다.\"");
-			sb.AppendLine("");			
+			sb.AppendLine("");
 			sb.AppendLine("캐릭터의 정보가 표시됩니다");
 			sb.AppendLine("");
 			sb.AppendLine($"이  름	:{player.name}");

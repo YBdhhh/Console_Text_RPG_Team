@@ -11,6 +11,8 @@ namespace Console_Text_RPG_Team
 		public string name;
 		public string job;
 
+		public float critical = 1000; //10%
+		public float miss = 1000; //10%
 		public float hp = 100;
 		public float atk = 10;
 		public float def = 5;
@@ -57,11 +59,45 @@ namespace Console_Text_RPG_Team
 			{
 				reduced = 1;
 			}
-			hp -= reduced;
-			if(hp < 0)
+			if (!(MissDamage(this)))
+			{
+				hp -= reduced;
+			}
+			if (hp < 0)
 			{
 				hp = 0;
-			}	
+			}
+		}
+
+		public float CriticalDamage(Player player, float damage)
+		{
+			Random rand = new Random();
+			int percent = rand.Next(0, 1000);
+			float critical = player.critical;
+
+			if (percent < critical)
+			{
+				damage = (int)(damage + damage * critical * 0.1f * 0.01f);
+				Console.WriteLine("크리티컬 작렬!");
+			}
+
+			return damage;
+		}
+
+		public bool MissDamage(Player player)
+		{
+			bool isMiss = false;
+			Random rand = new Random();
+			int percent = rand.Next(0, 1000);
+			float miss = player.miss;
+
+			if (percent < miss)
+			{
+				isMiss = true;
+				Console.WriteLine("깔끔한 회피");
+				Thread.Sleep(500);
+			}
+			return isMiss;
 		}
 	}
 }
