@@ -16,25 +16,29 @@ namespace Console_Text_RPG_Team
         {
         }
 
-        public void CreateMonster(List<Monster> monster)
+       /* public void CreateMonster(List<Monster> monster)
         {
             for (int i = 0; i < monster.Count; i++)
             {
                 monsters.Add((monster[i]));
             }
         }
-
+       */
         public void BattleLoop(Player player, List<Monster> monster)
         {
-            CreateMonster(monster);
-            while (true)
+            for (int i = 0; i < monster.Count; i++)
             {
-                PlayerAttack(player);
-                if (CheckBattleEnd(player)) break;
-
-                EnemyPhase(player);
-                if (CheckBattleEnd(player)) break;
+                monsters.Add(monster[i]);
             }
+
+            while (true)
+                {
+                    PlayerAttack(player);
+                    if (CheckBattleEnd(player)) break;
+
+                    EnemyPhase(player);
+                    if (CheckBattleEnd(player)) break;
+                }
         }
 
         public void PlayerAttack(Player player)
@@ -186,7 +190,6 @@ namespace Console_Text_RPG_Team
             Console.Clear();
             StringBuilder sb = new StringBuilder();
 			
-
             // 전투 전 상태 백업
             int previousLevel = player.level;
             int previousExp = player.exp;
@@ -216,6 +219,7 @@ namespace Console_Text_RPG_Team
 
                         //드랍 아이템
                        List<string> dropItems = monster.GetDropItems();
+
                         AddItem(itemRewards, dropItems);
                     }
                 }
@@ -250,6 +254,7 @@ namespace Console_Text_RPG_Team
             sb.Append(">> ");
             Console.WriteLine(sb.ToString());
             Console.ReadLine();
+            monsters.Clear();
         }
         
         public void AddItem(Dictionary<string, int> items, List<string> dropItems)
@@ -257,7 +262,7 @@ namespace Console_Text_RPG_Team
             Random rand = new Random();
             foreach (var item in dropItems)
             {
-                int dropCount = rand.Next(0, 2); // 0~2개 드랍
+                int dropCount = rand.Next(0, 3); // 0~2개 드랍
                 for (int i = 0; i < dropCount; i++)
                 {
                     if (items.ContainsKey(item))
