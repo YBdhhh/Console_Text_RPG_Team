@@ -53,7 +53,7 @@ namespace Console_Text_RPG_Team
 			SkillText(player, skill, value, damage);
 		}
 
-		public void SkillText(Player player, Skill skill, int value, int damage)
+		public void SkillText(Player player, Skill skill, string value, int damage)
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.AppendLine($"{skill.name}(으)로 {value}을 소모하여 {damage} 데미지를 입혔습니다.");
