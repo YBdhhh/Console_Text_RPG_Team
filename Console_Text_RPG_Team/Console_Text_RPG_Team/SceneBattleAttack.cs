@@ -191,13 +191,13 @@ namespace Console_Text_RPG_Team
 
             sb.AppendLine("Battle!! - Result\n");
 
-            if(isVictory)
+            if (isVictory)
             {
                 sb.AppendLine("Victory\n");
 
                 int killCount = 0;
 
-                foreach(var monster in monsters)
+                foreach (var monster in monsters)
                 {
                     if (monster.hp <= 0)
                         killCount++;
@@ -211,7 +211,6 @@ namespace Console_Text_RPG_Team
             }
 
             // 플레이어 현재 상태 출력
-
             sb.AppendLine($"Lv.{player.level} {player.name}");
             sb.AppendLine($"HP {player.PreviousHP} -> {(player.hp <= 0 ? "0" : player.hp.ToString())}");
 
@@ -220,6 +219,7 @@ namespace Console_Text_RPG_Team
             Console.WriteLine(sb.ToString());
             Console.ReadLine();
         }
+
 
 
 
