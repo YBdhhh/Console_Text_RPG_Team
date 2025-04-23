@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,20 +10,17 @@ namespace Console_Text_RPG_Team
 	internal class JobSelect
 	{
 		//Player player = new Player(); 
-		public SceneStatus sceneStatus = new SceneStatus(); //테스트
 		StringBuilder sb = new StringBuilder();
-		List<Job> job = new List<Job>();
-
-		public void JobList()
+		List<Job> job = new List<Job>(4)
 		{
-			job.Add(new Job("Warrior", 200, 10, 20));
-			job.Add(new Job("Wizzard", 70, 50, 10));
-			job.Add(new Job("Archor", 100, 20, 15));
-		}
+			new Job("전사"        , 100+50, 15+ 3, 0+4),
+			new Job("궁수"        , 100+20, 15+12, 0+3),
+			new Job("마법사"		, 100+10, 15+ 6, 0+2),
+			new Job("도적"        , 100+30, 15+12, 0+3)
+		};
 
 		public void Start()
 		{
-			JobList(); // 직업 생성
 			Console.ForegroundColor = ConsoleColor.Green;
 			Console.WriteLine("직업 선택");
 			Console.ResetColor();
@@ -31,61 +28,52 @@ namespace Console_Text_RPG_Team
 			sb.AppendLine("");
 			for (int i = 0; i < job.Count; i++)
 			{
-				sb.Append($"{i+1}. 직업 : {job[i].name, -8} 체력 : {job[i].hp, -5} 공격력 : {job[i].atk, -5} 방어력 : {job[i].def, -5} ").Append("\n");
+				sb.Append($"{i + 1}. 직업 : {job[i].name,-8} 체력 : {job[i].hp,-5} 공격력 : {job[i].atk,-5} 방어력 : {job[i].def,-5} ").Append("\n");
 			}
 			sb.Append("\n");
 			sb.Append("원하시는 행동을 입력해주세요.").Append("\n");
-			sb.Append(">> ");
 			Console.Write(sb.ToString());
 		}
 
-		public void Input()
+		public void Input(Player player)
 		{
-			while (true)
+			Console.Write(">> ");
+			try
 			{
-<<<<<<< Updated upstream
-				try
-=======
 				int input = int.Parse(Console.ReadLine());
 				if (input > 0 && input <= job.Count)
->>>>>>> Stashed changes
 				{
-					int input = int.Parse(Console.ReadLine());
-					if (input > 0 && input <= 3)
-					{
-						int index = input - 1;
-						sceneStatus.player.hp = job[index].hp;
-						sceneStatus.player.atk = job[index].atk;
-						sceneStatus.player.def = job[index].def;
-						sceneStatus.player.job = job[index].name;
-						float hp = sceneStatus.player.hp;
-						float atk = sceneStatus.player.atk;
-						float def = sceneStatus.player.def;
-						string name = sceneStatus.player.job;
-						
+					int index = input - 1;
+					player.hp = job[index].hp;
+					player.atk = job[index].atk;
+					player.def = job[index].def;
+					player.job = job[index].name;
+					float hp = player.hp;
+					float atk = player.atk;
+					float def = player.def;
+					string name = player.job;
 
-						StringBuilder sb = new StringBuilder();
 
-						sb.AppendLine($"{index+1}. 직업 : {name, -8} 체력 : {hp, -5} 공격력 : {atk, -5} 방어력 : {def,-5}을 선택하셨습니다.");
-						sb.AppendLine("계속 하려면 아무 키나 눌러주십시오");
-						sb.Append(">> ");
-						Console.Write(sb.ToString());
-						Console.ReadLine();
-						return;
-					}
-					else
-					{
-						Console.WriteLine("다시 입력해주십시오");
-						continue;
-					}
+					StringBuilder sb = new StringBuilder();
+
+					sb.AppendLine($"{index + 1}. 직업 : {name,-8} 체력 : {hp,-5} 공격력 : {atk,-5} 방어력 : {def,-5}을 선택하셨습니다.");
+					sb.AppendLine("계속 하려면 아무 키나 눌러주십시오");
+					sb.Append(">> ");
+					Console.Write(sb.ToString());
+					Console.ReadLine();
+					return;
 				}
-				catch (Exception)
+				else
 				{
 					Console.WriteLine("다시 입력해주십시오");
-					continue;
 				}
-
 			}
+			catch (Exception)
+			{
+				Console.WriteLine("다시 입력해주십시오");
+			}
+
 		}
 	}
 }
+

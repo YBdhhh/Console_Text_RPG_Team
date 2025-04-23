@@ -9,19 +9,63 @@ namespace Console_Text_RPG_Team
 	internal class Monster
 	{
 		public string name;
-
 		public float hp;
 		public float atk;
+		public float def;
 		public int level;
+		public float PreviousHP;
+		public List<string> dropItems;
 
-		public Monster(string name, float hp, float atk, int level)
+		public Monster(string name, float hp, float atk, float def, int level, List<string> dropItems)
 		{
 			this.name = name;
 			this.hp = hp;
 			this.atk = atk;
+			this.def = def;
 			this.level = level;
+			this.dropItems = dropItems;
 		}
 
+		public Monster(Monster monster)
+		{
+			name = monster.name; 
+			hp = monster.hp;
+			atk = monster.atk;
+			level = monster.level;
+			PreviousHP = monster.PreviousHP;
+			this.dropItems = monster.dropItems;
+		}
 
-	}
+		public Monster()
+		{
+
+		}
+
+		public bool IsAlive()
+		{
+			return hp > 0;
+		}
+
+        public void TakeDamage(float damage)
+        {
+            PreviousHP = hp;            
+            hp -= damage;
+            if (hp < 0)
+            {
+                hp = 0;
+            }
+        }
+
+		public Reward GetReward()
+		{
+			int goldReward = 0;
+			int expReward = 0;
+			return new Reward(goldReward, expReward);
+		}
+
+		public List<string> GetDropItems()
+		{
+			return dropItems;
+		}
+    }
 }

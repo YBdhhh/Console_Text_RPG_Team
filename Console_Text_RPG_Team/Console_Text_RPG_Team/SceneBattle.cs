@@ -1,0 +1,127 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Console_Text_RPG_Team
+{
+    internal class SceneBattle
+    {
+
+        SceneBattleAttack sceneBattleAttack = new SceneBattleAttack();  //임시
+        public List<Monster> spawnList = new List<Monster>(6);
+        public List<Monster> monsters = new List<Monster>
+            {
+                new Monster("슬라임", 20, 6, 0, 4, new List<string> {"포션", "낡은 검"}),
+                new Monster("초록버섯", 30, 6, 1, 6, new List<string> {"포션", "낡은 검"}),
+                new Monster("리본돼지", 30, 6, 3, 8, new List<string> {"포션", "낡은 검"}),
+                new Monster("스톤골렘", 40, 9, 3, 10, new List<string> {"포션", "낡은 검"}),
+                new Monster("웨어울프", 60, 12, 4, 12, new List<string> {"포션", "낡은 검"}),
+                new Monster("주황버섯", 100, 9, 5, 16, new List<string> {"포션", "낡은 검"})
+            };
+        public List<Monster> BossMonsters = new List<Monster>(3)
+        {
+            new Monster("머쉬맘", 230f, 21f, 10, 40, new List<string> {"포션1"})
+        };
+
+
+
+		public void StartBattle(Player player)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("Battle!!\n");
+            Console.ResetColor();
+            SpawnMonster();
+            sb.AppendLine("[내정보]");
+            sb.AppendLine($"Lv.	: {player.level}");
+            sb.AppendLine($"직업	: {player.job}");
+            sb.AppendLine($"체  력	: {player.PreviousHP}/{player.hp}");
+            sb.AppendLine("1. 전투시작").Append("\n");
+            sb.AppendLine("원하시는 행동을 입력해주세요.");
+            sb.Append(">> ");
+            Console.Write(sb.ToString());
+            sb.Clear();
+            InputAttack(player);
+
+
+        }
+
+        public void SpawnMonster()
+        {
+            int dungeonFloor = 1;       //일단 생성해둠
+
+            int typeCount = 3;           //나오게 할 몬스터 종류 개수
+            int monsterCount = 4;        //나오게 할 몬스터 개수 (나오지 않는 경우 포함)
+            int monsterTypeStart = 0;   //나오게 할 몬스터타입 시작점       던전층수따라 변환 예정
+            int monsterTypeEnd = 6;     //나오게 할 몬스터타입 끝지점       던전층수따라 변환 예정
+            int probability = 4;        //나오게 할 확률 (1/n)
+            int spawn;                  //소환 확률용 변수
+
+
+            Random random = new Random();
+
+            for (int i = monsterTypeStart; i < monsterCount; i++)
+            {
+
+                if (i == 0)
+                {
+                    spawn = random.Next(1, probability);      //첫 몬스터는 확정으로 소환
+                }
+                else
+                {
+                    spawn = random.Next(0, probability);      //이후로는 확률 1/4
+                }
+
+                if (spawn != 0)
+                {
+
+                    int rand = random.Next(monsterTypeStart+((dungeonFloor-1)*6), monsterTypeEnd+ ((dungeonFloor - 1) * 6));
+                    spawnList.Add(new Monster(monsters[rand]));
+                }
+            }
+            for (int j = 0; j < spawnList.Count; j++)
+            {
+                Console.WriteLine($"Lv.{spawnList[j].level} {spawnList[j].name} HP {spawnList[j].hp}");
+            }
+
+            Console.WriteLine();
+        }
+
+        public void InputAttack(Player player)
+        {
+            while (true)
+            {
+                try
+                {
+                    int input = int.Parse(Console.ReadLine());
+                    switch (input)
+                    {
+                        case 1:
+                            Console.Clear();
+
+                            Console.WriteLine("공격창");
+                            sceneBattleAttack.BattleLoop(player, spawnList);
+                            spawnList.Clear();
+
+                            return;
+
+                        default:
+                            Console.WriteLine("다시 입력해주십시오");
+                            continue;
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("다시 입력해주십시오");
+                    continue;
+                }
+            }
+        }
+    }
+}

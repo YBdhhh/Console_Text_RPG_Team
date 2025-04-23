@@ -1,15 +1,17 @@
-﻿namespace Console_Text_RPG_Team
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Console_Text_RPG_Team
 {
     internal class Program
     {
+       
         static void Main(string[] args)
         {
-            JobSelect jobselect = new JobSelect();
+            GameLogic gameLogic = new GameLogic();
+            gameLogic.Start();
 
-            jobselect.Start();
-            jobselect.Input();
-            jobselect.sceneStatus.Start();
-            jobselect.sceneStatus.Input();
-		}
+        }
     }
 }
