@@ -20,7 +20,6 @@ namespace Console_Text_RPG_Team
 
         private void Input()
         {
-            //Console.WriteLine("이름을 입력해주세요.");
             sb.AppendLine("이름을 입력해주세요.");
             sb.Append(">> ");
             Console.Write(sb.ToString());
