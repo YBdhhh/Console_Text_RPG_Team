@@ -18,9 +18,9 @@ namespace Console_Text_RPG_Team
 	{
 		SceneStatus sceneStatus = new SceneStatus();
 		SceneBattle sceneBattle = new SceneBattle();
-        private SceneShop sceneShop = new SceneShop();
-        private SceneInventory sceneInventory = new SceneInventory();
-        private Inventory inventory = new Inventory();
+		private SceneShop sceneShop = new SceneShop();
+		private SceneInventory sceneInventory = new SceneInventory();
+		private Inventory inventory = new Inventory();
         List<Skill> skills = new List<Skill>
 		{//string name, string explain, int damageType, int[] damage, int valueMp, int price
 			new Skill("새비지 블로우", "단검으로 적을 타격한다. Mp 1.5 소모 | 공격력 3배의 피해", (int)DamageType.Atk , new int[] {300}, (int)ValueType.Mp ,1.5f ,1000),
@@ -59,8 +59,8 @@ namespace Console_Text_RPG_Team
 				case 2:
 					sceneBattle.StartBattle(player);
 					break;
-                case 3:
-                    sceneInventory.Start(inventory);
+				case 3:
+                    sceneInventory.Start(inventory, player);
                     break;
                 case 4:
                     sceneShop.Start(player, inventory);

@@ -218,7 +218,7 @@ namespace Console_Text_RPG_Team
                         totalExp += reward.exp;
 
                         //드랍 아이템
-                       List<string> dropItems = monster.GetDropItems();
+                       List<string> dropItems = monster.GetDropItems().Select(item => item.name).ToList();
 
                         AddItem(itemRewards, dropItems);
                     }

@@ -68,6 +68,7 @@ namespace Console_Text_RPG_Team
                 string flag = item.purchaseItem ? " | - 구매 완료" : $" | 가격: {item.price}G";
                 string defTxt = item.def > 0 ? $" | DEF: {item.def}" : string.Empty;
                 string atkTxt = item.atk > 0 ? $" | ATK: {item.atk}" : string.Empty;
+                string healTxt = (item is Potion p) ? $" | 회복량: {p.HealAmount}" : string.Empty;
                 sb.AppendLine($"{i + 1}. {item.name} | {item.toolTip}{atkTxt}{defTxt}{flag}");
                 Console.WriteLine(sb.ToString());
                 sb.Clear();
@@ -99,7 +100,8 @@ namespace Console_Text_RPG_Team
                     string flag = item.purchaseItem ? " | - 구매 완료" : $" | 가격: {item.price}G";
                     string defTxt = item.def > 0 ? $" | DEF: {item.def}" : string.Empty;
                     string atkTxt = item.atk > 0 ? $" | ATK: {item.atk}" : string.Empty;
-                    sb.AppendLine($"{i + 1}. {item.name} | {item.toolTip}{atkTxt}{defTxt}{flag}");
+                    string healTxt = (item is Potion p) ? $" | 회복량: {p.HealAmount}" : string.Empty;
+                    sb.AppendLine($"{i + 1}. {item.name} | {item.toolTip}{atkTxt}{defTxt}{healTxt}{flag}");
                     Console.WriteLine(sb.ToString());
                     sb.Clear();
                 }

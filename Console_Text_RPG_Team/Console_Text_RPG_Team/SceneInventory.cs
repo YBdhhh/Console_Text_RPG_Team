@@ -11,10 +11,12 @@ namespace Console_Text_RPG_Team
         private Inventory inventory;
         StringBuilder sb = new StringBuilder();
         private List<Item> items;
+        private Player player;
 
-        public void Start(Inventory inventory)
+        public void Start(Inventory inventory, Player player)
         {
             this.inventory = inventory;
+            this.player = player;
             this.items = inventory.GetItems();
 
             Console.ForegroundColor = ConsoleColor.Green;
@@ -60,6 +62,7 @@ namespace Console_Text_RPG_Team
                     sb.AppendLine("0: 뒤로가기");
                     sb.AppendLine("1: 아이템 장착");
                     sb.AppendLine("2: 아이템 해제");
+                    sb.AppendLine("3: 포션 사용");
                     sb.Append(" >> ");
                     Console.Write(sb.ToString());
                     sb.Clear();
@@ -84,6 +87,12 @@ namespace Console_Text_RPG_Team
                     {
                         // 장착 메뉴 호출
                         DisplayUnEquipItem();
+                        continue;
+                    }
+                    if (choice == 3)
+                    {
+                        inventory.UsePotion(player);
+                        Thread.Sleep(1000);
                         continue;
                     }
                 }

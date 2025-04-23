@@ -35,6 +35,7 @@ namespace Console_Text_RPG_Team
         {
             return new List<Item> // return으로 호출한 곳으로 이 리스트 객체를 돌려보냅니다.
             {
+                new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 100, "빨간", 40f),
                 new Item("물컹물컹한 신발", "일부 애호가에게 잘 팔리는 신발이다.", 0, 5, 500),// atk, def, price 
                 new Item("노가다 목장갑", "노가다를 하는 사람에겐 필수이다.", 0, 10, 1000),
                 new Item("홍색 꽃무늬 튜브", "이걸 사용한다면 당신도 풀장 인싸남!", 5, 0, 1000),

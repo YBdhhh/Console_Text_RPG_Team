@@ -25,6 +25,19 @@ namespace Console_Text_RPG_Team
         {
             return items;
         }
+
+        public void UsePotion(Player player)
+        {
+            foreach (var item in items)
+            {
+                if (item is Potion potion)
+                {
+                    potion.UsePotion(player);
+                    items.Remove(potion);
+                    break;
+                }
+            }
+        }
     }
     
 }

@@ -14,9 +14,9 @@ namespace Console_Text_RPG_Team
 		public float def;
 		public int level;
 		public float PreviousHP;
-		public List<string> dropItems;
+		public List<Item> dropItems;
 
-		public Monster(string name, float hp, float atk, float def, int level, List<string> dropItems)
+		public Monster(string name, float hp, float atk, float def, int level, List<Item> dropItems)
 		{
 			this.name = name;
 			this.hp = hp;
@@ -63,7 +63,8 @@ namespace Console_Text_RPG_Team
 			return new Reward(goldReward, expReward);
 		}
 
-		public List<string> GetDropItems()
+		// 드랍 아이템 리스트 반환
+		public List<Item> GetDropItems()
 		{
 			return dropItems;
 		}
