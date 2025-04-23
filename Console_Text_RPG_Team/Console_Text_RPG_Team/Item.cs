@@ -17,6 +17,7 @@ namespace Console_Text_RPG_Team
         public int price; //아이템 가격 
         public bool purchaseItem; // 상점 - 아이템 구매 가능 여부
         public bool equippedItem; // 인벤토리 - 아이템 창착 가능 여부
+        public bool unEquippedItem; // 인벤토리 - 아이템 해제 가능 여부
 
         public Item(string name, string toolTip, float atk, float def, int price)
         {
@@ -27,6 +28,7 @@ namespace Console_Text_RPG_Team
             this.price = price;
             this.purchaseItem = false;
             this.equippedItem = false;
+            this.unEquippedItem = false;
         }
         public List<Item> Items { get; set; }// // Items 프로퍼티: 현재 객체가 보유한 아이템 리스트를 저장하고 관리
         public static List<Item> ShopItems()//상점에 진열할 아이템 목록
