@@ -27,9 +27,9 @@ namespace Console_Text_RPG_Team
 		{
 			PreviousHP = hp;
 			float reduced = damage - def;
-			if (reduced < 0)
+			if (reduced <= 0)
 			{
-				reduced = 0;
+				reduced = 1;
 			}
 			hp -= reduced;
 			if(hp < 0)
