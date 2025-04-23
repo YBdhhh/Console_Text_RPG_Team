@@ -69,7 +69,7 @@ namespace Console_Text_RPG_Team
                         sb.Append(">> ");
                         Console.Write(sb.ToString());
                         sb.Clear();
-                        break;  // 외부 while 루프로 이동
+                        break; 
                     }
                     else
                     {
