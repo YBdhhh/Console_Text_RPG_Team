@@ -43,10 +43,10 @@ namespace Console_Text_RPG_Team
 			{
 				exp -= expCount[level - 1];
 				level += 1;
-				stat += 2;
-				hp += 20;
-				atk += 2;
-				def += 2;
+				stat += 1;
+				hp += 10;
+				atk += 3;
+				def += 1;
 				Console.WriteLine($"레벨이 {level - 1} -> {level} 로 상승하셨습니다.!");
 				Console.WriteLine($"남은 경험치 : {exp}");
 			}

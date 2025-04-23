@@ -4,24 +4,28 @@ using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Console_Text_RPG_Team
 {
     internal class SceneBattle
-    {
+	{
         SceneBattleAttack sceneBattleAttack = new SceneBattleAttack();  //임시
+		public List<Monster> spawnList = new List<Monster>(4);
+		public List<Monster> monsters = new List<Monster>
+			{
+				new Monster("미니언", 15f, 5f, 2),
+				new Monster("공허충", 10f, 9f, 3),
+				new Monster("대포미니언", 25f, 8f, 5)
+			};
 
-        public List<Monster> monsters = new List<Monster>
-            {
-                new Monster("미니언", 15f, 5f, 2),
-                new Monster("공허충", 10f, 9f, 3),
-                new Monster("대포미니언", 25f, 8f, 5)
-            };
 
-        public void StartBattle(Player player)
+		public void StartBattle(Player player)
         {
             StringBuilder sb = new StringBuilder();
+
+            sceneBattleAttack = new SceneBattleAttack();
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Battle!!\n");
@@ -37,7 +41,7 @@ namespace Console_Text_RPG_Team
             Console.Write(sb.ToString());
             sb.Clear();
 
-            InputAttack();
+            InputAttack(player);
         }
 
         public void SpawnMonster()
@@ -50,13 +54,13 @@ namespace Console_Text_RPG_Team
             int monsterTypeEnd = 4;     //나오게 할 몬스터타입 끝지점       던전층수따라 변환 예정
             int probability = 4;        //나오게 할 확률 (1/n)
             int spawn;                  //소환 확률용 변수
-
-            List<int> spawnList = new List<int>(monsterCount);        //랜덤값 지정을 위한 int 리스트
+            //List < >
+               //랜덤값 지정을 위한 int 리스트
             Random random = new Random();
 
-            for (int i = monsterTypeStart; i < monsterTypeEnd; i++)
+            for (int i = monsterTypeStart; i < monsterCount; i++)
             {
-                spawnList.Add(random.Next(monsterTypeStart, typeCount));   // 스폰리스트에 랜덤한 몬스터 타입 추가
+                  // 스폰리스트에 랜덤한 몬스터 타입 추가
                 if (i == 0)
                 {
                     spawn = random.Next(1, probability);      //첫 몬스터는 확정으로 소환
@@ -68,9 +72,15 @@ namespace Console_Text_RPG_Team
 
                 if (spawn != 0)
                 {
-                    Console.WriteLine($"Lv.{monsters[spawnList[i]].level} {monsters[spawnList[i]].name} HP {monsters[spawnList[i]].hp}");
+					int rand = random.Next(0, 3);
+					spawnList.Add(monsters[rand]);
+					
                 }
             }
+            for (int j = 0; j < spawnList.Count; j++)
+            {
+				Console.WriteLine($"Lv.{spawnList[j].level} {spawnList[j].name} HP {spawnList[j].hp}");
+			}
             Console.WriteLine();
         }
 
@@ -86,7 +96,7 @@ namespace Console_Text_RPG_Team
                         case 1:
                             Console.Clear();
                             Console.WriteLine("전투시작");
-                            sceneBattleAttack.Start();
+                            sceneBattleAttack.BattleLoop(player, spawnList);
                             return;
 
                         default:

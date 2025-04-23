@@ -17,7 +17,7 @@ namespace Console_Text_RPG_Team
 	internal class SceneStart
 	{
 		SceneStatus sceneStatus = new SceneStatus();
-		SceneBattleAttack sceneBattle = new SceneBattleAttack();
+		SceneBattle sceneBattle = new SceneBattle();
 
 		StringBuilder sb = new StringBuilder();
 		public void Start(Player player)
@@ -42,7 +42,7 @@ namespace Console_Text_RPG_Team
 					break;
 
 				case 2:
-					sceneBattle.BattleLoop(player);
+					sceneBattle.StartBattle(player);
 					break;
 			}
 		}
