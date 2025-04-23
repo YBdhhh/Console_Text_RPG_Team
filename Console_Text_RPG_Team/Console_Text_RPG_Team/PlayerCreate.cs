@@ -55,7 +55,6 @@ namespace Console_Text_RPG_Team
                         sb.Clear();
                         continue;
                     }
-
                     if (choice == 1)
                     {
                         sb.AppendLine($"{player.name}님 환영합니다. 게임을 시작합니다.");

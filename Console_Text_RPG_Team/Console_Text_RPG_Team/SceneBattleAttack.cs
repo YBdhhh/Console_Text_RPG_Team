@@ -9,16 +9,8 @@ namespace Console_Text_RPG_Team
 {
     internal class SceneBattleAttack
     {
-<<<<<<< Updated upstream
         public Player player;
-        public List<Monster> monsters;
-
-        public SceneBattleAttack()
-        {
-            player = new Player();
-            monsters = new List<Monster>
-=======
-        public List<Monster> monsters = new List<Monster>();
+        public List<Monster> monsters = new List<Monster>(4);
 
         public SceneBattleAttack()
         {
@@ -27,22 +19,12 @@ namespace Console_Text_RPG_Team
         public void CreateMonster(List<Monster> monster)
         {
             for (int i = 0; i < monster.Count; i++)
->>>>>>> Stashed changes
             {
                 monsters.Add(monster[i]);
             }
         }
 
-        public void Start()
-        {
-            PlayerAttack();
-        }
-
-<<<<<<< Updated upstream
-        public void BattleLoop()
-=======
         public void BattleLoop(Player player, List<Monster> monster)
->>>>>>> Stashed changes
         {
             CreateMonster(monster);
             while (true)
