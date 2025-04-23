@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,7 +41,7 @@ namespace Console_Text_RPG_Team
 			try
 			{
 				int input = int.Parse(Console.ReadLine());
-				if (input > 0 && input <= 3)
+				if (input > 0 && input <= job.Count)
 				{
 					int index = input - 1;
 					player.hp = job[index].hp;
@@ -76,3 +76,4 @@ namespace Console_Text_RPG_Team
 		}
 	}
 }
+
