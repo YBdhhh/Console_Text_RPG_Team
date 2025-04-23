@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
@@ -40,7 +41,7 @@ namespace Console_Text_RPG_Team
         {
             while (true)
             {
-                BattleMenu();
+                BattleMenu(); //3
 
                 string input = Console.ReadLine();
                 if (input == "0") return;
@@ -186,40 +187,86 @@ namespace Console_Text_RPG_Team
             StringBuilder sb = new StringBuilder();
 			
 
-			sb.AppendLine("Battle!! - Result\n");
+            // 전투 전 상태 백업
+            int previousLevel = player.level;
+            int previousExp = player.exp;
+            float previousHP = player.PreviousHP;
 
-            if(isVictory)
+            int totalGold = 0;
+            int totalExp = 0;
+            Dictionary<string, int> itemRewards = new Dictionary<string, int>();
+
+            sb.AppendLine("Battle!! - Result\n");
+
+            if (isVictory)
             {
                 sb.AppendLine("Victory\n");
 
                 int killCount = 0;
-
-                foreach(var monster in monsters)
+                foreach (var monster in monsters)
                 {
-                    if (monster.hp <= 0)
+                    if(!monster.IsAlive())
+                    {
                         killCount++;
+
+                        //보상 적용
+                        Reward reward = monster.GetReward();
+                        totalGold += reward.gold;
+                        totalExp += reward.exp;
+
+                        //드랍 아이템
+                       List<string> dropItems = monster.GetDropItems();
+                        AddItem(itemRewards, dropItems);
+                    }
                 }
 
                 sb.AppendLine($"던전에서 몬스터 {killCount}마리를 잡았습니다.\n");
+
+                // 보상 적용
+                player.gold += totalGold;
+                player.Exp += totalExp;
+                // exp, Exp 대소문자 구별 주의
+
+                // 캐릭터 정보
+                sb.AppendLine("[캐릭터 정보]");
+                sb.AppendLine($"Lv.{previousLevel} {player.name} -> Lv.{player.level} {player.name}");
+                sb.AppendLine($"HP {previousHP} -> {player.hp}");
+                sb.AppendLine($"EXP {previousExp} -> {player.exp}\n");
+
+                // 아이템, 골드 출력
+                sb.AppendLine("[획득 아이템]");
+                sb.AppendLine($"{totalGold} Gold");
+                foreach (var item in itemRewards)
+                {
+                    sb.AppendLine($"{item.Key} - {item.Value}");
+                }
             }
             else
             {
                 sb.AppendLine("You Lose\n");
             }
 
-            // 플레이어 현재 상태 출력
-			monsters.Clear();
-            sb.AppendLine($"Lv.{player.level} {player.name}");
-            sb.AppendLine($"HP {player.PreviousHP} -> {(player.hp <= 0 ? "0" : player.hp.ToString())}");
-
-			sb.AppendLine("\n0. 다음");
+            sb.AppendLine("\n0. 다음");
             sb.Append(">> ");
             Console.WriteLine(sb.ToString());
             Console.ReadLine();
         }
-
-
-
-
+        
+        public void AddItem(Dictionary<string, int> items, List<string> dropItems)
+        {
+            Random rand = new Random();
+            foreach (var item in dropItems)
+            {
+                int dropCount = rand.Next(0, 3); // 0~2개 드랍
+                for (int i = 0; i < dropCount; i++)
+                {
+                    if (items.ContainsKey(item))
+                        items[item]++; // 중복 아이템일 시 수량 증가
+                    else
+                        items[item] = 1; // 새 아이템일 시 새로운 항목 추가
+                }
+                
+            }
+        }
     }
 }

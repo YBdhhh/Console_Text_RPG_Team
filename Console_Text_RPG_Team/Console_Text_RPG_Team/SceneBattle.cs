@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -16,18 +16,20 @@ namespace Console_Text_RPG_Team
         public List<Monster> spawnList = new List<Monster>(6);
         public List<Monster> monsters = new List<Monster>
             {
+
                 new Monster("슬라임", 20, 6, 0),
                 new Monster("초록버섯", 30, 6, 1),
                 new Monster("리본돼지", 30, 6, 3),
 				new Monster("스톤골렘", 40, 9, 3),
 				new Monster("웨어울프", 60, 12, 4),
 				new Monster("주황버섯", 100, 9, 5)
-			};
+
         public List<Monster> BossMonsters = new List<Monster>(3)
         {
             new Monster("머쉬맘", 230f, 21f, 10)
 
         };
+
 
         public void StartBattle(Player player)
         {
@@ -103,10 +105,13 @@ namespace Console_Text_RPG_Team
                     {
                         case 1:
                             Console.Clear();
+
                             Console.WriteLine("공격창");
                             sceneBattleAttack.BattleLoop(player, spawnList);
                             spawnList.Clear();
+
                             return;
+
                         default:
                             Console.WriteLine("다시 입력해주십시오");
                             continue;
