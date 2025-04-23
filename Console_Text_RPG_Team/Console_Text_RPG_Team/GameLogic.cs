@@ -16,7 +16,7 @@ namespace Console_Text_RPG_Team
 		public void Start()
 		{
 			//player.Example();
-			playerCreate.Start(player);
+			playerCreate.Start();
 			jobSelect.Start();
 			while (player.job == null)
 			{
