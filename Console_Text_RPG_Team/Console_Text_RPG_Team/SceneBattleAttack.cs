@@ -9,12 +9,10 @@ namespace Console_Text_RPG_Team
 {
     internal class SceneBattleAttack
     {
-        public Player player;
         public List<Monster> monsters;
 
         public SceneBattleAttack()
         {
-            player = new Player();
             monsters = new List<Monster>
             {
                 new Monster("미니언", 15f, 5f, 2),
@@ -23,28 +21,28 @@ namespace Console_Text_RPG_Team
             };
         }
 
-        public void Start()
+        /*public void Start() //1
         {
-            PlayerAttack();
-        }
+            PlayerAttack(player);
+        }*/
 
-        public void BattleLoop()
+        public void BattleLoop(Player player)
         {
             while (true)
             {
-                PlayerAttack();
-                if (CheckBattleEnd()) break;
+                PlayerAttack(player);
+                if (CheckBattleEnd(player)) break;
 
-                EnemyPhase();
-                if (CheckBattleEnd()) break;
+                EnemyPhase(player);
+                if (CheckBattleEnd(player)) break;
             }
         }
 
-        public void PlayerAttack()
+        public void PlayerAttack(Player player) //2
         {
             while (true)
             {
-                BattleMenu();
+                BattleMenu(); //3
 
                 string input = Console.ReadLine();
                 if (input == "0") return;
@@ -69,7 +67,7 @@ namespace Console_Text_RPG_Team
             }
         }
 
-        public void EnemyPhase()
+        public void EnemyPhase(Player player)
         {
             foreach(var monster in monsters)
             {
@@ -82,11 +80,11 @@ namespace Console_Text_RPG_Team
             }
         }
 
-        public bool CheckBattleEnd()
+        public bool CheckBattleEnd(Player player)
         {
             if(!player.IsAlive())
             {
-                Result(false);
+                Result(false, player);
                 return true;
             }
 
@@ -99,7 +97,7 @@ namespace Console_Text_RPG_Team
 
             if (aliveCount == 0)
             {
-                Result(true);
+                Result(true, player);
                 return true;
             }
 
@@ -184,7 +182,7 @@ namespace Console_Text_RPG_Team
 
         }
 
-        public void Result(bool isVictory)
+        public void Result(bool isVictory, Player player)
         {
             Console.Clear();
             StringBuilder sb = new StringBuilder();

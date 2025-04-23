@@ -17,7 +17,7 @@ namespace Console_Text_RPG_Team
 	internal class SceneStart
 	{
 		SceneStatus sceneStatus = new SceneStatus();
-		SceneBattle sceneBattle = new SceneBattle();
+		SceneBattleAttack sceneBattle = new SceneBattleAttack();
 
 		StringBuilder sb = new StringBuilder();
 		public void Start(Player player)
@@ -31,7 +31,6 @@ namespace Console_Text_RPG_Team
 			sb.AppendLine("0.게임 종료");
 			sb.AppendLine();
 			sb.AppendLine("원하시는 행동을 입력해주세요.");
-
 			Console.WriteLine(sb.ToString());
 			sb.Clear();
 			int result = Checkinpvt(0, 2);
@@ -43,7 +42,7 @@ namespace Console_Text_RPG_Team
 					break;
 
 				case 2:
-					sceneBattle.StartBattle(player);
+					sceneBattle.BattleLoop(player);
 					break;
 			}
 		}

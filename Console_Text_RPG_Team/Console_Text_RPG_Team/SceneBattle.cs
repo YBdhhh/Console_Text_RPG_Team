@@ -10,6 +10,7 @@ namespace Console_Text_RPG_Team
 {
     internal class SceneBattle
     {
+        SceneBattleAttack sceneBattleAttack = new SceneBattleAttack();
 
         public void StartBattle(Player player)
         {
@@ -28,7 +29,7 @@ namespace Console_Text_RPG_Team
             sb.Append(">> ");
             Console.Write(sb.ToString());
             sb.Clear();
-            InputAttack();
+            InputAttack(player);
 
 
         }
@@ -69,7 +70,7 @@ namespace Console_Text_RPG_Team
             Console.WriteLine();
         }
 
-        public void InputAttack()
+        public void InputAttack(Player player)
         {
             while (true)
             {
@@ -79,8 +80,9 @@ namespace Console_Text_RPG_Team
                     switch (input)
                     {
                         case 1:
-                            Console.WriteLine("공격창"); // SceneBattleAttack
-                            return;
+                            Console.WriteLine("1. 전투시작"); // SceneBattleAttack
+                            sceneBattleAttack.BattleLoop(player);
+							return;
                         default:
                             Console.WriteLine("다시 입력해주십시오");
                             continue;
