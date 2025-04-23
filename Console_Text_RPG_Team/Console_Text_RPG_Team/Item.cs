@@ -33,7 +33,9 @@ namespace Console_Text_RPG_Team
         {
             return new List<Item> // return으로 호출한 곳으로 이 리스트 객체를 돌려보냅니다.
             {
-                new Item("아이템 이름", "아이템 설명 ", 0, 5, 1000),// atk, def, price          
+                new Item("아이템 이름", "아이템 설명 ", 0, 5, 1000),// atk, def, price 
+                new Item("아이템2", "아이템2 ", 0, 10, 1000),
+                new Item("아이템3", "아이템3 ", 100, 0, 1000),    
             };
         }
     }

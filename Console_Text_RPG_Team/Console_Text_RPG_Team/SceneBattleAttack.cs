@@ -9,25 +9,23 @@ namespace Console_Text_RPG_Team
 {
     internal class SceneBattleAttack
     {
-        public List<Monster> monsters;
+        public List<Monster> monsters = new List<Monster>(4);
 
         public SceneBattleAttack()
         {
-            monsters = new List<Monster>
-            {
-                new Monster("미니언", 15f, 5f, 2),
-                new Monster("대포미니언", 25f, 8f, 5),
-                new Monster("공허충", 10f, 4f, 3)
-            };
         }
 
-        /*public void Start() //1
+        public void CreateMonster(List<Monster> monster)
         {
-            PlayerAttack(player);
-        }*/
+            for (int i = 0; i < monster.Count; i++)
+            {
+                monsters.Add(monster[i]);
+            }
+        }
 
-        public void BattleLoop(Player player)
+        public void BattleLoop(Player player, List<Monster> monster)
         {
+            CreateMonster(monster);
             while (true)
             {
                 PlayerAttack(player);
@@ -38,7 +36,7 @@ namespace Console_Text_RPG_Team
             }
         }
 
-        public void PlayerAttack(Player player) //2
+        public void PlayerAttack(Player player)
         {
             while (true)
             {
@@ -209,7 +207,7 @@ namespace Console_Text_RPG_Team
             }
 
             // 플레이어 현재 상태 출력
-
+            monsters.Clear();
             sb.AppendLine($"Lv.{player.level} {player.name}");
             sb.AppendLine($"HP {player.PreviousHP} -> {(player.hp <= 0 ? "0" : player.hp.ToString())}");
 

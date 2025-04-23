@@ -38,7 +38,7 @@ namespace Console_Text_RPG_Team
 			switch (result)
 			{
 				case 1:
-					sceneStatus.Start();
+					sceneStatus.Start(player);
 					break;
 
 				case 2:
