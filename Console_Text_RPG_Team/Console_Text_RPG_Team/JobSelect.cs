@@ -21,6 +21,7 @@ namespace Console_Text_RPG_Team
 
 		public void Start()
 		{
+			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.Green;
 			Console.WriteLine("직업 선택");
 			Console.ResetColor();
@@ -33,6 +34,7 @@ namespace Console_Text_RPG_Team
 			sb.Append("\n");
 			sb.Append("원하시는 행동을 입력해주세요.").Append("\n");
 			Console.Write(sb.ToString());
+			sb.Clear();
 		}
 
 		public void Input(Player player)
