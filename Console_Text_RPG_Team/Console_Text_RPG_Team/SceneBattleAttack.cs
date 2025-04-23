@@ -19,7 +19,7 @@ namespace Console_Text_RPG_Team
         {
             for (int i = 0; i < monster.Count; i++)
             {
-                monsters.Add(new Monster(monster[i]));
+                monsters.Add((monster[i]));
             }
         }
 
