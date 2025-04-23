@@ -1,11 +1,16 @@
-﻿namespace Console_Text_RPG_Team
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Console_Text_RPG_Team
 {
     internal class Program
     {
+       
         static void Main(string[] args)
         {
-            GameLogic gameLogic = new GameLogic();
-            gameLogic.Start();
-		}
+            SceneShop sceneShop = new SceneShop();
+            sceneShop.Start();
+        }
     }
 }

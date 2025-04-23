@@ -52,7 +52,11 @@ namespace Console_Text_RPG_Team
                     }
                     else if (input == 2)
                     {
-                        Input(player);
+                        sb.AppendLine("이름을 다시 입력해주세요.");
+                        sb.Append(">> ");
+                        Console.Write(sb.ToString());
+                        sb.Clear();
+                        break; 
                     }
                     else
                     {
