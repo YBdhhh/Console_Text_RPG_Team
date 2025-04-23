@@ -33,6 +33,7 @@ namespace Console_Text_RPG_Team
 			atk = monster.atk;
 			level = monster.level;
 			PreviousHP = monster.PreviousHP;
+			this.dropItems = monster.dropItems;
 		}
 
 		public Monster()
