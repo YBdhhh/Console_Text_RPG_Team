@@ -97,7 +97,7 @@ namespace Console_Text_RPG_Team
                             Console.Clear();
                             Console.WriteLine("공격창");
                             sceneBattleAttack.BattleLoop(player, spawnList);
-
+                            spawnList.Clear();
                             return;
                         default:
                             Console.WriteLine("다시 입력해주십시오");

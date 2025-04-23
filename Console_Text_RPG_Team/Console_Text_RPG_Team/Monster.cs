@@ -23,6 +23,20 @@ namespace Console_Text_RPG_Team
 			this.level = level;
 		}
 
+		public Monster(Monster monster)
+		{
+			name = monster.name; 
+			hp = monster.hp;
+			atk = monster.atk;
+			level = monster.level;
+			PreviousHP = monster.PreviousHP;
+		}
+
+		public Monster()
+		{
+
+		}
+
 		public bool IsAlive()
 		{
 			return hp > 0;

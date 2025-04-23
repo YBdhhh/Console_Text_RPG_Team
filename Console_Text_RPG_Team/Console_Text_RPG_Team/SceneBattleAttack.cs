@@ -19,7 +19,7 @@ namespace Console_Text_RPG_Team
         {
             for (int i = 0; i < monster.Count; i++)
             {
-                monsters.Add(monster[i]);
+                monsters.Add(new Monster(monster[i]));
             }
         }
 
@@ -82,7 +82,7 @@ namespace Console_Text_RPG_Team
         {
             if(!player.IsAlive())
             {
-                Result(false);
+                Result(false, player);
                 return true;
             }
 
@@ -95,7 +95,7 @@ namespace Console_Text_RPG_Team
 
             if (aliveCount == 0)
             {
-                Result(true);
+                Result(true, player);
                 return true;
             }
 
@@ -180,12 +180,13 @@ namespace Console_Text_RPG_Team
 
         }
 
-        public void Result(bool isVictory)
+        public void Result(bool isVictory, Player player)
         {
             Console.Clear();
             StringBuilder sb = new StringBuilder();
+			
 
-            sb.AppendLine("Battle!! - Result\n");
+			sb.AppendLine("Battle!! - Result\n");
 
             if(isVictory)
             {
@@ -207,11 +208,11 @@ namespace Console_Text_RPG_Team
             }
 
             // 플레이어 현재 상태 출력
-            monsters.Clear();
+			monsters.Clear();
             sb.AppendLine($"Lv.{player.level} {player.name}");
             sb.AppendLine($"HP {player.PreviousHP} -> {(player.hp <= 0 ? "0" : player.hp.ToString())}");
 
-            sb.AppendLine("\n0. 다음");
+			sb.AppendLine("\n0. 다음");
             sb.Append(">> ");
             Console.WriteLine(sb.ToString());
             Console.ReadLine();
