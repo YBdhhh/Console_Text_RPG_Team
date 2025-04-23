@@ -14,20 +14,19 @@ namespace Console_Text_RPG_Team
 
         SceneBattleAttack sceneBattleAttack = new SceneBattleAttack();  //임시
         public List<Monster> spawnList = new List<Monster>(6);
-        public List<Monster> monsters = new List<Monster>
+        public List<Monster> monsters = new List<Monster>(6)
             {
 
-                new Monster("슬라임", 20, 6, 0),
-                new Monster("초록버섯", 30, 6, 1),
-                new Monster("리본돼지", 30, 6, 3),
-				new Monster("스톤골렘", 40, 9, 3),
-				new Monster("웨어울프", 60, 12, 4),
-				new Monster("주황버섯", 100, 9, 5)
-
+                new Monster("슬라임", 20, 6, 0, 4, new List<string> {"포션", "1"}),
+                new Monster("초록버섯", 30, 6, 1, 6, new List<string> {"포션", "1"}),
+                new Monster("리본돼지", 30, 6, 3, 8, new List<string> {"포션", "1"}),
+                new Monster("스톤골렘", 40, 9, 3, 10, new List<string> {"포션", "1"}),
+                new Monster("웨어울프", 60, 12, 4, 12, new List<string> {"포션", "1"}),
+                new Monster("주황버섯", 100, 9, 5, 16, new List<string> {"포션", "1"})
+            };
         public List<Monster> BossMonsters = new List<Monster>(3)
         {
-            new Monster("머쉬맘", 230f, 21f, 10)
-
+            new Monster("머쉬맘", 230f, 21f, 10, 40, new List<string> {"포션", "1"})
         };
 
 
