@@ -16,9 +16,9 @@ namespace Console_Text_RPG_Team
         public List<Monster> spawnList = new List<Monster>(4);
         public List<Monster> monsters = new List<Monster>
             {
-                new Monster("미니언", 15f, 5f, 2),
-                new Monster("공허충", 10f, 9f, 3),
-                new Monster("대포미니언", 25f, 8f, 5)
+                new Monster("미니언", 15f, 5f, 2, new List<string> {"포션", "낡은 검"}),
+                new Monster("공허충", 10f, 9f, 3, new List<string> {"포션", "낡은 검"}),
+                new Monster("대포미니언", 25f, 8f, 5, new List<string> {"포션", "낡은 검"})
             };
 
         public void StartBattle(Player player)
