@@ -1,118 +1,156 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Console_Text_RPG_Team
 {
-    /// <summary>
-    /// 게임 내 상점 화면을 담당하는 클래스
-    /// </summary>
+
     internal class SceneShop
     {
-        // 문자열 출력을 위한 StringBuilder
         private StringBuilder sb = new StringBuilder();
-        // 구매 정보와 골드를 가진 플레이어 참조
         private Player player;
-        // 상점에 진열된 아이템 목록
+        private Inventory inventory;
         private List<Item> shopItems;
 
-        /// <summary>
         /// 생성자: 상점 객체 생성 시 한 번만 아이템 목록 로드
-        /// </summary>
         public SceneShop()
         {
-            shopItems = Item.ShopItems(); // 스태틱 메서드로부터 기본 아이템 리스트 가져오기
+            shopItems = Item.ShopItems();
         }
 
-        public void Start(Player player)
+        /// 상점 메인 메뉴를 표시하고 입력을 처리
+        public void Start(Player player, Inventory inventory)
         {
-            this.player = player; // 필드에 플레이어 할당
+            this.player = player;
+            this.inventory = inventory;
+            Console.Clear();
 
-            // 화면 구성 텍스트 작성
-            Thread.Sleep(500); // 0.5초 대기
-            Console.Clear(); // 화면 초기화
-            sb.AppendLine("여기는 상점입니다.");
-            sb.AppendLine("=====아이템 목록=====");
-            sb.AppendLine($"[보유골드]: {this.player.gold}G");
-            Console.WriteLine(sb.ToString());
-            sb.Clear(); // StringBuilder 초기화
-
-            // 아이템 목록 순회 출력
-            for (int i = 0; i < shopItems.Count; i++)
-            {
-                var item = shopItems[i];
-
-                // 구매 여부에 따라 "- 구매 완료" 또는 가격 정보 표시
-                string purchaseItem = item.purchaseItem ? " | - 구매 완료" : $" | 가격: {item.price}G";
-                // 방어력(def)이나 공격력(atk)이 0보다 클 때만 텍스트 추가
-                string defTxt = item.def > 0 ? $" | DEF: {item.def}" : string.Empty;
-                string atkTxt = item.atk > 0 ? $" | ATK: {item.atk}" : string.Empty;
-
-                // 완성된 한 줄 출력 문자열 생성
-                sb.AppendLine($"{i + 1}. {item.name} | {item.toolTip}{atkTxt}{defTxt}{purchaseItem}");
-                Console.WriteLine(sb.ToString());
-                sb.Clear(); // 다음 출력 준비
-            }
-
-            Input(); // 구매 입력 처리 메서드 호출
-        }
-
-        /// <summary>
-        /// 사용자 입력을 받아 구매 처리하거나 상점을 종료하는 메서드
-        /// </summary>
-        private void Input()
-        {
             while (true)
             {
-                // 입력 안내 메시지
-                sb.AppendLine($"구매하시겠습니까? [0: 뒤로가기, 1~{shopItems.Count}: 아이템 번호 입력]");
-                sb.Append(" >> ");
-                Console.Write(sb.ToString());
-                sb.Clear(); // StringBuilder 초기화
-                string userInput = Console.ReadLine();
-                // 숫자 입력 여부 확인
-                if (int.TryParse(userInput, out int choice))
+                Console.Clear();
+                DisPlayeShop();
+                string input = Console.ReadLine();
+                if (int.TryParse(input, out int choice))
                 {
                     if (choice == 0)
                     {
-                        break;
+                        // 상점 종료
+                        return;
                     }
-                    else if (choice >= 1 && choice <= shopItems.Count)
+                    if (choice == 1)
                     {
-                        var selected = shopItems[choice - 1];// 0
+                        // 구매 메뉴로 이동
+                        DisplayPurchaseItem();
+                        continue;
+                    }
+                }
+                    // 잘못된 입력 처리
+                    sb.AppendLine("잘못된 입력입니다. 다시 입력해주세요.");
+                    sb.Append(">> ");
+                    Console.Write(sb.ToString());
+                    sb.Clear();
+                   Thread.Sleep(1000); // 1초 대기
 
+            }
+        }
+
+
+        private void DisPlayeShop()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("여기는 상점입니다.");
+            Console.WriteLine("===== 아이템 목록 =====");
+            Console.ResetColor();
+            for (int i = 0; i < shopItems.Count; i++)
+            {
+                var item = shopItems[i];
+                string flag = item.purchaseItem ? " | - 구매 완료" : $" | 가격: {item.price}G";
+                string defTxt = item.def > 0 ? $" | DEF: {item.def}" : string.Empty;
+                string atkTxt = item.atk > 0 ? $" | ATK: {item.atk}" : string.Empty;
+                sb.AppendLine($"{i + 1}. {item.name} | {item.toolTip}{atkTxt}{defTxt}{flag}");
+                Console.WriteLine(sb.ToString());
+                sb.Clear();
+            }
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"[보유골드]: {player.gold}G\n");
+            Console.ResetColor();
+
+            sb.AppendLine("0: 뒤로가기");
+            sb.AppendLine("1: 아이템 구매");
+            sb.Append(">> ");
+            Console.Write(sb.ToString());
+            sb.Clear();
+        }
+
+        /// 아이템 구매 메뉴를 표시하고 선택한 아이템을 구매
+        private void DisplayPurchaseItem()
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("===== 아이템 구매 목록 =====");
+                Console.ResetColor();
+
+                for (int i = 0; i < shopItems.Count; i++)
+                {
+                    var item = shopItems[i];
+                    string flag = item.purchaseItem ? " | - 구매 완료" : $" | 가격: {item.price}G";
+                    string defTxt = item.def > 0 ? $" | DEF: {item.def}" : string.Empty;
+                    string atkTxt = item.atk > 0 ? $" | ATK: {item.atk}" : string.Empty;
+                    sb.AppendLine($"{i + 1}. {item.name} | {item.toolTip}{atkTxt}{defTxt}{flag}");
+                    Console.WriteLine(sb.ToString());
+                    sb.Clear();
+                }
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"[보유골드]: {player.gold}G\n");
+                Console.ResetColor();
+
+                sb.AppendLine("0: 뒤로가기");
+                sb.AppendLine("[구매하실 아이템 번호를 입력해주세요]");
+                sb.Append(">> ");
+                Console.Write(sb.ToString());
+                sb.Clear();
+                string input = Console.ReadLine();
+
+                if (int.TryParse(input, out int choice))
+                {
+                    if (choice == 0)
+                    {
+                        // 메인 메뉴로 복귀
+                        Console.Clear();
+                        return;
+                    }
+                    if (choice >= 1 && choice <= shopItems.Count)
+                    {
+                        var selected = shopItems[choice - 1];
                         if (selected.purchaseItem)
                         {
-                            sb.Append("이미 구매 완료된 아이템입니다.");
-                            Console.Write(sb.ToString());
-                            sb.Clear();
+                            Console.WriteLine("이미 구매 완료된 아이템입니다.");
                         }
-                        else if (this.player.gold < selected.price)
+                        else if (player.gold < selected.price)
                         {
-                            sb.Append("골드가 부족합니다.");
-                            Console.Write(sb.ToString());
-                            sb.Clear();
+                            Console.WriteLine("골드가 부족합니다.");
                         }
                         else
                         {
-                            // 골드 차감
-                            this.player.gold -= selected.price;
-                            // 구매 상태 true로 변경
+                            // 구매 처리
+                            player.gold -= selected.price;
                             selected.purchaseItem = true;
-                            sb.Append($"{selected.name}을(를) 구매했습니다.");
-                            Console.Write(sb.ToString());
-                            sb.Clear();
+                            Console.WriteLine($"{selected.name}을(를) 구매했습니다.");
+                            inventory.AddItem(selected);
+                            
                         }
-                        //상점 재시작
-                        Start(player);
-                        break;
+                        Thread.Sleep(1000);
+                        continue;
                     }
                 }
-                sb.Append("잘못된 입력입니다. 다시 입력해주세요.");
-                Console.WriteLine(sb.ToString());
-                sb.Clear();
+
+                // 잘못된 입력 처리 및 대기
+                Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.");
+                Thread.Sleep(1000);
             }
         }
     }
