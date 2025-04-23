@@ -13,8 +13,6 @@ namespace Console_Text_RPG_Team
 		Player player = new Player();
 		SceneStart sceneStart = new SceneStart();
 
-
-
         public void Start()
 		{
 			//player.Example();

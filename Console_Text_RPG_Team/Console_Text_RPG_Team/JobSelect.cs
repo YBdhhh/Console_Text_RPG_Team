@@ -9,6 +9,7 @@ namespace Console_Text_RPG_Team
 
 	internal class JobSelect
 	{
+
 		//Player player = new Player(); 
 		StringBuilder sb = new StringBuilder();
 		List<Job> job = new List<Job>(4)
