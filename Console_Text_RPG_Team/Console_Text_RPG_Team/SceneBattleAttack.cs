@@ -10,41 +10,49 @@ namespace Console_Text_RPG_Team
 {
     internal class SceneBattleAttack
     {
-        public List<Monster> monsters = new List<Monster>(4);
-        
-        public SceneBattleAttack()
+        SceneBattle sceneBattle;
+        public SceneBattleAttack(SceneBattle _sceneBattle)
         {
+            sceneBattle = _sceneBattle;
         }
+        public List<Monster> monsters = new List<Monster>();
 
-       /* public void CreateMonster(List<Monster> monster)
-        {
-            for (int i = 0; i < monster.Count; i++)
-            {
-                monsters.Add((monster[i]));
-            }
-        }
-       */
+        /* public void CreateMonster(List<Monster> monster)
+         {
+             for (int i = 0; i < monster.Count; i++)
+             {
+                 monsters.Add((monster[i]));
+             }
+         }
+        */
         public void BattleLoop(Player player, List<Monster> monster)
         {
-            for (int i = 0; i < monster.Count; i++)
+            if (sceneBattle.clearCount >= sceneBattle.maxClearCount)        //보스방이면
             {
-                monsters.Add(monster[i]);
+                monsters.Add(new Monster(sceneBattle.bossMonsters[sceneBattle.currentFloor - 1]));
+            }
+            else
+            {
+                for (int i = 0; i < monster.Count; i++)
+                {
+                    monsters.Add(monster[i]);
+                }
             }
 
             while (true)
-                {
-                    PlayerAttack(player);
-                    if (CheckBattleEnd(player)) break;
+            {
+                PlayerAttack(player);
+                if (CheckBattleEnd(player)) break;
 
-                    EnemyPhase(player);
-                    if (CheckBattleEnd(player)) break;
-                }
+                EnemyPhase(player);
+                if (CheckBattleEnd(player)) break;
+            }
         }
 
-        public (int,Player) WhatSelectDamage(Player player)
+        public (int, Player) WhatSelectDamage(Player player)
         {
-			int result;
-			while (true)
+            int result;
+            while (true)
             {
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine("어떤 방식으로 공격하시겠습니까?");
@@ -59,8 +67,8 @@ namespace Console_Text_RPG_Team
                 Console.Write(sb.ToString());
                 int.TryParse(Console.ReadLine(), out result);
                 if (1 <= result || result <= player.skill.Count + 1)
-					return (result-2, player);
-				else
+                    return (result - 2, player);
+                else
                 {
                     Console.WriteLine("잘못된 값을 입력하셨습니다.");
                 }
@@ -76,7 +84,7 @@ namespace Console_Text_RPG_Team
             {
                 damage = player.skill[result].UseSkill(player);
             }
-                return damage;
+            return damage;
         }
 
         public void PlayerAttack(Player player)
@@ -87,7 +95,7 @@ namespace Console_Text_RPG_Team
 
                 string input = Console.ReadLine();
                 //if (input == "0") return;
-                
+
                 if (!int.TryParse(input, out int choice) || choice < 1 || choice > monsters.Count)
                 {
                     Console.WriteLine("잘못된 입력입니다.");
@@ -95,7 +103,7 @@ namespace Console_Text_RPG_Team
                 }
 
                 Monster target = monsters[choice - 1];
-                if(!target.IsAlive())
+                if (!target.IsAlive())
                 {
                     Console.WriteLine("이미 죽은 몬스터입니다.");
                     continue;
@@ -103,9 +111,9 @@ namespace Console_Text_RPG_Team
                 int result;
                 (result, player) = WhatSelectDamage(player);
 
-				float damaged = SelectDamage(result, player);
+                float damaged = SelectDamage(result, player);
                 float criticalDamage = player.CriticalDamage(player, damaged);
-				float finalDamage = GetRandomDamage(criticalDamage);
+                float finalDamage = GetRandomDamage(criticalDamage);
                 target.TakeDamage(finalDamage);
                 PlayerAttackLog(player, target, finalDamage);
                 break;
@@ -114,7 +122,7 @@ namespace Console_Text_RPG_Team
 
         public void EnemyPhase(Player player)
         {
-            foreach(var monster in monsters)
+            foreach (var monster in monsters)
             {
                 if (!monster.IsAlive()) continue;
 
@@ -127,16 +135,16 @@ namespace Console_Text_RPG_Team
 
         public bool CheckBattleEnd(Player player)
         {
-            if(!player.IsAlive())
+            if (!player.IsAlive())
             {
                 Result(false, player);
                 return true;
             }
 
             int aliveCount = 0;
-            foreach (var monster in  monsters)
+            foreach (var monster in monsters)
             {
-                if(monster.IsAlive())
+                if (monster.IsAlive())
                     aliveCount++;
             }
 
@@ -184,7 +192,7 @@ namespace Console_Text_RPG_Team
             sb.AppendLine($"{attacker.name} 의 공격!");
             sb.AppendLine($"Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {damage}]\n");
 
-            if ( target.hp <= 0)
+            if (target.hp <= 0)
             {
                 sb.AppendLine($"Lv.{target.level} {target.name}");
                 sb.AppendLine($"HP {target.PreviousHP} -> Dead");
@@ -197,6 +205,7 @@ namespace Console_Text_RPG_Team
 
             sb.AppendLine("\n0. 다음\n>>");
             Console.WriteLine(sb.ToString());
+
             Console.ReadLine();
 
         }
@@ -231,7 +240,7 @@ namespace Console_Text_RPG_Team
         {
             Console.Clear();
             StringBuilder sb = new StringBuilder();
-			
+
             // 전투 전 상태 백업
             int previousLevel = player.level;
             int previousExp = player.exp;
@@ -250,7 +259,7 @@ namespace Console_Text_RPG_Team
                 int killCount = 0;
                 foreach (var monster in monsters)
                 {
-                    if(!monster.IsAlive())
+                    if (!monster.IsAlive())
                     {
                         killCount++;
 
@@ -264,6 +273,7 @@ namespace Console_Text_RPG_Team
 
                         AddItem(itemRewards, dropItems);
                     }
+
                 }
 
                 sb.AppendLine($"던전에서 몬스터 {killCount}마리를 잡았습니다.\n");
@@ -286,10 +296,20 @@ namespace Console_Text_RPG_Team
                 {
                     sb.AppendLine($"{item.Key} - {item.Value}");
                 }
+                sceneBattle.clearCount++;
+                if (sceneBattle.clearCount > sceneBattle.maxClearCount) //
+                {
+                    if (sceneBattle.dungeonFloor.Exists(x => sceneBattle.currentFloor == sceneBattle.dungeonFloor.Count && sceneBattle.dungeonFloor.Count < 3))   //3층 이하일때 현재최고층 난이도를 깨야만 층이 추가되도록
+                    {
+                        sceneBattle.dungeonFloor.Add(sceneBattle.currentFloor + 1);
+                    }
+                    sceneBattle.clearCount = 1;
+                }
             }
             else
             {
                 sb.AppendLine("You Lose\n");
+                sceneBattle.clearCount = 0;
             }
 
             sb.AppendLine("\n0. 다음");
@@ -297,8 +317,9 @@ namespace Console_Text_RPG_Team
             Console.WriteLine(sb.ToString());
             Console.ReadLine();
             monsters.Clear();
+
         }
-        
+
         public void AddItem(Dictionary<string, int> items, List<string> dropItems)
         {
             Random rand = new Random();
@@ -312,7 +333,7 @@ namespace Console_Text_RPG_Team
                     else
                         items[item] = 1; // 새 아이템일 시 새로운 항목 추가
                 }
-                
+
             }
         }
     }

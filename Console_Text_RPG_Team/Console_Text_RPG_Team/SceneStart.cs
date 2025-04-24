@@ -60,7 +60,7 @@ namespace Console_Text_RPG_Team
 					sceneStatus.Start(player);
 					break;
 				case 2:
-					sceneBattle.StartBattle(player);
+					sceneBattle.SelectDungeon(player);
 					break;
 				case 3:
                     sceneInventory.Start(inventory, player);
