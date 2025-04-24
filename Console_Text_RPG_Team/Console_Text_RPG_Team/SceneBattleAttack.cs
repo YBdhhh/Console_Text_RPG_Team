@@ -41,6 +41,44 @@ namespace Console_Text_RPG_Team
                 }
         }
 
+        public (int,Player) WhatSelectDamage(Player player)
+        {
+			int result;
+			while (true)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("어떤 방식으로 공격하시겠습니까?");
+                sb.AppendLine("");
+                sb.AppendLine("1. 공격");
+                for (int i = 0; i < player.skill.Count; i++)
+                {
+                    sb.AppendLine($"{i + 2}. {player.skill[i].name}");
+                }
+                sb.AppendLine();
+                sb.Append(" >>");
+                Console.Write(sb.ToString());
+                int.TryParse(Console.ReadLine(), out result);
+                if (1 <= result || result <= player.skill.Count + 1)
+					return (result-2, player);
+				else
+                {
+                    Console.WriteLine("잘못된 값을 입력하셨습니다.");
+                }
+            }
+        }
+
+        public float SelectDamage(int result, Player player)
+        {
+            float damage = 0;
+            if (result == -1)
+                damage = player.atk;
+            else
+            {
+                damage = player.skill[result].UseSkill(player);
+            }
+                return damage;
+        }
+
         public void PlayerAttack(Player player)
         {
             while (true)
@@ -48,7 +86,7 @@ namespace Console_Text_RPG_Team
                 BattleMenu(); //3
 
                 string input = Console.ReadLine();
-                if (input == "0") return;
+                //if (input == "0") return;
                 
                 if (!int.TryParse(input, out int choice) || choice < 1 || choice > monsters.Count)
                 {
@@ -62,10 +100,14 @@ namespace Console_Text_RPG_Team
                     Console.WriteLine("이미 죽은 몬스터입니다.");
                     continue;
                 }
+                int result;
+                (result, player) = WhatSelectDamage(player);
 
-                float damage = GetRandomDamage(player.atk);
-                target.TakeDamage(damage);
-                PlayerAttackLog(player, target, damage);
+				float damaged = SelectDamage(result, player);
+                float criticalDamage = player.CriticalDamage(player, damaged);
+				float finalDamage = GetRandomDamage(criticalDamage);
+                target.TakeDamage(finalDamage);
+                PlayerAttackLog(player, target, finalDamage);
                 break;
             }
         }

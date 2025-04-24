@@ -10,6 +10,7 @@ namespace Console_Text_RPG_Team
 	{
 		public string name;
 		public string job;
+		public List<Skill> skill = new List<Skill>(4);
 
 		public float critical = 1000; //10%
 		public float miss = 1000; //10%
@@ -79,6 +80,7 @@ namespace Console_Text_RPG_Team
 			{
 				damage = (int)(damage + damage * critical * 0.1f * 0.01f);
 				Console.WriteLine("크리티컬 작렬!");
+				Thread.Sleep(1000);
 			}
 
 			return damage;

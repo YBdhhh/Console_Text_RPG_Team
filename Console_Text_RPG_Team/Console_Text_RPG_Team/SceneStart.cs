@@ -37,6 +37,7 @@ namespace Console_Text_RPG_Team
 		StringBuilder sb = new StringBuilder();
 		public void Start(Player player)
 		{
+			player.skill.Add(new Skill(skills[0]));
 			Console.Clear();
 			sb.AppendLine($"스파르타 던전에 오신 {player.name} 님 환영합니다.");
 			sb.AppendLine("이제 전투를 시작할수 있습니다.");
