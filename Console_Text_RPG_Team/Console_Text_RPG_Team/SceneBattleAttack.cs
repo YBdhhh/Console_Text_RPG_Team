@@ -65,24 +65,25 @@ namespace Console_Text_RPG_Team
                 sb.AppendLine();
                 sb.Append(" >>");
                 Console.Write(sb.ToString());
-                int.TryParse(Console.ReadLine(), out result);
-                if (1 <= result || result <= player.skill.Count + 1)
-                    return (result - 2, player);
-                else
+                string input = Console.ReadLine();
+                bool isNumber = int.TryParse(input, out result);
+                if (isNumber)
                 {
-                    Console.WriteLine("잘못된 값을 입력하셨습니다.");
+                    if (1 <= result && result <= player.skill.Count + 1)
+                        return (result , player);
                 }
+                Console.WriteLine("잘못된 값을 입력하셨습니다.");
             }
         }
 
         public float SelectDamage(int result, Player player)
         {
             float damage = 0;
-            if (result == -1)
+            if (result == 1)
                 damage = player.atk;
-            else
+            else /*if(result <= player.skill.Count + 1)*/
             {
-                damage = player.skill[result].UseSkill(player);
+                damage = player.skill[result-2].UseSkill(player);
             }
             return damage;
         }
@@ -286,6 +287,7 @@ namespace Console_Text_RPG_Team
 
             if (!isVictory)
             {
+                sceneBattle.clearCount = 0;
                 sb.AppendLine("Battle!! - Result\n");
                 sb.AppendLine("You Lose\n");
                 sb.AppendLine("0. 다음\n>>");
@@ -319,7 +321,15 @@ namespace Console_Text_RPG_Team
                     }
                 }
             }
-
+            sceneBattle.clearCount++;
+            if (sceneBattle.clearCount > sceneBattle.maxClearCount) //
+            {
+                if (sceneBattle.dungeonFloor.Exists(x => sceneBattle.currentFloor == sceneBattle.dungeonFloor.Count && sceneBattle.dungeonFloor.Count < 3))   //3층 이하일때 현재최고층 난이도를 깨야만 층이 추가되도록
+                {
+                    sceneBattle.dungeonFloor.Add(sceneBattle.currentFloor + 1);
+                }
+                sceneBattle.clearCount = 1;
+            }
             int prevLevel = player.level;
             int prevExp = player.exp;
             float prevHP = player.hp;
