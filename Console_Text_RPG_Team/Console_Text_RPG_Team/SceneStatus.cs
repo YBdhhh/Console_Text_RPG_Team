@@ -16,7 +16,7 @@ namespace Console_Text_RPG_Team
             Console.Clear();
 			Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine();
-            Console.WriteLine("[ 상태 보기 ]".PadLeft(10));
+            Console.WriteLine(" [ 상태 보기 ]".PadLeft(10));
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine(" 용사님의 정보가 표시됩니다.");
