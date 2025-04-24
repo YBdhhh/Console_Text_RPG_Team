@@ -120,10 +120,11 @@ namespace Console_Text_RPG_Team
                 Console.WriteLine($"Battle!! {currentFloor} - {clearCount}\n");
                 Console.ResetColor();
                 SpawnMonster();
-                sb.AppendLine("[내정보]");
-                sb.AppendLine($"Lv.	: {player.level}");
-                sb.AppendLine($"직업	: {player.job}");
-                sb.AppendLine($"체  력	: {player.PreviousHP}/{player.hp}");
+                Console.WriteLine("[내정보]");
+                player.ViewStatus();
+                //sb.AppendLine($"Lv.	: {player.level}");
+                //sb.AppendLine($"직업	: {player.job}");
+                //sb.AppendLine($"체  력	: {player.hp}/{player.maxHp}");
                 sb.AppendLine("1. 전투시작").Append("\n");
                 sb.AppendLine("원하시는 행동을 입력해주세요.");
                 sb.Append(">> ");
@@ -163,7 +164,7 @@ namespace Console_Text_RPG_Team
             sb.AppendLine("[내정보]");
             sb.AppendLine($"Lv.	: {player.level}");
             sb.AppendLine($"직업	: {player.job}");
-            sb.AppendLine($"체  력	: {player.PreviousHP}/{player.hp}");
+            sb.AppendLine($"체  력	: {player.hp} / {player.maxHp}");
             sb.AppendLine("1. 전투시작").Append("\n");
             sb.AppendLine("원하시는 행동을 입력해주세요.");
             sb.Append(">> ");

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,16 +15,52 @@ namespace Console_Text_RPG_Team
 
 		public Quest quest = new Quest();
 
-		public float critical = 1000; //10%
-		public float miss = 1000; //10%
-		public float hp = 100;
-		public float maxHp;
+		public float critical = 100; //10%
+		public float miss = 100; //10%
+		public float maxHp = 100;
+		public float hp;
 		public float atk = 10;
 		public float def = 5;
 		public float mp = 10;
-
 		public int stat = 5;
-		public int gold = 1500;
+		private int gold = 1500; 
+
+		public int Gold
+		{
+			get
+			{
+				return gold;
+			}
+			set
+			{
+				int i = gold;
+				gold = value;
+				if (quest.name != null)
+				{
+					if (i -gold > 0)
+					{
+						quest.PlayEvent(quest, i-gold);
+					}
+				}
+			}
+		}
+
+		public void ViewStatus()
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.AppendLine("캐릭터의 정보가 표시됩니다").Append("\n");
+			sb.AppendLine($"이름 : {name}");
+			sb.AppendLine($"레벨 : {level}");
+			sb.AppendLine($"직업 : {job}");
+			sb.AppendLine($"체력 : {hp} / {maxHp}");
+			sb.AppendLine($"공격력 : {atk}");
+			sb.AppendLine($"방어력 : {def}");
+			sb.AppendLine($"마나 : {mp}");
+			sb.AppendLine();
+			sb.AppendLine($"골드 : {gold}");
+			Console.WriteLine(sb.ToString());
+		}
+
 		public int level = 1;
 		public int[] expCount = new int[5] { 10, 35, 65, 100, 150 };
 		public int exp = 0;
@@ -33,6 +70,14 @@ namespace Console_Text_RPG_Team
 		public Player()
 		{
 			inventory = new Inventory();
+			Gold = 1500;
+			hp = maxHp;
+		}
+
+		public void HpUpSet(float value)
+		{
+			maxHp += value;
+			hp += value;
 		}
 
 		public int Exp
@@ -48,13 +93,35 @@ namespace Console_Text_RPG_Team
 			{
 				exp -= expCount[level - 1];
 				level += 1;
-				stat += 1;
-				hp += 10;
+				stat += 3;
+				maxHp += 10;
 				atk += 3;
 				def += 1;
-				Console.WriteLine($"레벨이 {level - 1} -> {level} 로 상승하셨습니다.!");
-				Console.WriteLine($"남은 경험치 : {exp}");
+				miss += 10;
+				critical += 10;
+				//Console.WriteLine($"레벨이 {level - 1} -> {level} 로 상승하셨습니다.!");
+				//Console.WriteLine($"남은 경험치 : {exp}");
 			}
+		}
+
+		public void StatAdd(int value)
+		{
+			switch(value)
+			{
+				case 1:
+					HpUpSet(10);
+					break;
+				case 2:
+					this.atk += 3;
+					break;
+				case 3:
+					this.def += 1;
+					break;
+				case 4:
+					this.mp += 1;
+					break;	
+			}
+			this.stat -= 1;
 		}
 
 		public bool IsAlive()
@@ -64,7 +131,7 @@ namespace Console_Text_RPG_Team
 
 		public void TakeDamage(float damage)
 		{
-			PreviousHP = hp;
+			PreviousHP = maxHp;
 			float reduced = damage - def;
 			if (reduced <= 0)
 			{

@@ -102,7 +102,7 @@ namespace Console_Text_RPG_Team
 
 			if (type >= (int)DamageType.Hp)
 			{
-				damage2 += (int)(damage[i++] * 0.01f * player.hp);
+				damage2 += (int)(damage[i++] * 0.01f * player.maxHp);
 				type -= (int)DamageType.Hp;
 			}
 
@@ -122,14 +122,14 @@ namespace Console_Text_RPG_Team
 
 			if (type >= (int)ValueType.Gold)
 			{
-				player.gold -= (int)value;
+				player.Gold -= (int)value;
 				type -= (int)ValueType.Gold;
 				typeName += "골드";
 			}
 
 			if (type >= (int)ValueType.Hp)
 			{
-				player.hp -= (int)value;
+				player.maxHp -= (int)value;
 				type -= (int)ValueType.Hp;
 				typeName += "체력";
 			}

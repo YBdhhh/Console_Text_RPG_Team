@@ -22,6 +22,11 @@ namespace Console_Text_RPG_Team
 			
 		StringBuilder sb = new StringBuilder();
 
+		public void RewardQuest()
+		{
+
+		}
+
 		public void Start(Player player)
 		{
 			playerCopy = player;
@@ -96,7 +101,7 @@ namespace Console_Text_RPG_Team
 			sb.AppendLine($"보상 : {quest[index].rewardItem} {quest[index].rewardExp}");
 			*/
 			sb.AppendLine();
-			if (player.quest.name != null)
+			if ((player.quest.name != null) && (player.quest.name != quest[index].name))
 			{
 				StringBuilder sbb = new StringBuilder();
 				sbb.AppendLine($"{player.quest.name}을 수행중입니다.");
@@ -110,6 +115,7 @@ namespace Console_Text_RPG_Team
 
 			sb.AppendLine("1. 퀘스트 수락");
 			sb.AppendLine("2. 퀘스트 거절");
+			sb.AppendLine("3. 퀘스트 완료");
 			sb.AppendLine();
 			sb.Append(">> ");
 			Console.Write(sb.ToString());
@@ -121,17 +127,61 @@ namespace Console_Text_RPG_Team
 					int input = int.Parse(Console.ReadLine());
 					switch (input)
 					{
+						case 0:
+							return;
+
 						case 1:
 							Console.WriteLine($"[{quest[index].name}]퀘스트를 수락하셨습니다.");
 							player.quest = quest[index];
+							Thread.Sleep(500);
 							return;
 
 						case 2:
 							Console.WriteLine($"[{quest[index].name}]퀘스트를 거절하셨습니다.");
 							return;
 
-						default:
-							Console.WriteLine("다시 입력해주십시오");
+						case 3:
+							if (player.quest.name == null)
+							{
+								Console.WriteLine("받은 퀘스트가 존재하지 않습니다.");
+								Thread.Sleep(500);
+								continue;
+							}
+							else
+							{
+								if(player.quest.curProgress >= player.quest.endProgress)
+								{
+									Console.WriteLine($"[{quest[index].name}]퀘스트를 완료하셨습니다.");
+									if (player.quest.item != null)
+									{
+										player.inventory.AddItem(player.quest.item);
+										Console.Write($"[{quest[index].name}]퀘스트 보상 : {player.quest.item.name}");
+									}
+									else
+									{
+										Console.Write($"[{quest[index].name}]퀘스트 보상 : {player.quest.rewardExp}");
+									}
+									int level = player.level; 
+									int exp = player.Exp;
+									player.Exp += player.quest.rewardExp;
+									Console.WriteLine($", {player.quest.rewardExp} 경험치를 얻었습니다.");
+									Console.WriteLine($"현재 레벨 : {level} -> {player.level}");
+									Console.WriteLine($"현재 경험치 : {exp} -> ({player.quest.rewardExp}){player.Exp}");
+									player.quest = null;
+									Thread.Sleep(500);
+									return;
+								}
+								else
+								{
+									Console.WriteLine("퀘스트를 완료하지 못했습니다.");
+									Thread.Sleep(500);
+									return;
+								}
+							}
+
+							default:
+
+								Console.WriteLine("다시 입력해주십시오");
 							continue;
 					}
 				}

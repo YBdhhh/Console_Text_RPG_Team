@@ -29,10 +29,10 @@ namespace Console_Text_RPG_Team
 
 		public Item item = new Item(); 
 		public string pickName; //대상
-								//public EventType eventType;
+		//public EventType eventType;
 
 		public EventType eventType; //이벤트? if( ) 값 -> 람다식 
-									//public Item rewardItem;
+		//public Item rewardItem;
 		public int rewardExp;
 
 		public Quest()
@@ -60,7 +60,6 @@ namespace Console_Text_RPG_Team
 				case EventType.EquipItem:
 					EventEquipItem(quest, name);
 					break;
-
 			}
 		}
 
@@ -75,7 +74,6 @@ namespace Console_Text_RPG_Team
 				case EventType.UseGold:
 					EventUseGold(quest, value);
 					break;
-
 			}
 		}
 

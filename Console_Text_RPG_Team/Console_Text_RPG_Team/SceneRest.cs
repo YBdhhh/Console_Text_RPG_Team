@@ -23,8 +23,8 @@ namespace Console_Text_RPG_Team
 			sb.AppendLine("");
 			sb.AppendLine($"이  름	:{player.name}");
 			sb.AppendLine($"Lv.	: {player.level}");
-			sb.AppendLine($"체  력	: {player.hp}");
-			sb.AppendLine($"돈	: {player.gold}");
+			sb.AppendLine($"체  력	: ({player.hp} / {player.maxHp})");
+			sb.AppendLine($"돈	: {player.Gold}");
 			sb.AppendLine();
 			sb.AppendLine();
 			sb.AppendLine("1. 휴식하기");
@@ -59,11 +59,20 @@ namespace Console_Text_RPG_Team
 							Console.ResetColor();
 							Console.WriteLine();
 							Console.WriteLine("요람의 신비한 힘이 당신을 회복시켰습니다.");
-							player.hp += (int)(player.hp * 0.3f);
-							player.gold -= 30;
+							if (player.maxHp < player.hp * 1.3f)
+							{
+								player.hp = player.maxHp;
+							}
+							else
+							{
+								player.hp += (int)(player.maxHp * 0.3f);
+							}
+							
+							Console.WriteLine($"체력이 회복되었습니다.");
+							player.Gold -= 30;
 							Thread.Sleep(500);
 							Console.WriteLine();
-							Console.WriteLine($"현재 체력 : {player.hp} / 현재 골드 : {player.gold}");
+							Console.WriteLine($"현재 체력 : ({player.hp} / {player.maxHp})  | 현재 골드 : {player.Gold}");
 							Console.ReadLine();
 							return;
 

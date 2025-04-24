@@ -46,12 +46,11 @@ namespace Console_Text_RPG_Team
 				if (input > 0 && input <= job.Count)
 				{
 					int index = input - 1;
-					player.hp = job[index].hp;
-					player.maxHp = job[index].hp;
+					player.HpUpSet(job[index].hp - player.hp);
 					player.atk = job[index].atk;
 					player.def = job[index].def;
 					player.job = job[index].name;
-					float hp = player.hp;
+					float hp = player.maxHp;
 					float atk = player.atk;
 					float def = player.def;
 					string name = player.job;
@@ -59,11 +58,14 @@ namespace Console_Text_RPG_Team
 
 					StringBuilder sb = new StringBuilder();
 
-					sb.AppendLine($"{index + 1, 4}. 직업 : {name, 15} 체력 : {hp,10} 공격력 : {atk,10} 방어력 : {def,-5}을 선택하셨습니다.");
-					sb.AppendLine("계속 하려면 아무 키나 눌러주십시오");
-					sb.Append(">> ");
+					sb.AppendLine($"{index + 1, 4}. 직업 : {name, 5} 체력 : {hp,5} 공격력 : {atk,5} 방어력 : {def,5}을 선택하셨습니다.");
+					sb.AppendLine();
 					Console.Write(sb.ToString());
-					Console.ReadLine();
+					Thread.Sleep(500);
+					Console.Write("...");
+					Thread.Sleep(500);
+					Console.Write("입장 중");
+					Thread.Sleep(500);
 					return;
 				}
 				else
