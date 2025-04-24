@@ -129,6 +129,7 @@ namespace Console_Text_RPG_Team
                 sb.Clear();
                 string input = Console.ReadLine();
 
+
                 if (int.TryParse(input, out int choice))
                 {
                     if (choice == 0)
