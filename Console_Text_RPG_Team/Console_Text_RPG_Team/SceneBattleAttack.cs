@@ -65,24 +65,25 @@ namespace Console_Text_RPG_Team
                 sb.AppendLine();
                 sb.Append(" >>");
                 Console.Write(sb.ToString());
-                int.TryParse(Console.ReadLine(), out result);
-                if (1 <= result || result <= player.skill.Count + 1)
-                    return (result - 2, player);
-                else
+                string input = Console.ReadLine();
+                bool isNumber = int.TryParse(input, out result);
+                if (isNumber)
                 {
-                    Console.WriteLine("잘못된 값을 입력하셨습니다.");
+                    if (1 <= result && result <= player.skill.Count + 1)
+                        return (result , player);
                 }
+                Console.WriteLine("잘못된 값을 입력하셨습니다.");
             }
         }
 
         public float SelectDamage(int result, Player player)
         {
             float damage = 0;
-            if (result == -1)
+            if (result == 1)
                 damage = player.atk;
-            else
+            else /*if(result <= player.skill.Count + 1)*/
             {
-                damage = player.skill[result].UseSkill(player);
+                damage = player.skill[result-2].UseSkill(player);
             }
             return damage;
         }
@@ -91,32 +92,72 @@ namespace Console_Text_RPG_Team
         {
             while (true)
             {
-                BattleMenu(); //3
+                BattleMenu();
 
                 string input = Console.ReadLine();
-                //if (input == "0") return;
 
-                if (!int.TryParse(input, out int choice) || choice < 1 || choice > monsters.Count)
+                if (input == "0") return; // 0번을 누르면 전투 턴 종료 (임시)
+
+                if (!int.TryParse(input, out int choice))
                 {
                     Console.WriteLine("잘못된 입력입니다.");
                     continue;
                 }
 
-                Monster target = monsters[choice - 1];
-                if (!target.IsAlive())
+                if (choice == 1) // 공격 선택
                 {
-                    Console.WriteLine("이미 죽은 몬스터입니다.");
-                    continue;
-                }
-                int result;
-                (result, player) = WhatSelectDamage(player);
+                    // 공격할 몬스터 선택 로직
+                    Console.WriteLine("\n공격할 몬스터 번호를 선택하세요:");
+                    string monsterInput = Console.ReadLine();
+                    if (!int.TryParse(monsterInput, out int monsterChoice) || monsterChoice < 3 || monsterChoice > monsters.Count + 2)
+                    {
+                        Console.WriteLine("잘못된 입력입니다.");
+                        continue;
+                    }
 
-                float damaged = SelectDamage(result, player);
-                float criticalDamage = player.CriticalDamage(player, damaged);
-                float finalDamage = GetRandomDamage(criticalDamage);
-                target.TakeDamage(finalDamage);
-                PlayerAttackLog(player, target, finalDamage);
-                break;
+                    Monster target = monsters[monsterChoice - 3];
+                    if (!target.IsAlive())
+                    {
+                        Console.WriteLine("이미 죽은 몬스터입니다.");
+                        continue;
+                    }
+
+                    (int result, player) = WhatSelectDamage(player);
+                    float damaged = SelectDamage(result, player);
+                    float criticalDamage = player.CriticalDamage(player, damaged);
+                    float finalDamage = GetRandomDamage(criticalDamage);
+                    target.TakeDamage(finalDamage);
+                    PlayerAttackLog(player, target, finalDamage);
+                    break; // 공격 후 플레이어 턴 종료
+                }
+                else if (choice == 2) // 포션 사용 선택
+                {
+                    player.inventory.UsePotion(player);
+                    Console.WriteLine("\n계속하려면 아무 키나 누르세요...");
+                    Console.ReadKey();
+                    continue; // 포션 사용 후 다시 행동 선택
+                }
+                else if (choice >= 3 && choice <= monsters.Count + 2) // 몬스터 공격 선택 (직접 번호 입력)
+                {
+                    Monster target = monsters[choice - 3];
+                    if (!target.IsAlive())
+                    {
+                        Console.WriteLine("이미 죽은 몬스터입니다.");
+                        continue;
+                    }
+
+                    (int result, player) = WhatSelectDamage(player);
+                    float damaged = SelectDamage(result, player);
+                    float criticalDamage = player.CriticalDamage(player, damaged);
+                    float finalDamage = GetRandomDamage(criticalDamage);
+                    target.TakeDamage(finalDamage);
+                    PlayerAttackLog(player, target, finalDamage);
+                    break; // 공격 후 플레이어 턴 종료
+                }
+                else
+                {
+                    Console.WriteLine("잘못된 입력입니다.");
+                }
             }
         }
 
@@ -137,7 +178,7 @@ namespace Console_Text_RPG_Team
         {
             if (!player.IsAlive())
             {
-                Result(false, player);
+                Result(false, player, monsters);
                 return true;
             }
 
@@ -150,7 +191,7 @@ namespace Console_Text_RPG_Team
 
             if (aliveCount == 0)
             {
-                Result(true, player);
+                Result(true, player, monsters);
                 return true;
             }
 
@@ -172,12 +213,15 @@ namespace Console_Text_RPG_Team
         public void BattleMenu()
         {
             Console.Clear();
-            Console.WriteLine("공격할 몬스터를 선택하세요:");
+            Console.WriteLine("원하는 행동을 선택하세요:");
+            Console.WriteLine("1. 공격");
+            Console.WriteLine("2. 포션 사용"); // 포션 사용 선택지 추가
+            Console.WriteLine("\n공격할 몬스터를 선택하세요:");
             for (int i = 0; i < monsters.Count; i++)
             {
                 var m = monsters[i];
                 string status = m.IsAlive() ? $"HP: {m.hp}" : "Dead";
-                Console.WriteLine($"{i + 1}. {m.name} (Lv.{m.level}) - {status}");
+                Console.WriteLine($"{i + 3}. {m.name} (Lv.{m.level}) - {status}"); // 공격 선택지 번호 조정
             }
             Console.WriteLine("\n0. 돌아가기");
             Console.Write(">> ");
@@ -236,88 +280,85 @@ namespace Console_Text_RPG_Team
 
         }
 
-        public void Result(bool isVictory, Player player)
+        public void Result(bool isVictory, Player player, List<Monster> monsters)
         {
             Console.Clear();
             StringBuilder sb = new StringBuilder();
 
-            // 전투 전 상태 백업
-            int previousLevel = player.level;
-            int previousExp = player.exp;
-            float previousHP = player.PreviousHP;
+            if (!isVictory)
+            {
+                sceneBattle.clearCount = 0;
+                sb.AppendLine("Battle!! - Result\n");
+                sb.AppendLine("You Lose\n");
+                sb.AppendLine("0. 다음\n>>");
+                Console.WriteLine(sb.ToString());
+                Console.ReadLine();
+                return;
+            }
 
+            List<Item> droppedItems = new List<Item>();
             int totalGold = 0;
             int totalExp = 0;
-            Dictionary<string, int> itemRewards = new Dictionary<string, int>();
+            int killCount = 0;
+            Random rand = new Random();
+
+            foreach (var monster in monsters)
+            {
+                if (!monster.IsAlive()) continue;
+
+                Reward reward = monster.GetReward();
+                totalGold += reward.gold;
+                totalExp += reward.exp;
+                killCount++;
+
+                List<Item> dropItems = monster.GetDropItems();
+                foreach (var item in dropItems)
+                {
+                    int dropCount = rand.Next(0, 3);
+                    for (int i = 0; i < dropCount; i++)
+                    {
+                        droppedItems.Add(item);
+                    }
+                }
+            }
+            sceneBattle.clearCount++;
+            if (sceneBattle.clearCount > sceneBattle.maxClearCount) //
+            {
+                if (sceneBattle.dungeonFloor.Exists(x => sceneBattle.currentFloor == sceneBattle.dungeonFloor.Count && sceneBattle.dungeonFloor.Count < 3))   //3층 이하일때 현재최고층 난이도를 깨야만 층이 추가되도록
+                {
+                    sceneBattle.dungeonFloor.Add(sceneBattle.currentFloor + 1);
+                }
+                sceneBattle.clearCount = 1;
+            }
+            int prevLevel = player.level;
+            int prevExp = player.exp;
+            float prevHP = player.hp;
+
+            player.gold += totalGold;
+            player.exp += totalExp;
+            sceneBattle.AddDroppedItemsToInventory(player, droppedItems);
 
             sb.AppendLine("Battle!! - Result\n");
+            sb.AppendLine("Victory\n");
+            sb.AppendLine($"던전에서 몬스터 {killCount}마리를 잡았습니다.\n");
 
-            if (isVictory)
+            sb.AppendLine("[캐릭터 정보]");
+            sb.AppendLine($"Lv.{prevLevel} {player.name} -> Lv{player.level}. {player.name}");
+            sb.AppendLine($"HP {prevHP} -> {player.hp}");
+            sb.AppendLine($"exp {prevExp} -> {player.exp}\n");
+
+            sb.AppendLine("[획득 아이템]");
+            sb.AppendLine($"{totalGold} Gold");
+
+            var groupedItems = droppedItems.GroupBy(i => i.name).Select(g => new { Name = g.Key, Count = g.Count() });
+            foreach (var item in groupedItems)
             {
-                sb.AppendLine("Victory\n");
-
-                int killCount = 0;
-                foreach (var monster in monsters)
-                {
-                    if (!monster.IsAlive())
-                    {
-                        killCount++;
-
-                        //보상 적용
-                        Reward reward = monster.GetReward();
-                        totalGold += reward.gold;
-                        totalExp += reward.exp;
-
-                        //드랍 아이템
-                        List<string> dropItems = monster.GetDropItems();
-
-                        AddItem(itemRewards, dropItems);
-                    }
-
-                }
-
-                sb.AppendLine($"던전에서 몬스터 {killCount}마리를 잡았습니다.\n");
-
-                // 보상 적용
-                player.gold += totalGold;
-                player.Exp += totalExp;
-                // exp, Exp 대소문자 구별 주의
-
-                // 캐릭터 정보
-                sb.AppendLine("[캐릭터 정보]");
-                sb.AppendLine($"Lv.{previousLevel} {player.name} -> Lv.{player.level} {player.name}");
-                sb.AppendLine($"HP {previousHP} -> {player.hp}");
-                sb.AppendLine($"EXP {previousExp} -> {player.exp}\n");
-
-                // 아이템, 골드 출력
-                sb.AppendLine("[획득 아이템]");
-                sb.AppendLine($"{totalGold} Gold");
-                foreach (var item in itemRewards)
-                {
-                    sb.AppendLine($"{item.Key} - {item.Value}");
-                }
-                sceneBattle.clearCount++;
-                if (sceneBattle.clearCount > sceneBattle.maxClearCount) //
-                {
-                    if (sceneBattle.dungeonFloor.Exists(x => sceneBattle.currentFloor == sceneBattle.dungeonFloor.Count && sceneBattle.dungeonFloor.Count < 3))   //3층 이하일때 현재최고층 난이도를 깨야만 층이 추가되도록
-                    {
-                        sceneBattle.dungeonFloor.Add(sceneBattle.currentFloor + 1);
-                    }
-                    sceneBattle.clearCount = 1;
-                }
-            }
-            else
-            {
-                sb.AppendLine("You Lose\n");
-                sceneBattle.clearCount = 0;
+                sb.AppendLine($"{item.Name} - {item.Count}");
             }
 
-            sb.AppendLine("\n0. 다음");
-            sb.Append(">> ");
+            sb.AppendLine("\n0. 다음\n>>");
             Console.WriteLine(sb.ToString());
             Console.ReadLine();
-            monsters.Clear();
-
         }
 
         public void AddItem(Dictionary<string, int> items, List<string> dropItems)

@@ -15,6 +15,7 @@ namespace Console_Text_RPG_Team
 		public float critical = 1000; //10%
 		public float miss = 100; //10%
 		public float hp = 100;
+		public float maxHp;
 		public float atk = 10;
 		public float def = 5;
 		public float mp = 10;
@@ -24,6 +25,13 @@ namespace Console_Text_RPG_Team
 		public int level = 1;
 		public int[] expCount = new int[5] { 10, 35, 65, 100, 150 };
 		public int exp = 0;
+
+		public Inventory inventory { get; set; }
+
+		public Player()
+		{
+			inventory = new Inventory();
+		}
 
 		public int Exp
 		{
@@ -104,6 +112,12 @@ namespace Console_Text_RPG_Team
                 Thread.Sleep(500);
 			}
 			return isMiss;
+		}
+
+		public void Heal(float amount)
+		{
+			hp += amount;
+			if (hp > maxHp) hp = maxHp;
 		}
 	}
 }

@@ -13,16 +13,18 @@ namespace Console_Text_RPG_Team
 		public float atk;
 		public float def;
 		public int level;
+		public int expReward;
 		public float PreviousHP;
-		public List<string> dropItems;
+		public List<Item> dropItems;
 
-		public Monster(string name, float hp, float atk, float def, int level, List<string> dropItems)
+		public Monster(string name, float hp, float atk, float def, int level, int expReward, List<Item> dropItems)
 		{
 			this.name = name;
 			this.hp = hp;
 			this.atk = atk;
 			this.def = def;
 			this.level = level;
+			this.expReward = expReward;
 			this.dropItems = dropItems;
 		}
 
@@ -58,12 +60,11 @@ namespace Console_Text_RPG_Team
 
 		public Reward GetReward()
 		{
-			int goldReward = 0;
-			int expReward = 0;
-			return new Reward(goldReward, expReward);
+			return new Reward(expReward * 10, expReward);
 		}
 
-		public List<string> GetDropItems()
+		// 드랍 아이템 리스트 반환
+		public List<Item> GetDropItems()
 		{
 			return dropItems;
 		}

@@ -37,8 +37,7 @@ namespace Console_Text_RPG_Team
 		StringBuilder sb = new StringBuilder();
 		public void Start(Player player)
 		{
-            Thread.Sleep(500);
-            player.skill.Add(new Skill(skills[0]));
+
 			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine($" 단풍 마을에 오신 {player.name} 용사 환영합니다.");
@@ -65,9 +64,9 @@ namespace Console_Text_RPG_Team
                     break;
 				case 2:
 					sceneBattle.SelectDungeon(player);
-                    break;
-                case 3:
-                    sceneInventory.Start(inventory);
+					break;
+				case 3:
+                    sceneInventory.Start(inventory, player);
                     break;
                 case 4:
                     sceneShop.Start(player, inventory);

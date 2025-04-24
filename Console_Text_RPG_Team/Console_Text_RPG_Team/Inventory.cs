@@ -25,6 +25,34 @@ namespace Console_Text_RPG_Team
         {
             return items;
         }
+
+        public void UsePotion(Player player)
+        {
+            var potions = items.OfType<Potion>().ToList();
+            if (potions.Count == 0)
+            {
+                Console.WriteLine("사용할 수 있는 포션이 없습니다.");
+                return;
+            }
+
+            Console.WriteLine("사용할 포션을 선택하세요:");
+            for (int i = 0; i < potions.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {potions[i].name} - {potions[i].toolTip} (회복량: {potions[i].HealAmount})");
+            }
+            Console.Write("선택 >> ");
+            string input = Console.ReadLine();
+
+            if (int.TryParse(input, out int choice) && choice >= 1 && choice <= potions.Count)
+            {
+                var selectedPotion = potions[choice - 1];
+                selectedPotion.UsePotion(player);
+                items.Remove(selectedPotion);
+            }
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다.");
+            }
+        }
     }
-    
 }
