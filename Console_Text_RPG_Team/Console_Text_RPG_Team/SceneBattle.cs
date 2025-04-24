@@ -59,13 +59,20 @@ namespace Console_Text_RPG_Team
         {
             Console.Clear();
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("들어갈 던전의 층수를 선택해주세요: \n");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine();
+            Console.WriteLine(" 경비병 루크: ...Zzz...: \n");
+            Console.ResetColor();
             for (int i = 1; i <= dungeonFloor.Count; i++)
             {
                 sb.AppendLine($"{i} {dungeonFloor[i - 1]}층 ");
+                Console.Write(sb.ToString());
+                sb.Clear();
             }
-            sb.AppendLine("\n0. 돌아가기\n");
-            sb.AppendLine(">>");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("0. 돌아가기");
+            Console.ResetColor();
+            sb.Append(" >> ");
             Console.Write(sb.ToString());
             sb.Clear();
             int choose = Checkinput(1, dungeonFloor.Count);
@@ -102,7 +109,7 @@ namespace Console_Text_RPG_Team
                         return choose;
                     }
                 }
-                Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요: ");
+                Console.WriteLine(" 잘못된 입력입니다. 다시 입력해주세요: ");
             }
         }
         public void StartBattle(Player player)
@@ -117,16 +124,25 @@ namespace Console_Text_RPG_Team
 
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine($"Battle!! {currentFloor} - {clearCount}\n");
+                Console.WriteLine();
+                Console.WriteLine($" 앗! {currentFloor} - {clearCount}에서 몬스터가 나타났다!\n");
                 Console.ResetColor();
                 SpawnMonster();
-                sb.AppendLine("[내정보]");
-                sb.AppendLine($"Lv.	: {player.level}");
-                sb.AppendLine($"직업	: {player.job}");
-                sb.AppendLine($"체  력	: {player.PreviousHP}/{player.hp}");
-                sb.AppendLine("1. 전투시작").Append("\n");
-                sb.AppendLine("원하시는 행동을 입력해주세요.");
-                sb.Append(">> ");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("[내정보]");
+                Console.ResetColor();
+                sb.AppendLine(" ====================");
+                sb.AppendLine($" Lv.	: {player.level}");
+                sb.AppendLine($" 직업	: {player.job}");
+                sb.AppendLine($" 체  력	: {player.PreviousHP}/{player.hp}");
+                Console.Write(sb.ToString());
+                sb.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write(" 1. 전투시작");
+                Console.WriteLine();
+                Console.ResetColor();
+                sb.AppendLine(" 원하시는 행동을 입력해주세요.");
+                sb.Append(" >> ");
                 Console.Write(sb.ToString());
                 sb.Clear();
                 int choose = Checkinput(1, 1);
@@ -134,7 +150,7 @@ namespace Console_Text_RPG_Team
                 {
                     case 0:
                     case 1:
-                        Console.WriteLine("공격창");
+                        Console.WriteLine(" 공격창");
                         sceneBattleAttack.BattleLoop(player, spawnList);
                         spawnList.Clear();
                         break;
@@ -220,7 +236,9 @@ namespace Console_Text_RPG_Team
             }
             for (int index = 0; index < spawnList.Count; index++)
             {
-                Console.WriteLine($"Lv.{spawnList[index].level} {spawnList[index].name} HP {spawnList[index].hp}");
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine($" Lv.{spawnList[index].level} {spawnList[index].name} HP {spawnList[index].hp}");
+                Console.ResetColor();
             }
             Console.WriteLine();
         }
@@ -232,12 +250,12 @@ namespace Console_Text_RPG_Team
                 string input = Console.ReadLine();
                 if (!int.TryParse(input, out int choose) || (choose != 1))
                 {
-                    Console.WriteLine("다시 입력해주십시오");
+                    Console.WriteLine(" 다시 입력해주십시오");
                     continue;
                 }
                 else
                 {
-                    Console.WriteLine("공격창");
+                    Console.WriteLine(" 공격창");
                     sceneBattleAttack.BattleLoop(player, spawnList);
                     spawnList.Clear();
                     break;

@@ -14,7 +14,8 @@ namespace Console_Text_RPG_Team
 		{
 			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine(" ========회복의 요람======== ");
+            Console.WriteLine();
+            Console.WriteLine(" ========회복의 요람======== ");
 			Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine(" 30G만 내주신다면 용사님의 체력을 30%씩이나 회복시켜드립니다");
@@ -59,7 +60,7 @@ namespace Console_Text_RPG_Team
 							Console.ForegroundColor = ConsoleColor.Green;
 							Console.WriteLine(" 당신은 30G를 내고 치유의 요람에서 즐겁게 놀았습니다.");
 							Thread.Sleep(500);
-							Console.WriteLine(" ...");
+							Console.WriteLine("...");
 							Thread.Sleep(500);
 							Console.ResetColor();
 							Console.WriteLine();

@@ -46,8 +46,8 @@ namespace Console_Text_RPG_Team
                     }
                 }
                     // 잘못된 입력 처리
-                    sb.AppendLine("잘못된 입력입니다. 다시 입력해주세요.");
-                    sb.Append(">> ");
+                    sb.AppendLine(" 잘못된 입력입니다. 다시 입력해주세요.");
+                    sb.Append(" >> ");
                     Console.Write(sb.ToString());
                     sb.Clear();
                    Thread.Sleep(1000); // 1초 대기
@@ -60,7 +60,8 @@ namespace Console_Text_RPG_Team
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine(" 반갑네 여기서는 좋은 아이템만 취급하니까 한 번 골라보라고");
+            Console.WriteLine();
+            Console.WriteLine(" 돼지와 함께 춤을: 반갑네 여기서는 좋은 아이템만 취급하니까 한 번 골라보라고");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" ============================================  아이템 목록 ============================================");
@@ -109,7 +110,8 @@ namespace Console_Text_RPG_Team
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine(" ======= 아이템 구매 목록 =======");
+                Console.WriteLine();
+                Console.WriteLine(" ======= 아이템 구매 가능 목록 =======");
                 Console.ResetColor();
                 for (int i = 0; i < shopItems.Count; i++)
                 {
@@ -141,7 +143,9 @@ namespace Console_Text_RPG_Team
                 Console.WriteLine($"[보유골드]: {player.gold}G\n");
                 Console.ResetColor();
 
-                sb.AppendLine("0: 뒤로가기");
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine("0: 뒤로가기");
+                Console.ResetColor();
                 sb.AppendLine("[구매하실 아이템 번호를 입력해주세요]");
                 sb.Append(">> ");
                 Console.Write(sb.ToString());
