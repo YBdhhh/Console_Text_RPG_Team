@@ -65,12 +65,12 @@ namespace Console_Text_RPG_Team
             Console.ResetColor();
             for (int i = 1; i <= dungeonFloor.Count; i++)
             {
-                sb.AppendLine($"{i} {dungeonFloor[i - 1]}층 ");
+                sb.AppendLine($" {i} {dungeonFloor[i - 1]}층 ");
                 Console.Write(sb.ToString());
                 sb.Clear();
             }
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("0. 돌아가기");
+            Console.WriteLine(" 0. 돌아가기");
             Console.ResetColor();
             sb.Append(" >> ");
             Console.Write(sb.ToString());
