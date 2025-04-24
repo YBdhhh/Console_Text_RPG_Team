@@ -37,20 +37,24 @@ namespace Console_Text_RPG_Team
 		StringBuilder sb = new StringBuilder();
 		public void Start(Player player)
 		{
-			player.skill.Add(new Skill(skills[0]));
+
 			Console.Clear();
-			sb.AppendLine($"스파르타 던전에 오신 {player.name} 님 환영합니다.");
-			sb.AppendLine("이제 전투를 시작할수 있습니다.");
+			Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine();
+            Console.WriteLine($" 단풍 마을에 오신 {player.name} 용사 환영합니다.");
+            Console.WriteLine(" 원하시는 행동을 하실 수 있습니다.");
+			Console.ResetColor();
+            sb.AppendLine();
+			sb.AppendLine(" 1.상태 보기");
+			sb.AppendLine(" 2.전투 시작");
+            sb.AppendLine(" 3.인벤토리 보기");
+            sb.AppendLine(" 4.상점 이동");
+			sb.AppendLine(" 5.휴식 하기");
+            sb.AppendLine(" 0.게임 종료");
 			sb.AppendLine();
-			sb.AppendLine("1.상태 보기");
-			sb.AppendLine("2.전투 시작");
-            sb.AppendLine("3.인벤토리 보기");
-            sb.AppendLine("4.상점 이동");
-			sb.AppendLine("5.휴식 하기");
-            sb.AppendLine("0.게임 종료");
-			sb.AppendLine();
-			sb.AppendLine("원하시는 행동을 입력해주세요.");
-			Console.WriteLine(sb.ToString());
+			sb.AppendLine(" 원하시는 행동의 번호를 입력해주세요.");
+            sb.Append(" >> ");
+            Console.Write(sb.ToString());
 			sb.Clear();
 			int result = Checkinpvt(0, 5);
 
@@ -58,7 +62,7 @@ namespace Console_Text_RPG_Team
 			{
 				case 1:
 					sceneStatus.Start(player);
-					break;
+                    break;
 				case 2:
 					sceneBattle.SelectDungeon(player);
 					break;
@@ -70,7 +74,7 @@ namespace Console_Text_RPG_Team
                     break;
 				case 5:
 					sceneRest.Start(player);
-					break;
+                    break;
 
             }
 		}
@@ -87,7 +91,7 @@ namespace Console_Text_RPG_Team
 					if (result >= min && result <= max)
 						return result;
 				}
-				Console.WriteLine("잘못된 입력입니다.");
+				Console.WriteLine(" 잘못된 입력입니다.");
 			}
 		}
 	}

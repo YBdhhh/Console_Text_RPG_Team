@@ -23,26 +23,32 @@ namespace Console_Text_RPG_Team
 		{
 			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine("직업 선택");
+            Console.WriteLine();
+            Console.WriteLine("[ 직업 선택 ]".PadLeft(10));
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine($" 용사님의 직업을 선택하여 주세요.");
 			Console.ResetColor();
-			sb.Append("원하시는 직업을 선택하여 주십시오").Append("\n");
-			sb.AppendLine("");
-			for (int i = 0; i < job.Count; i++)
+
+            sb.AppendLine(" ============================================================");
+            for (int i = 0; i < job.Count; i++)
 			{
-				sb.AppendFormat($"{(i + 1)}. 직업: {job[i].name}" + ("체력 :").PadLeft(8) + $"{job[i].hp, -4} 공격력 : {job[i].atk, -4} 방어력 : {job[i].def, -4} ").Append("\n");
+				sb.AppendFormat($" | {(i + 1)}. 직업: {job[i].name}" + ("체력 :").PadLeft(8) + $"{job[i].hp, -4} 공격력 : {job[i].atk, -4} 방어력 : {job[i].def, -4}|").Append("\n");
 			}
-			sb.Append("\n");
-			sb.Append("원하시는 행동을 입력해주세요.").Append("\n");
+            sb.AppendLine(" ============================================================");
+            sb.Append("\n");
+            sb.Append(" 원하시는 직업의 번호를 선택해주세요.").Append("\n");
 			Console.Write(sb.ToString());
 			sb.Clear();
 		}
 
 		public void Input(Player player)
 		{
-			Console.Write(">> ");
+			Console.Write(" >> ");
 			try
 			{
-				int input = int.Parse(Console.ReadLine());
+                Thread.Sleep(500);
+                int input = int.Parse(Console.ReadLine());
 				if (input > 0 && input <= job.Count)
 				{
 					int index = input - 1;
@@ -58,22 +64,22 @@ namespace Console_Text_RPG_Team
 
 
 					StringBuilder sb = new StringBuilder();
-
-					sb.AppendLine($"{index + 1, 4}. 직업 : {name, 15} 체력 : {hp,10} 공격력 : {atk,10} 방어력 : {def,-5}을 선택하셨습니다.");
-					sb.AppendLine("계속 하려면 아무 키나 눌러주십시오");
-					sb.Append(">> ");
+                    sb.AppendLine($" {index + 1, 4}. 직업 : {name, 15} 체력 : {hp,10} 공격력 : {atk,10} 방어력 : {def,-5}을 선택하셨습니다.");
+                    sb.Append("\n");
+                    sb.AppendLine($" {player.name} 용사님 {player.job} 직업을 선택하셨습니다.");  
+                    sb.Append(" 단풍 마을로 가실려면 아무 키나 눌러주십시오 ");
 					Console.Write(sb.ToString());
 					Console.ReadLine();
 					return;
 				}
 				else
 				{
-					Console.WriteLine("다시 입력해주십시오");
+					Console.WriteLine(" 다시 입력해주십시오");
 				}
 			}
 			catch (Exception)
 			{
-				Console.WriteLine("다시 입력해주십시오");
+				Console.WriteLine(" 다시 입력해주십시오");
 			}
 
 		}
