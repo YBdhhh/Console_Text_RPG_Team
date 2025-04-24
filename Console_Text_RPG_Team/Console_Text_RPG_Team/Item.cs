@@ -28,6 +28,10 @@ namespace Console_Text_RPG_Team
             this.purchaseItem = false;
             this.equippedItem = false;
         }
+
+        public Item()
+        {
+        }
         public List<Item> Items { get; set; }// // Items 프로퍼티: 현재 객체가 보유한 아이템 리스트를 저장하고 관리
         public static List<Item> ShopItems()//상점에 진열할 아이템 목록
         {

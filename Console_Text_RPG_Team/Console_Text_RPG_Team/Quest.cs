@@ -27,6 +27,7 @@ namespace Console_Text_RPG_Team
 		public int curProgress; //퀘스트 현재 수치
 		public int endProgress; //퀘스트 완료 수치
 
+		public Item item = new Item(); 
 		public string pickName; //대상
 								//public EventType eventType;
 
@@ -34,7 +35,11 @@ namespace Console_Text_RPG_Team
 									//public Item rewardItem;
 		public int rewardExp;
 
-		public Quest(string Name, string Explain, int CurProgress, int EndProgress, EventType EventType, int RewardExp, string pickName)
+		public Quest()
+		{
+		}
+
+		public Quest(string Name, string Explain, int CurProgress, int EndProgress, Item item, EventType EventType, int RewardExp, string pickName)
 		{
 			// Item RewardItem
 			this.name = Name;
@@ -45,6 +50,7 @@ namespace Console_Text_RPG_Team
 			//rewardItem = RewardItem;
 			rewardExp = RewardExp;
 			this.pickName = pickName;
+			this.item = item;
 		}
 
 		public void PlayEvent(Quest quest, string name)

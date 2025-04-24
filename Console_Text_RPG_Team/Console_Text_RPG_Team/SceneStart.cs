@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +19,13 @@ namespace Console_Text_RPG_Team
 	{
 		SceneStatus sceneStatus = new SceneStatus();
 		SceneBattle sceneBattle = new SceneBattle();
-		List<Skill> skills = new List<Skill>
+		SceneRest sceneRest = new SceneRest();
+		SceneQuest SceneQuest = new SceneQuest();
+        private SceneShop sceneShop = new SceneShop();
+        private SceneInventory sceneInventory = new SceneInventory();
+        private Inventory inventory = new Inventory();
+
+        List<Skill> skills = new List<Skill>
 		{//string name, string explain, int damageType, int[] damage, int valueMp, int price
 			new Skill("새비지 블로우", "단검으로 적을 타격한다. Mp 1.5 소모 | 공격력 3배의 피해", (int)DamageType.Atk , new int[] {300}, (int)ValueType.Mp ,1.5f ,1000),
 			new Skill("파워 스트라이크", "장착한 무기로 적에게 일격을 가한다. Mp 1.0 소모 | 공격력 1.2배의 피해", (int)DamageType.Atk , new int[] {120}, (int)ValueType.Mp, 1.0f ,1000),
@@ -27,7 +34,10 @@ namespace Console_Text_RPG_Team
 			new Skill("방패 밀치기", "방패로 상대를 밀친다. Mp 1.0 소모 | 방어력*5의 피해", (int)DamageType.Def , new int[] {500}, (int)ValueType.Mp, 1.0f ,1000),
 			new Skill("몸통박치기", "상대방에게 돌진한다. Hp를 1.0 소모 | 체력*2의 피해", (int)DamageType.Hp , new int[] {200}, (int)ValueType.Hp, 1.0f ,1000),
 		};
-
+		public SceneStart(Player player)
+		{
+			player.skill.Add(new Skill(skills[0]));
+		}
 
 		StringBuilder sb = new StringBuilder();
 		public void Start(Player player)
@@ -38,12 +48,18 @@ namespace Console_Text_RPG_Team
 			sb.AppendLine();
 			sb.AppendLine("1.상태 보기");
 			sb.AppendLine("2.전투 시작");
+            sb.AppendLine("3.인벤토리 보기");
+            sb.AppendLine("4.상점 이동");
+			sb.AppendLine("5.휴식 하기");
+			sb.AppendLine("6.퀘스트술집");
+
 			sb.AppendLine("0.게임 종료");
 			sb.AppendLine();
 			sb.AppendLine("원하시는 행동을 입력해주세요.");
 			Console.WriteLine(sb.ToString());
 			sb.Clear();
-			int result = Checkinpvt(0, 2);
+
+			int result = Checkinpvt(0, 6);
 
 			switch (result)
 			{
@@ -54,7 +70,21 @@ namespace Console_Text_RPG_Team
 				case 2:
 					sceneBattle.StartBattle(player);
 					break;
-			}
+                case 3:
+                    sceneInventory.Start(inventory);
+                    break;
+                case 4:
+                    sceneShop.Start(player, inventory);
+                    break;
+				case 5:
+					sceneRest.Start(player);
+					break;
+				case 6:
+					SceneQuest.Start(player);
+					break;
+
+            }
+
 		}
 
 		public int Checkinpvt(int min, int max)

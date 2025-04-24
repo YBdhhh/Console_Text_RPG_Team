@@ -11,6 +11,10 @@ namespace Console_Text_RPG_Team
 		public string name;
 		public string job;
 
+		public List<Skill> skill = new List<Skill>(4);
+		public Quest quest = new Quest();
+
+
 		public float hp = 100;
 		public float atk = 10;
 		public float def = 5;
