@@ -11,9 +11,11 @@ namespace Console_Text_RPG_Team
     internal class SceneBattleAttack
     {
         SceneBattle sceneBattle;
-        public SceneBattleAttack(SceneBattle _sceneBattle)
+        public Player _player;
+        public SceneBattleAttack(SceneBattle _sceneBattle, Player player)
         {
             sceneBattle = _sceneBattle;
+            _player = player;
         }
         public List<Monster> monsters = new List<Monster>();
 
@@ -41,11 +43,11 @@ namespace Console_Text_RPG_Team
 
             while (true)
             {
-                PlayerAttack(player);
-                if (CheckBattleEnd(player)) break;
+                PlayerAttack();
+                if (CheckBattleEnd(_player)) break;
 
-                EnemyPhase(player);
-                if (CheckBattleEnd(player)) break;
+                EnemyPhase(_player);
+                if (CheckBattleEnd(_player)) break;
             }
         }
 
@@ -87,7 +89,7 @@ namespace Console_Text_RPG_Team
             return damage;
         }
 
-        public void PlayerAttack(Player player)
+        public void PlayerAttack()
         {
             while (true)
             {
@@ -121,17 +123,17 @@ namespace Console_Text_RPG_Team
                         continue;
                     }
 
-                    (int result, player) = WhatSelectDamage(player);
-                    float damaged = SelectDamage(result, player);
-                    float criticalDamage = player.CriticalDamage(player, damaged);
+                    (int result, _player) = WhatSelectDamage(_player);
+                    float damaged = SelectDamage(result, _player);
+                    float criticalDamage = _player.CriticalDamage(_player, damaged);
                     float finalDamage = GetRandomDamage(criticalDamage);
                     target.TakeDamage(finalDamage);
-                    PlayerAttackLog(player, target, finalDamage);
+                    PlayerAttackLog(_player, target, finalDamage);
                     break; // 공격 후 플레이어 턴 종료
                 }
                 else if (choice == 2) // 포션 사용 선택
                 {
-                    player.inventory.UsePotion(player);
+                    _player.inventory.UsePotion(_player);
                     Console.WriteLine("\n계속하려면 아무 키나 누르세요...");
                     Console.ReadKey();
                     continue; // 포션 사용 후 다시 행동 선택
@@ -145,12 +147,12 @@ namespace Console_Text_RPG_Team
                         continue;
                     }
 
-                    (int result, player) = WhatSelectDamage(player);
-                    float damaged = SelectDamage(result, player);
-                    float criticalDamage = player.CriticalDamage(player, damaged);
+                    (int result, _player) = WhatSelectDamage(_player);
+                    float damaged = SelectDamage(result, _player);
+                    float criticalDamage = _player.CriticalDamage(_player, damaged);
                     float finalDamage = GetRandomDamage(criticalDamage);
                     target.TakeDamage(finalDamage);
-                    PlayerAttackLog(player, target, finalDamage);
+                    PlayerAttackLog(_player, target, finalDamage);
                     break; // 공격 후 플레이어 턴 종료
                 }
                 else
@@ -309,7 +311,7 @@ namespace Console_Text_RPG_Team
                 totalExp += reward.exp;
                 killCount++;
 
-                List<Item> dropItems = monster.GetDropItems();
+                List<Item> dropItems = monster.GetDropItems(sceneBattle.currentFloor);
                 foreach (var item in dropItems)
                 {
                     int dropCount = rand.Next(0, 3);

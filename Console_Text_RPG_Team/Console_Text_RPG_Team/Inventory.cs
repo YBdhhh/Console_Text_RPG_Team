@@ -28,25 +28,27 @@ namespace Console_Text_RPG_Team
 
         public void UsePotion(Player player)
         {
-            var potions = items.OfType<Potion>().ToList();
-            if (potions.Count == 0)
+            List<Item> availablePotions = items.Where(item => item.Type == ItemType.Potion).ToList();
+
+            if (availablePotions.Count == 0)
             {
                 Console.WriteLine("사용할 수 있는 포션이 없습니다.");
                 return;
             }
 
             Console.WriteLine("사용할 포션을 선택하세요:");
-            for (int i = 0; i < potions.Count; i++)
+            for (int i = 0; i < availablePotions.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {potions[i].name} - {potions[i].toolTip} (회복량: {potions[i].HealAmount})");
+                Console.WriteLine($"{i + 1}. {availablePotions[i].name} - {availablePotions[i].toolTip} (회복량: {availablePotions[i].HealAmount})");
             }
             Console.Write("선택 >> ");
             string input = Console.ReadLine();
 
-            if (int.TryParse(input, out int choice) && choice >= 1 && choice <= potions.Count)
+            if (int.TryParse(input, out int choice) && choice >= 1 && choice <= availablePotions.Count)
             {
-                var selectedPotion = potions[choice - 1];
-                selectedPotion.UsePotion(player);
+                Item selectedPotion = availablePotions[choice - 1];
+                Console.WriteLine($"{player.name}은(는) {selectedPotion.name}을(를) 사용하여 {selectedPotion.HealAmount}만큼 체력을 회복했습니다!");
+                player.Heal(selectedPotion.HealAmount);
                 items.Remove(selectedPotion);
             }
             else
