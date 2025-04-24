@@ -43,7 +43,7 @@ namespace Console_Text_RPG_Team
 
                 while (true)
                 {
-                    Console.WriteLine($" {player.name}용사님이 맞나요?");
+                    Console.WriteLine($" {player.name} 용사님이 맞나요?");
                     Console.ForegroundColor = ConsoleColor.DarkCyan; //선택지는 DarkCyan
                     Console.WriteLine($" [1. 네  2. 아니요]");
                     Console.ResetColor();
@@ -62,7 +62,7 @@ namespace Console_Text_RPG_Team
                     if (choice == 1)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkYellow; //npc가 말할 때는 DarkYellow로
-                        Console.WriteLine($" {player.name}용사님, 전설이 시작됩니다.");
+                        Console.WriteLine($" {player.name} 용사님, 전설이 시작됩니다.");
                         Console.WriteLine(" 마지막에 엄청난 보상이 있을 수도, 없을 수도…? 그건 직접 겪어보셔야죠!");
                         Thread.Sleep(1500);
                         return;

@@ -40,6 +40,7 @@ namespace Console_Text_RPG_Team
 
 			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine();
             Console.WriteLine($" 단풍 마을에 오신 {player.name} 용사 환영합니다.");
             Console.WriteLine(" 원하시는 행동을 하실 수 있습니다.");
 			Console.ResetColor();

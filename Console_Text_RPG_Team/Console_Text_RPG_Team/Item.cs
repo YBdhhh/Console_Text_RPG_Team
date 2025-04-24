@@ -62,18 +62,18 @@ namespace Console_Text_RPG_Team
         {
             List<Item> shopItemList = new List<Item>
         {
-            new Item("물컹물컹한 신발     ", "일부 애호가에게 잘 팔리는 신발이다.        " ,0  ,5,   500, ItemType.Armor),
-            new Item("노가다 목장갑       ", "노가다를 하는 사람에겐 필수이다.          " ,0  ,10, 1000, ItemType.Armor),
+            new Item("물컹물컹한 신발     ", "일부 애호가에게 잘 팔리는 신발이다.         " ,0  ,5,   500, ItemType.Armor),
+            new Item("노가다 목장갑       ", "노가다를 하는 사람에겐 필수이다.            " ,0  ,10, 1000, ItemType.Armor),
             new Item("홍색 꽃무늬 튜브    ", "이걸 사용한다면 당신도 풀장 인싸남!!        " ,5  ,0,  1000, ItemType.Weapon),
             new Item("머리 위에 떡 두개   ", "나랑 떡먹을래? 이 게임 필수 헌팅아이템      " ,0  ,15, 1500, ItemType.Armor),
             new Item("다크로드의 두건     ", "도적이 되고 싶은 자… 나에게로…            " ,0  ,20, 2000, ItemType.Armor),
-            new Item("돼지치기 막대       ", "주의사항 : 뚱뚱한 사람을 때리면 안된다.    " ,15 ,0,  1500, ItemType.Weapon),
-            new Item("메이플스노우보드    ", "스~노우보드                               " ,20 ,0,  2000, ItemType.Weapon),
-            new Item("카이세리움         ", "선대 카이저가 사용했던 명검이자 수호검      " ,50 ,0,  5000, ItemType.Weapon),
-            new Item("화염의 카타나       ", "귀살대의 검으로 오니의 영혼이 깃들어 있다. " ,100,0, 10000, ItemType.Weapon),
-            new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 40, 40f),
-            new Item("주황 포션", "체력을 회복해주는 주황 포션", 50, 50f),
-            new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 60, 60f)
+            new Item("돼지치기 막대       ", "주의사항 : 뚱뚱한 사람을 때리면 안된다.     " ,15 ,0,  1500, ItemType.Weapon),
+            new Item("메이플스노우보드    ", "스~노우보드                                 " ,20 ,0,  2000, ItemType.Weapon),
+            new Item("카이세리움          ", "선대 카이저가 사용했던 명검이자 수호검      " ,50 ,0,  5000, ItemType.Weapon),
+            new Item("화염의 카타나       ", "귀살대의 검으로 오니의 영혼이 깃들어 있다.  " ,100,0, 10000, ItemType.Weapon),
+            new Item("빨간 포션          ", "체력을 회복해주는 빨간 포션                    " , 40, 40f),
+            new Item("주황 포션          ", "체력을 회복해주는 주황 포션                    " , 50, 50f),
+            new Item("하얀 포션          ", "체력을 회복해주는 하얀 포션                    " , 60, 60f)
         };
             return shopItemList;
         }
