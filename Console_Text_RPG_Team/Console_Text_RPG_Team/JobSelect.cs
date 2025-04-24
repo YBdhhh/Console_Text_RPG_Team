@@ -13,10 +13,10 @@ namespace Console_Text_RPG_Team
 		StringBuilder sb = new StringBuilder();
 		List<Job> job = new List<Job>(4)
 		{
-			new Job("전사"        , 100+50, 15+ 3, 0+4),
-			new Job("궁수"        , 100+20, 15+12, 0+3),
+			new Job("전사  "        , 100+50, 15+ 3, 0+4),
+			new Job("궁수  "        , 100+20, 15+12, 0+3),
 			new Job("마법사"		, 100+10, 15+ 6, 0+2),
-			new Job("도적"        , 100+30, 15+12, 0+3)
+			new Job("도적  "        , 100+30, 15+12, 0+3)
 		};
 
 		public void Start()
@@ -29,7 +29,7 @@ namespace Console_Text_RPG_Team
 			sb.AppendLine("");
 			for (int i = 0; i < job.Count; i++)
 			{
-				sb.Append($"{i + 1}. 직업 : {job[i].name,-8} 체력 : {job[i].hp,-5} 공격력 : {job[i].atk,-5} 방어력 : {job[i].def,-5} ").Append("\n");
+				sb.AppendFormat($"{(i + 1)}. 직업: {job[i].name}" + ("체력 :").PadLeft(8) + $"{job[i].hp, -4} 공격력 : {job[i].atk, -4} 방어력 : {job[i].def, -4} ").Append("\n");
 			}
 			sb.Append("\n");
 			sb.Append("원하시는 행동을 입력해주세요.").Append("\n");
@@ -58,7 +58,7 @@ namespace Console_Text_RPG_Team
 
 					StringBuilder sb = new StringBuilder();
 
-					sb.AppendLine($"{index + 1}. 직업 : {name,-8} 체력 : {hp,-5} 공격력 : {atk,-5} 방어력 : {def,-5}을 선택하셨습니다.");
+					sb.AppendLine($"{index + 1, 4}. 직업 : {name, 15} 체력 : {hp,10} 공격력 : {atk,10} 방어력 : {def,-5}을 선택하셨습니다.");
 					sb.AppendLine("계속 하려면 아무 키나 눌러주십시오");
 					sb.Append(">> ");
 					Console.Write(sb.ToString());

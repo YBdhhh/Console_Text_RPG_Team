@@ -107,9 +107,8 @@ namespace Console_Text_RPG_Team
                 {
                     var item = items[i];
                     string equip = item.equippedItem ? "[E] | " : string.Empty;
-                    string defTxt = item.def > 0 ? $" | DEF: {item.def}" : string.Empty;
-                    string atkTxt = item.atk > 0 ? $" | ATK: {item.atk}" : string.Empty;
-                    sb.AppendLine($"{i + 1}. {equip}{item.name} | {item.toolTip}{atkTxt}{defTxt}");
+                    string statTxt = item.atk > 0 ? $"| 공격력:{item.atk}" : item.def > 0 ? $"| 방어력:{item.def}" : "";
+                    sb.AppendLine($"{i + 1,-1}.{equip} {item.name,-6}| {item.toolTip,-15}{statTxt,-15}");
                     Console.WriteLine(sb.ToString());
                     sb.Clear();
                 }
@@ -168,7 +167,6 @@ namespace Console_Text_RPG_Team
                 for (int i = 0; i < items.Count; i++)
                 {
                     var item = items[i];
-                    // 수정: unEquippedItem 대신 equippedItem 플래그 사용
                     // 해제 대상만 보여주기 위해, 장착된 아이템만 리스트업
                     if (!item.equippedItem) continue;
 
