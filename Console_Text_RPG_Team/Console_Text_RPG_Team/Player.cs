@@ -15,6 +15,7 @@ namespace Console_Text_RPG_Team
 		public float critical = 1000; //10%
 		public float miss = 1000; //10%
 		public float hp = 100;
+		public float maxHp;
 		public float atk = 10;
 		public float def = 5;
 		public float mp = 10;
@@ -100,6 +101,12 @@ namespace Console_Text_RPG_Team
 				Thread.Sleep(500);
 			}
 			return isMiss;
+		}
+
+		public void Heal(float amount)
+		{
+			hp += amount;
+			if (hp > maxHp) hp = maxHp;
 		}
 	}
 }
