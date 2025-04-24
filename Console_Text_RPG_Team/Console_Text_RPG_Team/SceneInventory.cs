@@ -20,7 +20,8 @@ namespace Console_Text_RPG_Team
             this.items = inventory.GetItems();
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("=====아이템 목록=====");
+            //Console.WriteLine(" =====아이템 목록=====");
+            Console.WriteLine();
             Console.WriteLine(" [보유 아이템 목록]\n");
             Console.ResetColor();
             ShowItems();
@@ -32,16 +33,20 @@ namespace Console_Text_RPG_Team
             while (true)
             {
                 Console.Clear();
+                Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("===== 인벤토리 =====");
+                Console.WriteLine(" ====================== 인벤토리 ======================");
                 Console.ResetColor();
 
                 if (items.Count == 0)
                 {
-                    sb.AppendLine("인벤토리가 비어 있습니다.");
+                    sb.AppendLine(" 인벤토리가 비어 있습니다.");
                     Console.WriteLine(sb.ToString());
                     sb.Clear();
-                    sb.AppendLine("0: 뒤로가기");
+                    Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.WriteLine(" 0: 나가기");
+                    Console.ResetColor();
                     sb.Append(" >> ");
                     Console.Write(sb.ToString());
                     sb.Clear();
@@ -54,15 +59,18 @@ namespace Console_Text_RPG_Team
                         var item = items[i];
                         string defTxt = item.def > 0 ? $" | DEF: {item.def}" : string.Empty;
                         string atkTxt = item.atk > 0 ? $" | ATK: {item.atk}" : string.Empty;
-                        sb.AppendLine($"{i + 1}.{(item.equippedItem ? "[E] | " : " ")}{item.name} | {item.toolTip}{atkTxt}{defTxt}");
+                        sb.AppendLine($" {i + 1}.{(item.equippedItem ? "[E] | " : " ")}{item.name} | {item.toolTip}{atkTxt}{defTxt}");
                         Console.WriteLine(sb.ToString());
                         sb.Clear();
 
                     }
-                    sb.AppendLine("0: 뒤로가기");
-                    sb.AppendLine("1: 아이템 장착");
-                    sb.AppendLine("2: 아이템 해제");
-                    sb.AppendLine("3: 포션 사용");
+
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.WriteLine(" 0: 뒤로가기");
+                    Console.WriteLine(" 1: 아이템 장착");
+                    Console.WriteLine(" 2: 아이템 해제");
+                    Console.WriteLine(" 3: 포션 사용");
+                    Console.ResetColor();
                     sb.Append(" >> ");
                     Console.Write(sb.ToString());
                     sb.Clear();
@@ -92,15 +100,15 @@ namespace Console_Text_RPG_Team
                     if (choice == 3)
                     {
                         inventory.UsePotion(player);
-                        Thread.Sleep(1000);
+                        Thread.Sleep(500);
                         continue;
                     }
                 }
                 // 잘못된 입력 처리
-                sb.AppendLine("잘못된 입력입니다. 다시 입력해주세요.");
+                sb.AppendLine(" 잘못된 입력입니다. 다시 입력해주세요.");
                 Console.WriteLine(sb.ToString());
                 sb.Clear();
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
             }
         }
         private void DisplayEquipItem()
@@ -108,8 +116,9 @@ namespace Console_Text_RPG_Team
             while (true)
             {
                 Console.Clear();
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("===== 장착할 아이템 선택 =====");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine();
+                Console.WriteLine(" ====================== 장착할 아이템 선택 ======================");
                 Console.ResetColor();
 
                 for (int i = 0; i < items.Count; i++)
@@ -117,13 +126,15 @@ namespace Console_Text_RPG_Team
                     var item = items[i];
                     string equip = item.equippedItem ? "[E] | " : string.Empty;
                     string statTxt = item.atk > 0 ? $"| 공격력:{item.atk}" : item.def > 0 ? $"| 방어력:{item.def}" : "";
-                    sb.AppendLine($"{i + 1,-1}.{equip} {item.name,-6}| {item.toolTip,-15}{statTxt,-15}");
+                    sb.AppendLine($" {i + 1,-1}.{equip} {item.name,-6}| {item.toolTip,-15}{statTxt,-15}");
                     Console.WriteLine(sb.ToString());
                     sb.Clear();
                 }
-                sb.AppendLine();
-                sb.AppendLine("0: 취소");
-                sb.AppendLine("[장착하실 아이템을 선택해주세요]");
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine(" 0: 취소");
+                Console.WriteLine(" 장착하실 아이템의 번호를 선택해주세요");
+                Console.ResetColor();
                 sb.Append(" >> ");
                 Console.Write(sb.ToString());
                 sb.Clear();
@@ -142,27 +153,27 @@ namespace Console_Text_RPG_Team
                         var selected = items[choice - 1];
                         if (selected.equippedItem)
                         {
-                            sb.AppendLine("이미 장착된 아이템입니다.");
+                            sb.AppendLine(" 이미 장착된 아이템입니다.");
                             Console.WriteLine(sb.ToString());
                             sb.Clear();
                         }
                         else
                         {
                             selected.equippedItem = true;
-                            sb.AppendLine($"{selected.name}을(를) 장착했습니다.");
+                            sb.AppendLine($" {selected.name}을(를) 장착했습니다.");
                             Console.WriteLine(sb.ToString());
                             sb.Clear();
                         }
-                        Thread.Sleep(1000);
+                        Thread.Sleep(500);
                         continue;
                     }
                 }
 
                 // 잘못된 입력 처리
-                sb.AppendLine("잘못된 입력입니다. 다시 입력해주세요.");
+                sb.AppendLine(" 잘못된 입력입니다. 다시 입력해주세요.");
                 Console.WriteLine(sb.ToString());
                 sb.Clear();
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
             }
         }
         private void DisplayUnEquipItem()
@@ -170,8 +181,9 @@ namespace Console_Text_RPG_Team
             while (true)
             {
                 Console.Clear();
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("===== 해제할 아이템 선택 =====");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine();
+                Console.WriteLine(" ====================== 해제할 아이템 선택 ======================");
                 Console.ResetColor();
 
                 for (int i = 0; i < items.Count; i++)
@@ -182,10 +194,13 @@ namespace Console_Text_RPG_Team
 
                     string defTxt = item.def > 0 ? $" | DEF: {item.def}" : string.Empty;
                     string atkTxt = item.atk > 0 ? $" | ATK: {item.atk}" : string.Empty;
-                    Console.WriteLine($"{i + 1}. [E] {item.name} | {item.toolTip}{atkTxt}{defTxt}");
+                    Console.WriteLine($" {i + 1}. [E] {item.name} | {item.toolTip}{atkTxt}{defTxt}");
                 }
                 Console.WriteLine();
-                Console.WriteLine("0: 취소");
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine(" 0: 취소");
+                Console.WriteLine(" 장착하실 아이템의 번호를 선택해주세요");
+                Console.ResetColor();
                 Console.Write(" >> ");
 
                 string input = Console.ReadLine();
@@ -202,14 +217,14 @@ namespace Console_Text_RPG_Team
                         }
                         else
                         {
-                            Console.WriteLine("해제할 장착된 아이템이 아닙니다.");
+                            Console.WriteLine(" 장착된 아이템이 아닙니다.");
                         }
-                        Thread.Sleep(1000);
+                        Thread.Sleep(500);
                         continue;
                     }
                 }
-                Console.WriteLine("잘못된 입력입니다.");
-                Thread.Sleep(1000);
+                Console.WriteLine(" 잘못된 입력입니다.");
+                Thread.Sleep(500);
             }
         }
     }

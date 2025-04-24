@@ -12,10 +12,31 @@ namespace Console_Text_RPG_Team
 
 		public void Start(Player player)
 		{
-			Console.Clear();
+	
+            Console.Clear();
 			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine("상태 보기");
+            Console.WriteLine();
+            Console.WriteLine(" [ 상태 보기 ]".PadLeft(10));
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine(" 용사님의 정보가 표시됩니다.");
+            Console.ResetColor();
+            sb.AppendLine(" ====================");
+            sb.Append($" 이  름	: {player.name}").Append("\n");
+			sb.Append($" Lv.	: {player.level}").Append("\n");
+			sb.Append($" 직업	: {player.job}").Append("\n");
+			sb.Append($" 체  력	: {player.hp}").Append("\n"); 
+			sb.Append($" 공격력	: {player.atk}").Append("\n"); 
+			sb.Append($" 방어력	: {player.def}").Append("\n"); 
+			sb.Append($" 돈	: {player.gold}").Append("\n");
+            sb.AppendLine(" ====================");
+            sb.Append("\n");
+            Console.Write(sb.ToString());
+            sb.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+			Console.WriteLine(" 0. 나가기\n");
 			Console.ResetColor();
+
 			player.ViewStatus();
 			sb.AppendLine($"스탯포인트 : {player.stat}");
 			sb.AppendLine("\n");
@@ -23,6 +44,7 @@ namespace Console_Text_RPG_Team
 			sb.AppendLine("0. 나가기").Append("\n");
 			sb.Append("원하시는 행동을 입력해주세요.").Append("\n");
 			sb.Append(">> ");
+
 			Console.Write(sb.ToString());
 			sb.Clear();
 
@@ -44,13 +66,13 @@ namespace Console_Text_RPG_Team
 						case 0:
 							return;
 						default:
-							Console.WriteLine("다시 입력해주십시오");
+							Console.WriteLine(" 다시 입력해주십시오");
 							continue;
 					}
 				}
 				catch (Exception)
 				{
-					Console.WriteLine("다시 입력해주십시오");
+					Console.WriteLine(" 다시 입력해주십시오");
 					continue;
 				}
 				
