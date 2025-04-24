@@ -137,7 +137,7 @@ namespace Console_Text_RPG_Team
         {
             if (!player.IsAlive())
             {
-                Result(false, player);
+                Result(false, player, monsters);
                 return true;
             }
 
@@ -150,7 +150,7 @@ namespace Console_Text_RPG_Team
 
             if (aliveCount == 0)
             {
-                Result(true, player);
+                Result(true, player, monsters);
                 return true;
             }
 
@@ -236,88 +236,76 @@ namespace Console_Text_RPG_Team
 
         }
 
-        public void Result(bool isVictory, Player player)
+        public void Result(bool isVictory, Player player, List<Monster> monsters)
         {
             Console.Clear();
             StringBuilder sb = new StringBuilder();
 
-            // 전투 전 상태 백업
-            int previousLevel = player.level;
-            int previousExp = player.exp;
-            float previousHP = player.PreviousHP;
+            if (!isVictory)
+            {
+                sb.AppendLine("Battle!! - Result\n");
+                sb.AppendLine("You Lose\n");
+                sb.AppendLine("0. 다음\n>>");
+                Console.WriteLine(sb.ToString());
+                Console.ReadLine();
+                return;
+            }
 
+            List<Item> droppedItems = new List<Item>();
             int totalGold = 0;
             int totalExp = 0;
-            Dictionary<string, int> itemRewards = new Dictionary<string, int>();
+            int killCount = 0;
+            Random rand = new Random();
+
+            foreach (var monster in monsters)
+            {
+                if (!monster.IsAlive()) continue;
+
+                Reward reward = monster.GetReward();
+                totalGold += reward.gold;
+                totalExp += reward.exp;
+                killCount++;
+
+                List<Item> dropItems = monster.GetDropItems();
+                foreach (var item in dropItems)
+                {
+                    int dropCount = rand.Next(0, 3);
+                    for (int i = 0; i < dropCount; i++)
+                    {
+                        droppedItems.Add(item);
+                    }
+                }
+            }
+
+            int prevLevel = player.level;
+            int prevExp = player.exp;
+            float prevHP = player.hp;
+
+            player.gold += totalGold;
+            player.exp += totalExp;
+            sceneBattle.AddDroppedItemsToInventory(player, droppedItems);
 
             sb.AppendLine("Battle!! - Result\n");
+            sb.AppendLine("Victory\n");
+            sb.AppendLine($"던전에서 몬스터 {killCount}마리를 잡았습니다.\n");
 
-            if (isVictory)
+            sb.AppendLine("[캐릭터 정보]");
+            sb.AppendLine($"Lv.{prevLevel} {player.name} -> Lv{player.level}. {player.name}");
+            sb.AppendLine($"HP {prevHP} -> {player.hp}");
+            sb.AppendLine($"exp {prevExp} -> {player.exp}\n");
+
+            sb.AppendLine("[획득 아이템]");
+            sb.AppendLine($"{totalGold} Gold");
+
+            var groupedItems = droppedItems.GroupBy(i => i.name).Select(g => new { Name = g.Key, Count = g.Count() });
+            foreach (var item in groupedItems)
             {
-                sb.AppendLine("Victory\n");
-
-                int killCount = 0;
-                foreach (var monster in monsters)
-                {
-                    if (!monster.IsAlive())
-                    {
-                        killCount++;
-
-                        //보상 적용
-                        Reward reward = monster.GetReward();
-                        totalGold += reward.gold;
-                        totalExp += reward.exp;
-
-                        //드랍 아이템
-                        List<string> dropItems = monster.GetDropItems();
-
-                        AddItem(itemRewards, dropItems);
-                    }
-
-                }
-
-                sb.AppendLine($"던전에서 몬스터 {killCount}마리를 잡았습니다.\n");
-
-                // 보상 적용
-                player.gold += totalGold;
-                player.Exp += totalExp;
-                // exp, Exp 대소문자 구별 주의
-
-                // 캐릭터 정보
-                sb.AppendLine("[캐릭터 정보]");
-                sb.AppendLine($"Lv.{previousLevel} {player.name} -> Lv.{player.level} {player.name}");
-                sb.AppendLine($"HP {previousHP} -> {player.hp}");
-                sb.AppendLine($"EXP {previousExp} -> {player.exp}\n");
-
-                // 아이템, 골드 출력
-                sb.AppendLine("[획득 아이템]");
-                sb.AppendLine($"{totalGold} Gold");
-                foreach (var item in itemRewards)
-                {
-                    sb.AppendLine($"{item.Key} - {item.Value}");
-                }
-                sceneBattle.clearCount++;
-                if (sceneBattle.clearCount > sceneBattle.maxClearCount) //
-                {
-                    if (sceneBattle.dungeonFloor.Exists(x => sceneBattle.currentFloor == sceneBattle.dungeonFloor.Count && sceneBattle.dungeonFloor.Count < 3))   //3층 이하일때 현재최고층 난이도를 깨야만 층이 추가되도록
-                    {
-                        sceneBattle.dungeonFloor.Add(sceneBattle.currentFloor + 1);
-                    }
-                    sceneBattle.clearCount = 1;
-                }
-            }
-            else
-            {
-                sb.AppendLine("You Lose\n");
-                sceneBattle.clearCount = 0;
+                sb.AppendLine($"{item.Name} - {item.Count}");
             }
 
-            sb.AppendLine("\n0. 다음");
-            sb.Append(">> ");
+            sb.AppendLine("\n0. 다음\n>>");
             Console.WriteLine(sb.ToString());
             Console.ReadLine();
-            monsters.Clear();
-
         }
 
         public void AddItem(Dictionary<string, int> items, List<string> dropItems)

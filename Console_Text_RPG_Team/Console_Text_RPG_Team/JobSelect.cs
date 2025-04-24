@@ -47,6 +47,7 @@ namespace Console_Text_RPG_Team
 				{
 					int index = input - 1;
 					player.hp = job[index].hp;
+					player.maxHp = job[index].hp;
 					player.atk = job[index].atk;
 					player.def = job[index].def;
 					player.job = job[index].name;

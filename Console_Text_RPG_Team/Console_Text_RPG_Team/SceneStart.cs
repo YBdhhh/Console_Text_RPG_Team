@@ -62,8 +62,8 @@ namespace Console_Text_RPG_Team
 				case 2:
 					sceneBattle.SelectDungeon(player);
 					break;
-                case 3:
-                    sceneInventory.Start(inventory);
+				case 3:
+                    sceneInventory.Start(inventory, player);
                     break;
                 case 4:
                     sceneShop.Start(player, inventory);
