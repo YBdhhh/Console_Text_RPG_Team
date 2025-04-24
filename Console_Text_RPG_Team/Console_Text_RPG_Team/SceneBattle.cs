@@ -57,34 +57,38 @@ namespace Console_Text_RPG_Team
 
         public void SelectDungeon(Player player)
         {
-            Console.Clear();
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("들어갈 던전의 층수를 선택해주세요: \n");
-            for (int i = 1; i <= dungeonFloor.Count; i++)
+            int choose = 1;
+            while (choose != 0)
             {
-                sb.AppendLine($"{i} {dungeonFloor[i - 1]}층 ");
-            }
-            sb.AppendLine("\n0. 돌아가기\n");
-            sb.AppendLine(">>");
-            Console.Write(sb.ToString());
-            sb.Clear();
-            int choose = Checkinput(1, dungeonFloor.Count);
-            switch (choose)
-            {
-                case 0:
-                    break;
-                case 1:
-                    currentFloor = 1;
-                    StartBattle(player);
-                    break;
-                case 2:
-                    currentFloor = 2;
-                    StartBattle(player);
-                    break;
-                case 3:
-                    currentFloor = 3;
-                    StartBattle(player);
-                    break;
+                Console.Clear();
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("들어갈 던전의 층수를 선택해주세요: \n");
+                for (int i = 1; i <= dungeonFloor.Count; i++)
+                {
+                    sb.AppendLine($"{i} {dungeonFloor[i - 1]}층 ");
+                }
+                sb.AppendLine("\n0. 돌아가기\n");
+                sb.AppendLine(">>");
+                Console.Write(sb.ToString());
+                sb.Clear();
+                choose = Checkinput(1, dungeonFloor.Count);
+                switch (choose)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        currentFloor = 1;
+                        StartBattle(player);
+                        continue;
+                    case 2:
+                        currentFloor = 2;
+                        StartBattle(player);
+                        continue;
+                    case 3:
+                        currentFloor = 3;
+                        StartBattle(player);
+                        continue;
+                }
             }
         }
 
@@ -117,14 +121,15 @@ namespace Console_Text_RPG_Team
 
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine($"Battle!! {currentFloor} - {clearCount}\n");
+                Console.WriteLine($"Battle!! {currentFloor}층 - {clearCount}스테이지\n");
                 Console.ResetColor();
                 SpawnMonster();
                 sb.AppendLine("[내정보]");
                 sb.AppendLine($"Lv.	: {player.level}");
                 sb.AppendLine($"직업	: {player.job}");
                 sb.AppendLine($"체  력	: {player.PreviousHP}/{player.hp}");
-                sb.AppendLine("1. 전투시작").Append("\n");
+                sb.AppendLine("1. 전투시작");
+                sb.AppendLine("0. 도망치기 (스테이지 초기화)").Append("\n");
                 sb.AppendLine("원하시는 행동을 입력해주세요.");
                 sb.Append(">> ");
                 Console.Write(sb.ToString());
@@ -133,6 +138,9 @@ namespace Console_Text_RPG_Team
                 switch (choose)
                 {
                     case 0:
+                        clearCount = 0;
+                        spawnList.Clear();
+                        break;
                     case 1:
                         Console.WriteLine("공격창");
                         sceneBattleAttack.BattleLoop(player, spawnList);
@@ -156,7 +164,7 @@ namespace Console_Text_RPG_Team
 
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine($"Battle!! {currentFloor} - Boss!!\n");
+            Console.WriteLine($"Battle!! {currentFloor}층 - Boss!!\n");
             Console.ResetColor();
             bossMonster.Add(new Monster (bossMonsters[currentFloor-1]));        //보스몹 소환
             sb.AppendLine($"Lv.{bossMonsters[currentFloor-1].level} {bossMonsters[currentFloor-1].name}  HP  {bossMonsters[currentFloor - 1].hp}\n");
@@ -164,7 +172,8 @@ namespace Console_Text_RPG_Team
             sb.AppendLine($"Lv.	: {player.level}");
             sb.AppendLine($"직업	: {player.job}");
             sb.AppendLine($"체  력	: {player.PreviousHP}/{player.hp}");
-            sb.AppendLine("1. 전투시작").Append("\n");
+            sb.AppendLine("1. 전투시작");
+            sb.AppendLine("0. 돌아가기").Append("\n");
             sb.AppendLine("원하시는 행동을 입력해주세요.");
             sb.Append(">> ");
             Console.Write(sb.ToString());
@@ -173,6 +182,10 @@ namespace Console_Text_RPG_Team
             switch (choose)
             {
                 case 0:
+                    Console.WriteLine("이런! 주황버섯 무리가 통로를 막고있다!");
+                    Thread.Sleep(1200);
+                    sceneBattleAttack.BattleLoop(player, bossMonster);
+                    break;
                 case 1:
                     Console.WriteLine("공격창");
                     sceneBattleAttack.BattleLoop(player, bossMonster);
