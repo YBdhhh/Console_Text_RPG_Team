@@ -11,8 +11,8 @@ namespace Console_Text_RPG_Team
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow; //npc가 말할 때는 DarkYellow로
             Console.WriteLine();
-            Console.WriteLine("메이플 던전에 오신 여러분 환영합니다.".PadLeft(22));
-            Console.WriteLine("용사님의 이름을 알려주세요.".PadLeft(20));
+            Console.WriteLine("단풍 마을에 오신 여러분 환영합니다.".PadLeft(21));
+            Console.WriteLine("용사님의 이름을 알려주세요.".PadLeft(16));
             Console.ResetColor();
             Console.WriteLine(sb.ToString());
             sb.Clear();
