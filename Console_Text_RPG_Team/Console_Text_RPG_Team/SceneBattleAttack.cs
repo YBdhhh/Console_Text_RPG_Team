@@ -67,25 +67,25 @@ namespace Console_Text_RPG_Team
                 sb.AppendLine();
                 sb.Append(" >> ");
                 Console.Write(sb.ToString());
-                string input = Console.ReadLine();
-                bool isNumber = int.TryParse(input, out result);
-                if (isNumber)
+                string input = Console.ReadLine();                       //input 추가해서
+                bool isNumber = int.TryParse(input, out result);        //bool 값을 받아서
+                if (isNumber)                                           //숫자일때만
                 {
-                    if (1 <= result && result <= player.skill.Count + 1)
+                    if (1 <= result && result <= player.skill.Count + 1)    //1~스킬개수만큼
                         return (result , player);
                 }
-                Console.WriteLine(" 잘못된 값을 입력하셨습니다.");
+                Console.WriteLine(" 잘못된 값을 입력하셨습니다.");          //나머지 (범위밖 숫자, 문자 등)
             }
         }
 
         public float SelectDamage(int result, Player player)
         {
             float damage = 0;
-            if (result == 1)
+            if (result == 1)                                        //result = -2 에서 1로 수정
                 damage = player.atk;
-            else /*if(result <= player.skill.Count + 1)*/
+            else
             {
-                damage = player.skill[result-2].UseSkill(player);
+                damage = player.skill[result-2].UseSkill(player);   //result에서 result-2로 수정
             }
             return damage;
         }
