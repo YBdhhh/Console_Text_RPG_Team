@@ -26,6 +26,13 @@ namespace Console_Text_RPG_Team
 		public int[] expCount = new int[5] { 10, 35, 65, 100, 150 };
 		public int exp = 0;
 
+		public Inventory inventory { get; set; }
+
+		public Player()
+		{
+			inventory = new Inventory();
+		}
+
 		public int Exp
 		{
 			get { return exp; }
