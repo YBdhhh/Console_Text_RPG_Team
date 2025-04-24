@@ -20,6 +20,7 @@ namespace Console_Text_RPG_Team
                 new Monster("슬라임", 20, 6, 0, 4, 4, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) }),
                 new Monster("초록버섯", 30, 6, 1, 6, 6, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) }),
                 new Monster("리본돼지", 30, 6, 3, 8, 8, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) }),
+                new Monster("스톤골렘", 40, 9, 3, 10, 10, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) }),
                 new Monster("웨어울프", 60, 12, 4, 12, 12, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) }),
                 new Monster("주황버섯", 100, 9, 5, 16, 16, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) }),
             //1층몹
