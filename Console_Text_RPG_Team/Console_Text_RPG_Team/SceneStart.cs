@@ -42,6 +42,7 @@ namespace Console_Text_RPG_Team
 		StringBuilder sb = new StringBuilder();
 		public void Start(Player player)
 		{
+			player.skill.Add(new Skill(skills[0]));
 			Console.Clear();
 			sb.AppendLine($"스파르타 던전에 오신 {player.name} 님 환영합니다.");
 			sb.AppendLine("이제 전투를 시작할수 있습니다.");
@@ -54,6 +55,7 @@ namespace Console_Text_RPG_Team
 			sb.AppendLine("6.퀘스트술집");
 
 			sb.AppendLine("0.게임 종료");
+
 			sb.AppendLine();
 			sb.AppendLine("원하시는 행동을 입력해주세요.");
 			Console.WriteLine(sb.ToString());
@@ -61,17 +63,17 @@ namespace Console_Text_RPG_Team
 
 			int result = Checkinpvt(0, 6);
 
+
 			switch (result)
 			{
 				case 1:
 					sceneStatus.Start(player);
 					break;
-
 				case 2:
-					sceneBattle.StartBattle(player);
+					sceneBattle.SelectDungeon(player);
 					break;
-                case 3:
-                    sceneInventory.Start(inventory);
+				case 3:
+                    sceneInventory.Start(inventory, player);
                     break;
                 case 4:
                     sceneShop.Start(player, inventory);

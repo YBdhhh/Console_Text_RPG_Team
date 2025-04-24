@@ -9,8 +9,11 @@ namespace Console_Text_RPG_Team
 
         public void Start(Player player)
         {
-            sb.AppendLine("스파르타 던전에 오신 여러분 환영합니다.");
-            sb.AppendLine("원하시는 이름을 설정해주세요.");
+            Console.ForegroundColor = ConsoleColor.DarkYellow; //npc가 말할 때는 DarkYellow로
+            Console.WriteLine();
+            Console.WriteLine("메이플 던전에 오신 여러분 환영합니다.".PadLeft(22));
+            Console.WriteLine("용사님의 이름을 알려주세요.".PadLeft(20));
+            Console.ResetColor();
             Console.WriteLine(sb.ToString());
             sb.Clear();
 
@@ -20,8 +23,8 @@ namespace Console_Text_RPG_Team
         private void Input(Player player)
         {
             //Console.WriteLine("이름을 입력해주세요.");
-            sb.AppendLine("이름을 입력해주세요.");
-            sb.Append(">> ");
+            sb.AppendLine(" 이름을 입력해주세요.");
+            sb.Append(" >> ");
             Console.Write(sb.ToString());
             sb.Clear();
             while (true)
@@ -30,9 +33,8 @@ namespace Console_Text_RPG_Team
 
                 if (string.IsNullOrWhiteSpace(playername))
                 {
-                    sb.AppendLine("잘못된 이름입니다.");
-                    sb.AppendLine("이름을 다시 입력해주세요.");
-                    sb.Append(">> "); Console.Write(sb.ToString());
+                    sb.AppendLine(" 이름을 다시 입력해주세요.");
+                    sb.Append(" >> "); Console.Write(sb.ToString());
                     sb.Clear();
                     continue;
                 }
@@ -41,8 +43,11 @@ namespace Console_Text_RPG_Team
 
                 while (true)
                 {
-                    sb.AppendLine($"{player.name}으로 시작하시겠습니까? 1. 네  2. 아니요");
-                    sb.Append(">> ");
+                    Console.WriteLine($" {player.name}용사님이 맞나요?");
+                    Console.ForegroundColor = ConsoleColor.DarkCyan; //선택지는 DarkCyan
+                    Console.WriteLine($" [1. 네  2. 아니요]");
+                    Console.ResetColor();
+                    sb.Append(" >> ");
                     Console.Write(sb.ToString());
                     sb.Clear();
                     string input = Console.ReadLine();
@@ -56,9 +61,10 @@ namespace Console_Text_RPG_Team
                     }
                     if (choice == 1)
                     {
-                        sb.AppendLine($"{player.name}님 환영합니다. 게임을 시작합니다.");
-                        Console.Write(sb.ToString());
-                        sb.Clear();
+                        Console.ForegroundColor = ConsoleColor.DarkYellow; //npc가 말할 때는 DarkYellow로
+                        Console.WriteLine($" {player.name}용사님, 전설이 시작됩니다.");
+                        Console.WriteLine(" 마지막에 엄청난 보상이 있을 수도, 없을 수도…? 그건 직접 겪어보셔야죠!");
+                        Thread.Sleep(1500);
                         return;
                     }
                     else if (choice == 2)

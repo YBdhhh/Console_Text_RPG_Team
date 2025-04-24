@@ -25,12 +25,28 @@ namespace Console_Text_RPG_Team
 	{
 		public string name;
 		public string explain;
-		public int[] damage = new int[4];
+		public int[] damage = new int[4] { 0, 0, 0, 0 };
 		public int damageType;
 		public int valueType;
 		public float value;
 
 		public int price;
+
+		public Skill()
+		{
+		}
+
+		public Skill(Skill skill)
+		{
+			this.name = skill.name;
+			this.explain = skill.explain;
+				
+			this.damage = skill.damage;
+			this.damageType = skill.damageType;
+			this.valueType = skill.valueType;
+			this.value = skill.value;
+			this.price = skill.price;
+		}
 
 		public Skill(string name, string explain, int damageType, int[] damage, int valueType, float value, int price)
 		{
@@ -38,80 +54,82 @@ namespace Console_Text_RPG_Team
 			this.explain = explain;
 			this.damageType = damageType;
 			this.valueType = valueType;
-			for (int i = 0; i < damage.Length; i++)
-			{
-				this.damage[i] = damage[i];
-			}
+				this.damage = damage;
 			this.value = value;
 			this.price = price;
 		}
 
-		public void UseSkill(Player player, Skill skill)
+		public int UseSkill(Player player)
 		{
-			string value = UseSkillValue(player, skill);
-			int damage = UseSkillDamage(player, skill);
-			SkillText(player, skill, value, damage);
+			string value = UseSkillValue(player);
+			int damage = UseSkillDamage(player);
+			SkillText(player, value, damage);
+			return damage;
 		}
 
-		public void SkillText(Player player, Skill skill, string value, int damage)
+		public void SkillText(Player player, string value, int damage)
 		{
 			StringBuilder sb = new StringBuilder();
-			sb.AppendLine($"{skill.name}(으)로 {value}을 소모하여 {damage} 데미지를 입혔습니다.");
+			sb.AppendLine($"{name}(으)로 {value}을 소모하여 {name}을 사용했습니다.");
 			Console.WriteLine(sb.ToString());
+			Thread.Sleep(500);
 		}
 
-		public int UseSkillDamage(Player player, Skill skill)
+		public int UseSkillDamage(Player player)
 		{
-			int type = skill.damageType;
-			int damage = 0;
+			int type = 0;
+			type = damageType;
+			int damage2 = 0;
+			int i = 0;
+
 			if (type >= (int)DamageType.Mp)
 			{
-				damage += (int)(skill.damage[0] * 0.01f * player.mp);
+				damage2 += (int)(damage[i++] * 0.01f * player.mp);
 				type -= (int)DamageType.Mp;
 			}
 
 			if (type >= (int)DamageType.Atk)
 			{
-				damage += (int)(skill.damage[1] * 0.01f * player.atk);
+				damage2 += (int)(damage[i++] * 0.01f * player.atk);
 				type -= (int)DamageType.Atk;
 			}
 
 			if (type >= (int)DamageType.Def)
 			{
-				damage += (int)(skill.damage[2] * 0.01f * player.def);
+				damage2 += (int)(damage[i++] * 0.01f * player.def);
 				type -= (int)DamageType.Def;
 			}
 
 			if (type >= (int)DamageType.Hp)
 			{
-				damage += (int)(skill.damage[3] * 0.01f * player.hp);
+				damage2 += (int)(damage[i++] * 0.01f * player.hp);
 				type -= (int)DamageType.Hp;
 			}
 
-			return damage;
+			return damage2;
 		}
 
-		public string UseSkillValue(Player player, Skill skill)
+		public string UseSkillValue(Player player)
 		{
 			string typeName = "";
-			int type = skill.valueType;
+			int type = valueType;
 			if (type >= (int)ValueType.Mp)
 			{
-				player.mp -= skill.value;
+				player.mp -= value;
 				type -= (int)ValueType.Mp;
 				typeName += "마나";
 			}
 
 			if (type >= (int)ValueType.Gold)
 			{
-				player.gold -= (int)skill.value;
+				player.gold -= (int)value;
 				type -= (int)ValueType.Gold;
 				typeName += "골드";
 			}
 
 			if (type >= (int)ValueType.Hp)
 			{
-				player.hp -= (int)skill.value;
+				player.hp -= (int)value;
 				type -= (int)ValueType.Hp;
 				typeName += "체력";
 			}
