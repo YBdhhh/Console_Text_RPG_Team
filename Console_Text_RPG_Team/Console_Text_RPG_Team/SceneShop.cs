@@ -58,8 +58,12 @@ namespace Console_Text_RPG_Team
 
         private void DisPlayeShop()
         {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine(" 반갑네 여기서는 좋은 아이템만 취급하니까 한 번 골라보라고");
+            Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("===== 아이템 목록 =====");
+            Console.WriteLine(" ============================================  아이템 목록 ============================================");
             Console.ResetColor();
             for (int i = 0; i < shopItems.Count; i++)
             {
@@ -68,7 +72,7 @@ namespace Console_Text_RPG_Team
                 string statTxt = item.atk > 0 ? $"| 공격력:{item.atk}" : item.def > 0 ? $"| 방어력:{item.def}" : "";
                 if (item.purchaseItem)
                 {
-                    sb.Append($"{i + 1,-1}. {item.name,-6}| {item.toolTip,-15}{statTxt,-16} | ");
+                    sb.Append($" das{i + 1,-1}. {item.name,-6}| {item.toolTip,-15}{statTxt,-16} | ");
                     Console.Write(sb.ToString());
                     sb.Clear();
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -78,20 +82,21 @@ namespace Console_Text_RPG_Team
                 }
                 else
                 {
-                    sb.Append($"{i + 1,-1}. {item.name,-6}| {item.toolTip,-15}{statTxt,-15}  |");
+                    sb.Append($" {i + 1,-1}. {item.name,-6}| {item.toolTip,-15}{statTxt,-15}  |");
                     Console.Write(sb.ToString());
                     sb.Clear();
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"가격: {item.price}G");
+                    Console.WriteLine($" 가격: {item.price}G");
                     Console.ResetColor();
                 }
             }
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"[보유골드]: {player.gold}G\n");
+            Console.WriteLine($" [보유골드]: {player.gold}G\n");
             Console.ResetColor();
-
-            sb.AppendLine("0: 뒤로가기");
-            sb.AppendLine("1: 아이템 구매");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine(" 0: 마을로 돌아가기");
+            Console.WriteLine(" 1: 아이템 구매");
+            Console.ResetColor();
             sb.Append(">> ");
             Console.Write(sb.ToString());
             sb.Clear();
@@ -104,9 +109,8 @@ namespace Console_Text_RPG_Team
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("===== 아이템 구매 목록 =====");
+                Console.WriteLine(" ======= 아이템 구매 목록 =======");
                 Console.ResetColor();
-
                 for (int i = 0; i < shopItems.Count; i++)
                 {
                     var item = shopItems[i];

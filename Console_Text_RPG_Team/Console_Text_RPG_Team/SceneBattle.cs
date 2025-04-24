@@ -16,28 +16,29 @@ namespace Console_Text_RPG_Team
         SceneBattleAttack sceneBattleAttack;  //임시
 
         public List<Monster> monsters = new List<Monster>
-        {
-            new Monster("슬라임", 20, 6, 0, 4, 4, new List<Item> {new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 40, 40f) }),
-            new Monster("초록버섯", 30, 6, 1, 6, 6, new List<Item> {new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 40, 40f) }),
-            new Monster("리본돼지", 30, 6, 3, 8, 8, new List<Item> {new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 40, 40f) }),
-            new Monster("웨어울프", 60, 12, 4, 12, 12, new List<Item> {new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 40, 40f) }),
-            new Monster("주황버섯", 100, 9, 5, 16, 16, new List<Item> {new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 40, 40f) }),
-        //1층몹
-            new Monster("좀비버섯", 130, 12, 5, 22, 22, new List<Item> {new Item("주황 포션", "체력을 회복해주는 주황 포션", 50, 50f) }),
-            new Monster("고스트픽시", 100, 18, 4, 20, 20, new List<Item> {new Item("주황 포션", "체력을 회복해주는 주황 포션", 50, 50f) }),
-            new Monster("브라운테니", 80, 9, 4, 15, 15, new List<Item> {new Item("주황 포션", "체력을 회복해주는 주황 포션", 50, 50f) }),
-            new Monster("로보토이", 150, 12, 5, 24, 24, new List < Item > { new Item("주황 포션", "체력을 회복해주는 주황 포션", 50, 50f) }),
-            new Monster("예티", 180, 9, 0, 21, 21, new List < Item > { new Item("주황 포션", "체력을 회복해주는 주황 포션", 50, 50f) }),
-            new Monster("화이트팽", 110, 12, 3, 18, 18, new List < Item > { new Item("주황 포션", "체력을 회복해주는 주황 포션", 50, 50f) }),
-        //2층몹
-            new Monster("블러드하프", 180, 27, 3, 30, 30, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 60, 60f) }),
-            new Monster("붉은 켄타우로스", 220, 15, 5, 32, 32, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 60, 60f) }),
-            new Monster("추억의 사제", 180, 12, 8, 30, 30, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 60, 60f) }),
-            new Monster("훈련용 나무인형", 260, 3, 14, 41, 41, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 60, 60f) }),
-            new Monster("부기", 100, 30, 5, 25, 25, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 60, 60f) }),
-            new Monster("오파츠", 10, 12, 300, 35, 35, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 60, 60f) })
-        //3층몹
-        };
+            {
+                new Monster("슬라임", 20, 6, 0, 4, 4, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) }),
+                new Monster("초록버섯", 30, 6, 1, 6, 6, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) }),
+                new Monster("리본돼지", 30, 6, 3, 8, 8, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) }),
+                new Monster("스톤골렘", 40, 9, 3, 10, 10, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) }),
+                new Monster("웨어울프", 60, 12, 4, 12, 12, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) }),
+                new Monster("주황버섯", 100, 9, 5, 16, 16, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) }),
+            //1층몹
+                new Monster("좀비버섯", 130, 12, 5, 22, 22, new List<Item> {new Potion("주황 포션", "체력을 회복해주는 주황 포션", 20, "주황", 50f) }),
+                new Monster("고스트픽시", 100, 18, 4, 20, 20, new List<Item> {new Potion("주황 포션", "체력을 회복해주는 주황 포션", 20, "주황", 50f) }),
+                new Monster("브라운테니", 80, 9, 4, 15, 15, new List<Item> {new Potion("주황 포션", "체력을 회복해주는 주황 포션", 20, "주황", 50f) }),
+                new Monster("로보토이", 150, 12, 5, 24, 24, new List < Item > { new Potion("주황 포션", "체력을 회복해주는 주황 포션", 20, "주황", 50f) }),
+                new Monster("예티", 180, 9, 0, 21, 21, new List < Item > { new Potion("주황 포션", "체력을 회복해주는 주황 포션", 20, "주황", 50f) }),
+                new Monster("화이트팽", 110, 12, 3, 18, 18, new List < Item > { new Potion("주황 포션", "체력을 회복해주는 주황 포션", 20, "주황", 50f) }),
+            //2층몹
+                new Monster("블러드하프", 180, 27, 3, 30, 30, new List < Item > { new Potion("하얀 포션", "체력을 회복해주는 하얀 포션", 30, "하얀", 60f) }),
+                new Monster("붉은 켄타우로스", 220, 15, 5, 32, 32, new List < Item > { new Potion("하얀 포션", "체력을 회복해주는 하얀 포션", 30, "하얀", 60f) }),
+                new Monster("추억의 사제", 180, 12, 8, 30, 30, new List < Item > { new Potion("하얀 포션", "체력을 회복해주는 하얀 포션", 30, "하얀", 60f) }),
+                new Monster("훈련용 나무인형", 260, 3, 14, 41, 41, new List < Item > { new Potion("하얀 포션", "체력을 회복해주는 하얀 포션", 30, "하얀", 60f) }),
+                new Monster("부기", 100, 30, 5, 25, 25, new List < Item > { new Potion("하얀 포션", "체력을 회복해주는 하얀 포션", 30, "하얀", 60f) }),
+                new Monster("오파츠", 10, 12, 300, 35, 35, new List < Item > { new Potion("하얀 포션", "체력을 회복해주는 하얀 포션", 30, "하얀", 60f) })
+            //3층몹
+            };
         public List<Monster> bossMonsters = new List<Monster>(3)
     {
         new Monster("머쉬맘", 230f, 21f, 10, 40, 40, new List < Item > { new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 40, 40f) }),
@@ -158,13 +159,17 @@ namespace Console_Text_RPG_Team
             Console.WriteLine($"Battle!! {currentFloor} - Boss!!\n");
             Console.ResetColor();
             bossMonster.Add(new Monster (bossMonsters[currentFloor-1]));        //보스몹 소환
-            sb.AppendLine($"Lv.{bossMonsters[currentFloor-1].level} {bossMonsters[currentFloor-1].name}  HP  {bossMonsters[currentFloor - 1].hp}\n");
-            sb.AppendLine("[내정보]");
-            sb.AppendLine($"Lv.	: {player.level}");
-            sb.AppendLine($"직업	: {player.job}");
-            sb.AppendLine($"체  력	: {player.PreviousHP}/{player.hp}");
-            sb.AppendLine("1. 전투시작").Append("\n");
-            sb.AppendLine("원하시는 행동을 입력해주세요.");
+            sb.AppendLine($" Lv.{bossMonsters[currentFloor-1].level} {bossMonsters[currentFloor-1].name}  HP  {bossMonsters[currentFloor - 1].hp}\n");
+            sb.AppendLine(" [내정보]");
+            sb.AppendLine($" Lv.	: {player.level}");
+            sb.AppendLine($" 직업	: {player.job}");
+            sb.AppendLine($" 체  력	: {player.PreviousHP}/{player.hp}");
+            Console.Write(sb.ToString());
+            sb.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine(" 1. 전투시작");
+            Console.WriteLine(" 원하시는 행동의 번호를 입력해주세요.");
+            Console.ResetColor();
             sb.Append(">> ");
             Console.Write(sb.ToString());
             sb.Clear();
@@ -173,7 +178,7 @@ namespace Console_Text_RPG_Team
             {
                 case 0:
                 case 1:
-                    Console.WriteLine("공격창");
+                    Console.WriteLine(" 공격창");
                     sceneBattleAttack.BattleLoop(player, bossMonster);
                     spawnBoss.Clear();
                     break;
