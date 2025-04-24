@@ -16,16 +16,15 @@ namespace Console_Text_RPG_Team
         public List<Monster> spawnList = new List<Monster>(6);
         public List<Monster> monsters = new List<Monster>
             {
-                new Monster("슬라임", 20, 6, 0, 4, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f), new Item("낡은 검", "낡은 검이다", 5, 0, 0) }),
-                new Monster("초록버섯", 30, 6, 1, 6, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f), new Item("낡은 검", "낡은 검이다", 5, 0, 0) }),
-                new Monster("리본돼지", 30, 6, 3, 8, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f), new Item("낡은 검", "낡은 검이다", 5, 0, 0) }),
-                new Monster("스톤골렘", 40, 9, 3, 10, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f), new Item("낡은 검", "낡은 검이다", 5, 0, 0) }),
-                new Monster("웨어울프", 60, 12, 4, 12, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f), new Item("낡은 검", "낡은 검이다", 5, 0, 0) }),
-                new Monster("주황버섯", 100, 9, 5, 16, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f), new Item("낡은 검", "낡은 검이다", 5, 0, 0) })
+                new Monster("슬라임", 20, 6, 0, 4, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) }),
+                new Monster("초록버섯", 30, 6, 1, 6, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) }),
+                new Monster("리본돼지", 30, 6, 3, 8, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) }),
+                new Monster("웨어울프", 60, 12, 4, 12, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) }),
+                new Monster("주황버섯", 100, 9, 5, 16, new List<Item> {new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) })
             };
         public List<Monster> BossMonsters = new List<Monster>(3)
         {
-            new Monster("머쉬맘", 230f, 21f, 10, 40, new List<Item> { new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f), new Item("낡은 검", "낡은 검이다", 5, 0, 0) })
+            new Monster("머쉬맘", 230f, 21f, 10, 40, new List<Item> { new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) })
         };
 
 
