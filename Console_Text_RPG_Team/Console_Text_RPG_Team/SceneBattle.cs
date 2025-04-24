@@ -40,11 +40,11 @@ namespace Console_Text_RPG_Team
             //3층몹
             };
         public List<Monster> bossMonsters = new List<Monster>(3)
-        {
-            new Monster("머쉬맘", 230f, 21f, 10, 40, 40, new List < Item > { new Potion("빨간 포션", "체력을 회복해주는 빨간 포션", 10, "빨간", 40f) }),
-            new Monster("바이킹", 330f, 51f, 15, 65, 65, new List < Item > { new Potion("주황 포션", "체력을 회복해주는 주황 포션", 20, "주황", 50f) }),
-            new Monster("자쿰", 550f, 75f, 20, 100, 100, new List < Item > { new Potion("하얀 포션", "체력을 회복해주는 하얀 포션", 30, "하얀", 60f) }),
-        };
+    {
+        new Monster("머쉬맘", 230f, 21f, 10, 40, 40, new List < Item > { new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 40, 40f) }),
+        new Monster("바이킹", 330f, 51f, 15, 65, 65, new List < Item > { new Item("주황 포션", "체력을 회복해주는 주황 포션", 50, 50f) }),
+        new Monster("자쿰", 550f, 75f, 20, 100, 100, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 60, 60f) }),
+    };
 
         public List<Monster> spawnList = new List<Monster>(6);      
         public List<Monster> spawnBoss = new List<Monster>();      //혹시나 보스 여러개 나올까 싶어서
@@ -112,7 +112,7 @@ namespace Console_Text_RPG_Team
             {
                 StringBuilder sb = new StringBuilder();
 
-                sceneBattleAttack = new SceneBattleAttack(this);
+                sceneBattleAttack = new SceneBattleAttack(this, player);
 
 
                 Console.Clear();
@@ -151,7 +151,7 @@ namespace Console_Text_RPG_Team
         {
             StringBuilder sb = new StringBuilder();
 
-            sceneBattleAttack = new SceneBattleAttack(this);
+            sceneBattleAttack = new SceneBattleAttack(this, player);
 
 
             Console.Clear();

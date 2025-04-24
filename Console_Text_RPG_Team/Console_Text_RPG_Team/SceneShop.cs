@@ -179,6 +179,7 @@ namespace Console_Text_RPG_Team
                         Thread.Sleep(1000);
                         continue;
                     }
+
                 }
 
                 // 잘못된 입력 처리 및 대기
