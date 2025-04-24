@@ -13,7 +13,7 @@ namespace Console_Text_RPG_Team
 		public List<Skill> skill = new List<Skill>(4);
 
 		public float critical = 1000; //10%
-		public float miss = 1000; //10%
+		public float miss = 100; //10%
 		public float hp = 100;
 		public float maxHp;
 		public float atk = 10;
@@ -87,8 +87,10 @@ namespace Console_Text_RPG_Team
 			if (percent < critical)
 			{
 				damage = (int)(damage + damage * critical * 0.1f * 0.01f);
-				Console.WriteLine("크리티컬 작렬!");
-				Thread.Sleep(1000);
+				Console.ForegroundColor = ConsoleColor.Red; //크리티컬 데미지
+                Console.WriteLine(" 크리티컬 작렬!");
+				Console.ResetColor();
+                Thread.Sleep(1000);
 			}
 
 			return damage;
@@ -104,8 +106,10 @@ namespace Console_Text_RPG_Team
 			if (percent < miss)
 			{
 				isMiss = true;
-				Console.WriteLine("깔끔한 회피");
-				Thread.Sleep(500);
+                Console.ForegroundColor = ConsoleColor.Cyan; //크리티컬 데미지
+                Console.WriteLine(" 깔끔한 회피");
+                Console.ResetColor();
+                Thread.Sleep(500);
 			}
 			return isMiss;
 		}

@@ -159,13 +159,17 @@ namespace Console_Text_RPG_Team
             Console.WriteLine($"Battle!! {currentFloor} - Boss!!\n");
             Console.ResetColor();
             bossMonster.Add(new Monster (bossMonsters[currentFloor-1]));        //보스몹 소환
-            sb.AppendLine($"Lv.{bossMonsters[currentFloor-1].level} {bossMonsters[currentFloor-1].name}  HP  {bossMonsters[currentFloor - 1].hp}\n");
-            sb.AppendLine("[내정보]");
-            sb.AppendLine($"Lv.	: {player.level}");
-            sb.AppendLine($"직업	: {player.job}");
-            sb.AppendLine($"체  력	: {player.PreviousHP}/{player.hp}");
-            sb.AppendLine("1. 전투시작").Append("\n");
-            sb.AppendLine("원하시는 행동을 입력해주세요.");
+            sb.AppendLine($" Lv.{bossMonsters[currentFloor-1].level} {bossMonsters[currentFloor-1].name}  HP  {bossMonsters[currentFloor - 1].hp}\n");
+            sb.AppendLine(" [내정보]");
+            sb.AppendLine($" Lv.	: {player.level}");
+            sb.AppendLine($" 직업	: {player.job}");
+            sb.AppendLine($" 체  력	: {player.PreviousHP}/{player.hp}");
+            Console.Write(sb.ToString());
+            sb.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine(" 1. 전투시작");
+            Console.WriteLine(" 원하시는 행동의 번호를 입력해주세요.");
+            Console.ResetColor();
             sb.Append(">> ");
             Console.Write(sb.ToString());
             sb.Clear();
@@ -174,7 +178,7 @@ namespace Console_Text_RPG_Team
             {
                 case 0:
                 case 1:
-                    Console.WriteLine("공격창");
+                    Console.WriteLine(" 공격창");
                     sceneBattleAttack.BattleLoop(player, bossMonster);
                     spawnBoss.Clear();
                     break;
