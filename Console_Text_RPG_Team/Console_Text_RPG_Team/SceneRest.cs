@@ -76,7 +76,7 @@ namespace Console_Text_RPG_Team
 							Console.WriteLine();
 
 							Console.WriteLine("요람의 신비한 힘이 당신을 회복시켰습니다.");
-							if (player.maxHp < player.hp * 1.3f)
+							if (player.maxHp < player.hp + player.maxHp * 0.3f)
 							{
 								player.hp = player.maxHp;
 							}
@@ -85,7 +85,7 @@ namespace Console_Text_RPG_Team
 								player.hp += (int)(player.maxHp * 0.3f);
 							}
 
-							if (player.maxMp < player.mp * 1.3f)
+							if (player.maxMp < player.mp + player.maxMp * 0.3f)
 							{
 								player.mp = player.maxMp;
 							}
