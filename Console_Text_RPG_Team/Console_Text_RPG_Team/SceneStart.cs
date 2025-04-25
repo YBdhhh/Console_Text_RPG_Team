@@ -20,10 +20,10 @@ namespace Console_Text_RPG_Team
 		SceneStatus sceneStatus = new SceneStatus();		
 		SceneRest sceneRest = new SceneRest();
 		SceneQuest SceneQuest = new SceneQuest();
-		private Player player;
-		private SceneShop sceneShop;
-		private SceneBattle sceneBattle;
-        private SceneInventory sceneInventory;
+		private Player player = new Player();
+		private SceneShop sceneShop = new SceneShop();
+		private SceneBattle sceneBattle = new SceneBattle();
+		private SceneInventory sceneInventory = new SceneInventory();
         private Inventory inventory = new Inventory();
 
 		public SceneStart()
