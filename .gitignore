@@ -29,7 +29,9 @@ x86/
 bld/
 [Bb]in/
 !bin/
-!bin/*.mp3
+!bin/Debug/
+!bin/Debug/net8.0/
+!bin/Debug/net8.0/*.mp3
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
