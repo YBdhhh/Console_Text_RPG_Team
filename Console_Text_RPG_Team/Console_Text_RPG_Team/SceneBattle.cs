@@ -12,6 +12,7 @@ namespace Console_Text_RPG_Team
 {
     internal class SceneBattle
     {
+        private Player player;
 
         SceneBattleAttack sceneBattleAttack;  //임시
 
@@ -57,6 +58,7 @@ namespace Console_Text_RPG_Team
 
         public void SelectDungeon(Player player)
         {
+            this.player = player;
             int choose = 1;
             while (choose != 0)
             {
