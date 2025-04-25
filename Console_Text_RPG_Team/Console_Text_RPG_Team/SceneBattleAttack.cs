@@ -343,8 +343,8 @@ namespace Console_Text_RPG_Team
             if (!isVictory)
             {
                 sceneBattle.clearCount = -1;
-                player.hp = player.maxHp * 2 / 10;
-                player.Gold = player.Gold * 9 / 10;
+                player.hp = player.maxHp * 3 / 10;
+                player.Gold = player.Gold * 9 / 100 *10;    //일의 자리 버림
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("");
                 Console.WriteLine(" [ 전투 결과.... ]\n");
@@ -391,7 +391,7 @@ namespace Console_Text_RPG_Team
                 }
             }
             sceneBattle.clearCount++;
-            if (sceneBattle.clearCount > sceneBattle.maxClearCount) //
+            if (sceneBattle.clearCount > sceneBattle.maxClearCount) // 보스방 깻다면
             {
                 if (sceneBattle.dungeonFloor.Exists(x => sceneBattle.currentFloor == sceneBattle.dungeonFloor.Count && sceneBattle.dungeonFloor.Count < 3))   //3층 이하일때 현재최고층 난이도를 깨야만 층이 추가되도록
                 {
@@ -399,6 +399,7 @@ namespace Console_Text_RPG_Team
                     sceneBattle.dungeonFloor.Add(sceneBattle.currentFloor + 1);
                 }
                 sceneBattle.clearCount = -1;
+                player.audio[6].Play();
             }
             int prevLevel = player.level;
             int prevExp = player.exp;
@@ -452,6 +453,7 @@ namespace Console_Text_RPG_Team
             sb.Append(" >> ");
             Console.Write(sb.ToString());
             sb.Clear();
+            Console.ReadKey();
         }
 
         public void AddItem(Dictionary<string, int> items, List<string> dropItems)
