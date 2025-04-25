@@ -58,7 +58,7 @@ namespace Console_Text_RPG_Team
             {
                 // ... 기존 코드 ...
                 StringBuilder sb = new StringBuilder();
-                sb.AppendLine("[획득 아이템]");
+                sb.AppendLine(" [획득 아이템]");
                 Console.ForegroundColor = ConsoleColor.Yellow;
 
                 List<Item> totalDroppedItems = new List<Item>();
@@ -273,7 +273,7 @@ namespace Console_Text_RPG_Team
             Console.WriteLine(" =========================");
             Console.WriteLine();
             Console.WriteLine(" 공격할 몬스터 번호를 선택하세요");
-            Console.Write(" >>");
+            Console.Write(" >> ");
         }
 
         public void PlayerAttackLog(Player attacker, Monster target, int damage)
@@ -301,7 +301,7 @@ namespace Console_Text_RPG_Team
 
 				// sb.Append($"Lv.{target.level} {target.name} |  ");
 				_player.audio[3].Play();
-				sb.AppendLine($"(HP {target.PreviousHP} -> {target.hp})");
+				sb.AppendLine($" (HP {target.PreviousHP} -> {target.hp})");
 
             }
             Console.WriteLine(sb.ToString());
@@ -315,8 +315,8 @@ namespace Console_Text_RPG_Team
 			StringBuilder sb = new StringBuilder();
 
 
-			sb.AppendLine($"{attacker.name} 의 공격!");
-			sb.Append($"Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {(damage-target.def > 1 ? damage-target.def : 1)}] | ");
+			sb.AppendLine($" {attacker.name} 의 공격!");
+			sb.Append($" Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {(damage-target.def > 1 ? damage-target.def : 1)}] | ");
 
 
 			if (target.maxHp <= 0)
