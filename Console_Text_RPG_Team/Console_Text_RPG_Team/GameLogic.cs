@@ -10,7 +10,8 @@ namespace Console_Text_RPG_Team
 
 	internal class GameLogic
 	{
-		PlayerCreate playerCreate = new PlayerCreate();
+        AsciiArt asciiArt = new AsciiArt();
+        PlayerCreate playerCreate = new PlayerCreate();
 		JobSelect jobSelect = new JobSelect();
 		public Player player = new Player();
 		SceneStart sceneStart = new SceneStart();
@@ -75,7 +76,8 @@ namespace Console_Text_RPG_Team
 
 			Console.Clear();
 			player = new Player();
-			InitSceneStart(player);
+			asciiArt.Start();
+            InitSceneStart(player);
 			playerCreate.Start(player);
 
 			jobSelect.Start();
