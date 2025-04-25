@@ -394,7 +394,7 @@ namespace Console_Text_RPG_Team
                     player.quest.PlayEvent(player.quest, monsters.Count ,monsters[0].name);
                     sceneBattle.dungeonFloor.Add(sceneBattle.currentFloor + 1);
                 }
-                sceneBattle.clearCount = 1;
+                sceneBattle.clearCount = 0;
             }
             int prevLevel = player.level;
             int prevExp = player.exp;

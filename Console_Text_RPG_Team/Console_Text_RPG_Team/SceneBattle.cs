@@ -53,8 +53,8 @@ namespace Console_Text_RPG_Team
         public List<int> dungeonFloor = new List<int>(3) { 1 };           //최대층 3층, 초기 1층
 
         public int currentFloor = 1;       //현재 층수
-        public int clearCount = 1;         
-        public int maxClearCount = 5;       //보스포함 5번 전투
+        public int clearCount = 0;         
+        public int maxClearCount = 4;       //보스까지 4번 전투
 
         public void SelectDungeon(Player player)
         {
@@ -125,8 +125,8 @@ namespace Console_Text_RPG_Team
         }
         public void StartBattle(Player player)
         {
-            clearCount = 1;
-            while (clearCount < maxClearCount && clearCount != 0 )      //보스포함 5번 전투 
+            clearCount = 0;
+            while (clearCount < maxClearCount && clearCount != -1 )      //보스포함 5번 전투 
             {
                 StringBuilder sb = new StringBuilder();
 
@@ -139,7 +139,7 @@ namespace Console_Text_RPG_Team
                 Console.WriteLine($" {player.name}: 앗! 몬스터가 나타났다!\n");
                 Console.ResetColor();
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($" [ {currentFloor}층 - {clearCount}스테이지 ]");
+                Console.WriteLine($" [ {currentFloor}층 - {clearCount + 1}스테이지 ]");
                 Console.WriteLine();
                 Console.WriteLine(" [ 몬스터 ]");
                 Console.ResetColor();
@@ -172,7 +172,7 @@ namespace Console_Text_RPG_Team
                 switch (choose)
                 {
                     case 0:
-                        clearCount = 0;
+                        clearCount = -1;
                         spawnList.Clear();
                         break;
                     case 1:
