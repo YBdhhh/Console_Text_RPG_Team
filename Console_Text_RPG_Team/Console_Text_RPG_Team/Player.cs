@@ -19,8 +19,8 @@ namespace Console_Text_RPG_Team
 		[JsonIgnore]
 		public List<AudioManager> audio = new List<AudioManager>();
 
-		public float critical = 1000; //10%
-		public float miss = 1000; //10%
+		public float critical = 100; //10%
+		public float miss = 100; //10%
 		public float maxHp = 100;
 		public float hp;
 
@@ -79,7 +79,7 @@ namespace Console_Text_RPG_Team
 		{
 			if (maxMp > mp + 0.2)
 			{
-				mp += 2;
+				mp += 0.2f;
 			}
 			else
 			{
@@ -196,13 +196,13 @@ namespace Console_Text_RPG_Team
 				damage = (int)(damage + damage * critical * 0.1f * 0.01f);
 				Console.ForegroundColor = ConsoleColor.Red; //크리티컬 데미지
                 Console.Write(" 크리티컬 작렬");
-				Thread.Sleep(500);
+				Thread.Sleep(300);
                 Console.Write("!!");
-                Thread.Sleep(500);
+                Thread.Sleep(300);
                 Console.WriteLine("!!");
                 Console.WriteLine("");
                 Console.ResetColor();
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
 			}
 
 			return damage;
@@ -220,7 +220,7 @@ namespace Console_Text_RPG_Team
 				isMiss = true;
                 Console.ForegroundColor = ConsoleColor.Cyan; //크리티컬 데미지
                 Console.Write(" 엄청나게!! ");
-                Thread.Sleep(500);
+                Thread.Sleep(300);
                 Console.WriteLine("깔끔한 회피!!");
                 Console.WriteLine("");
                 Console.ResetColor();

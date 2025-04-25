@@ -58,10 +58,11 @@ namespace Console_Text_RPG_Team
 					for (int i = 0; i < items.Count; i++)
 					{
 						var item = items[i];
-						string defTxt = item.def > 0 ? $" | DEF: {item.def}" : string.Empty;
-						string atkTxt = item.atk > 0 ? $" | ATK: {item.atk}" : string.Empty;
-						sb.AppendLine($" {i + 1}.{(item.equippedItem ? "[E] | " : " ")}{item.name} | {item.toolTip}{atkTxt}{defTxt}");
-						Console.WriteLine(sb.ToString());
+                        string statTxt = item.Type == ItemType.Potion
+							? $" | 회복량: {item.HealAmount}"
+							: item.atk > 0 ? $" | ATK: {item.atk}" : item.def > 0 ? $" | DEF: {item.def}" : "";
+                        sb.AppendLine($" {i + 1}.{(item.equippedItem ? "[E] | " : " ")}{item.name} | {item.toolTip}{statTxt}");
+                        Console.WriteLine(sb.ToString());
 						sb.Clear();
 
 					}
@@ -125,10 +126,11 @@ namespace Console_Text_RPG_Team
 				for (int i = 0; i < items.Count; i++)
 				{
 					var item = items[i];
-					string equip = item.equippedItem ? "[E] | " : string.Empty;
-					string statTxt = item.atk > 0 ? $"| 공격력:{item.atk}" : item.def > 0 ? $"| 방어력:{item.def}" : "";
-					sb.AppendLine($" {i + 1,-1}.{equip} {item.name,-6}| {item.toolTip,-15}{statTxt,-15}");
-					Console.WriteLine(sb.ToString());
+                    string statTxt = item.Type == ItemType.Potion
+                            ? $" | 회복량: {item.HealAmount}"
+                            : item.atk > 0 ? $" | ATK: {item.atk}" : item.def > 0 ? $" | DEF: {item.def}" : "";
+                    sb.AppendLine($" {i + 1}.{(item.equippedItem ? "[E] | " : " ")}{item.name} | {item.toolTip}{statTxt}");
+                    Console.WriteLine(sb.ToString());
 					sb.Clear();
 				}
 				Console.WriteLine();
@@ -152,6 +154,15 @@ namespace Console_Text_RPG_Team
 					if (choice >= 1 && choice <= items.Count)
 					{
 						var selected = items[choice - 1];
+
+						if (selected.Type == ItemType.Potion)
+						{
+							sb.AppendLine($"[!]{selected.name}은(는) 포션이므로 장착할 수 없습니다.");
+							Console.WriteLine(sb.ToString());
+							sb.Clear();
+							Thread.Sleep(1000);
+							continue;
+						}
 						if (selected
 							.equippedItem)
 						{
