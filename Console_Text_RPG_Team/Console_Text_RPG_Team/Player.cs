@@ -68,7 +68,7 @@ namespace Console_Text_RPG_Team
 			sb.AppendLine($" 체력   : {hp} / {maxHp}");
 			sb.AppendLine($" 공격력 : {atk} (+{this.itematk})");
 			sb.AppendLine($" 방어력 : {def} (+{this.itemdef})");
-			sb.AppendLine($"마나    : {mp} / {maxMp}");
+			sb.AppendLine($" 마나   : {mp} / {maxMp}");
 			//sb.AppendLine();
 			sb.AppendLine($" 골드   : {gold}");
 			Console.Write(sb.ToString());

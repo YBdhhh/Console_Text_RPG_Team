@@ -272,6 +272,7 @@ namespace Console_Text_RPG_Team
             _player.ViewStatus();
             Console.WriteLine(" =========================");
             Console.WriteLine();
+            Console.WriteLine(" 공격할 몬스터 번호를 선택하세요");
             Console.Write(" >>");
         }
 
