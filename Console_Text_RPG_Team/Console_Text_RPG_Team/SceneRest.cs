@@ -15,16 +15,14 @@ namespace Console_Text_RPG_Team
 			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine();
-            Console.WriteLine(" ========회복의 요람======== ");
+            Console.WriteLine(" [ 회복의 요람 ]");
 			Console.ResetColor();
-
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine(" 30G만 내주신다면 용사님의 체력을 30%씩이나 회복시켜드립니다");
-			Console.WriteLine("");
+            Console.WriteLine(" 시워언해: 30G만 내주신다면 용사님의 체력을 30%씩이나 회복시켜드립니다");
             Console.WriteLine($" 용사님의 현재 상태입니다. 30G를 지불하시겠습니까?");
             Console.ResetColor();
 			sb.AppendLine(" =====================");
-			sb.AppendLine($" 이  름	:{player.name}");
+			sb.AppendLine($" 이  름	: {player.name}");
 			sb.AppendLine($" Lv.	: {player.level}");
 			sb.AppendLine($" 체  력	: {player.hp} / {player.maxHp}");
 			sb.AppendLine($" 마  력	: {player.mp} / {player.maxMp}");
@@ -39,8 +37,7 @@ namespace Console_Text_RPG_Team
             Console.ResetColor();
             sb.AppendLine();
 			sb.AppendLine(" 원하시는 행동의 번호를 입력해주세요.");
-
-			sb.Append(">> ");
+			sb.Append(" >> ");
 			Console.Write(sb.ToString());
 			sb.Clear();
 
@@ -91,8 +88,10 @@ namespace Console_Text_RPG_Team
 							player.Gold -= 30;
 							Thread.Sleep(500);
 							Console.WriteLine();
-							Console.WriteLine($"현재 체력 : ({player.hp} / {player.maxHp})  | 현재 골드 : {player.Gold}");
-							Console.WriteLine($"현재 마나 : ({player.mp} / {player.maxMp})  |");
+
+							Console.WriteLine($" 현재 체력 : ({player.hp} / {player.maxHp})  | 현재 골드 : {player.Gold}");
+							Console.WriteLine($" 현재 마나 : ({player.mp} / {player.maxMp})  |");
+
 
 
 							sb.AppendLine("");
@@ -105,13 +104,15 @@ namespace Console_Text_RPG_Team
 
 						default:
 							Console.WriteLine(" 다시 입력해주십시오");
-							continue;
+                            Console.Write(" >> ");
+                            continue;
 					}
 				}
 				catch (Exception)
 				{
-					Console.WriteLine("다시 입력해주십시오");
-					continue;
+					Console.WriteLine(" 다시 입력해주십시오");
+                    Console.Write(" >> ");
+                    continue;
 				}
 
 			}

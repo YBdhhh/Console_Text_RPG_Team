@@ -90,16 +90,22 @@ namespace Console_Text_RPG_Team
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine(" 어떤 방식으로 공격하시겠습니까?");
                 sb.AppendLine("");
-                sb.AppendLine(" 1. 공격");
-                sb.AppendLine(" 2. 물약(회복)");
+
+                Console.Write(sb.ToString());
+                sb.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine(" 1. 공격");
+                Console.WriteLine(" 2. 물약(회복)");
                 for (int i = 0; i < player.skill.Count; i++)
                 {
-                    sb.AppendLine($" {i + 3}. {player.skill[i].name}");
+                    Console.WriteLine($" {i + 3}. {player.skill[i].name}");
+                    Console.ResetColor();
+
                 }
                 sb.AppendLine();
                 sb.Append(" >> ");
-
                 Console.Write(sb.ToString());
+                sb.Clear();
                 string input = Console.ReadLine();                       //input 추가해서
                 bool isNumber = int.TryParse(input, out result);        //bool 값을 받아서
                 if (isNumber)                                           //숫자일때만
@@ -107,7 +113,8 @@ namespace Console_Text_RPG_Team
                     if (1 <= result && result <= player.skill.Count + 2)    //1~스킬개수만큼
                         return (result , player);
                 }
-                Console.WriteLine(" 잘못된 값을 입력하셨습니다.");          //나머지 (범위밖 숫자, 문자 등)
+                Console.WriteLine(" 잘못된 값을 입력하셨습니다.");
+                Console.Write(" >> ");
             }
         }
 
@@ -151,6 +158,7 @@ namespace Console_Text_RPG_Team
                 if (!int.TryParse(input, out int choice))
                 {
                     Console.WriteLine(" 잘못된 입력입니다.");
+                    Console.Write(" >> ");
                     continue;
                 }
 
@@ -188,11 +196,58 @@ namespace Console_Text_RPG_Team
                 //           }
                 //           else  if (choice >= 1 && choice <= monsters.Count) // 몬스터 공격 선택 (직접 번호 입력)
                 {
+
+                    // 공격할 몬스터 선택 로직
+                    Console.WriteLine("\n 공격할 몬스터 번호를 선택하세요:");
+                    Console.Write(" >> ");
+                    string monsterInput = Console.ReadLine();
+                    if (!int.TryParse(monsterInput, out int monsterChoice) || monsterChoice < 3 || monsterChoice > monsters.Count + 2)
+                    {
+                        Console.WriteLine(" 잘못된 입력입니다.");
+                        Console.Write(" >> ");
+                        continue;
+                    }
+
+                    Monster target = monsters[monsterChoice - 3];
+                    if (!target.IsAlive())
+                    {
+                        Console.WriteLine(" 이미 죽은 몬스터입니다.");
+                        Console.WriteLine(" 너무 잔인하시네요...");
+                        Console.Write(" >> ");
+                        continue;
+                    }
+                    float damaged;
+
+					while (true)
+                    {
+                        (int result, _player) = WhatSelectDamage(_player);
+                        damaged = SelectDamage(result, _player);
+                        if (damaged != 0)
+                            break;
+                    }
+                    float criticalDamage = _player.CriticalDamage(_player, damaged);
+                    float finalDamage = GetRandomDamage(criticalDamage);
+                    target.TakeDamage(finalDamage);
+                    PlayerAttackLog(_player, target, finalDamage);
+                    break; // 공격 후 플레이어 턴 종료
+                }
+                else if (choice == 2) // 포션 사용 선택
+                {
+                    _player.inventory.UsePotion(_player);
+                    Console.WriteLine("\n 계속하려면 아무 키나 누르세요...");
+                    Console.ReadKey();
+                    continue; // 포션 사용 후 다시 행동 선택
+                }
+                else if (choice >= 3 && choice <= monsters.Count + 2) // 몬스터 공격 선택 (직접 번호 입력)
+                {
                     Monster target = monsters[choice - 1];
                     if (!target.IsAlive())
                     {
                         Console.WriteLine(" 이미 죽은 몬스터입니다.");
+                        Console.WriteLine(" 너무 잔인하시네요...");
                         Thread.Sleep(700);
+
+
                         continue;
                     }
 
@@ -204,11 +259,13 @@ namespace Console_Text_RPG_Team
                     target.TakeDamage(finalDamage);
                     PlayerAttackLog(_player, target, finalDamage);
                     break; // 공격 후 플레이어 턴 종료
+
                            //}
                            //else
                            //{
                            //    Console.WriteLine(" 잘못된 입력입니다.");
                            //}
+
                 }
             }
         }
@@ -223,7 +280,7 @@ namespace Console_Text_RPG_Team
                 player.TakeDamage(damage);
                 MonsterAttackLog(monster, player, damage);
             }
-            Console.WriteLine("계속 하려면 아무키나 입력");
+            Console.WriteLine(" 계속 하려면 아무키나 입력해주세요.");
             Console.ReadLine();
 			if (!player.IsAlive()) return;
         }
@@ -266,23 +323,39 @@ namespace Console_Text_RPG_Team
         }
         public void BattleMenu()
         {
-            Console.Clear();
-            Console.WriteLine(" 원하는 행동을 선택하세요:");
-            //Console.WriteLine(" 1. 공격");
-            //Console.WriteLine(" 2. 포션 사용"); // 포션 사용 선택지 추가
-            Console.WriteLine("\n 공격할 몬스터를 선택하세요:");
+
+            Console.Clear();         
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine();
+            Console.WriteLine(" [ 몬스터 ]");
+            Console.ResetColor();
+            Console.WriteLine(" =========================");
             for (int i = 0; i < monsters.Count; i++)
             {
                 var m = monsters[i];
                 string status = m.IsAlive() ? $" HP: {m.hp}" : "Dead";
-                Console.WriteLine($" {i + 1}. {m.name} (Lv.{m.level}) - {status}"); // 공격 선택지 번호 조정
-            }
 
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine($" {i + 1}. {m.name} (Lv.{m.level}) - {status}"); // 공격 선택지 번호 조정
+                Console.ResetColor();
+ 
+
+            }
+            Console.WriteLine(" =========================");
             //Console.WriteLine("\n0. 돌아가기");
             Console.WriteLine("\n");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(" [ 내 정보 ]"); 
+            Console.ResetColor();
+            Console.WriteLine(" =========================");
             _player.ViewStatus();
-            
-            Console.Write(">> ");
+            Console.WriteLine(" =========================");
+            Console.WriteLine(" 원하는 행동의 번호 선택하세요:");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine(" 1. 공격");
+            Console.WriteLine(" 2. 포션 사용"); // 포션 사용 선택지 추가
+            Console.ResetColor();
+            Console.Write(" >> ");
         }
 
         public void PlayerAttackLog(Player attacker, Monster target, float damage)
@@ -291,21 +364,27 @@ namespace Console_Text_RPG_Team
             StringBuilder sb = new StringBuilder();
 
 
-            sb.AppendLine("Battle!!\n");
-            sb.AppendLine($"{attacker.name} 의 공격!");
-            sb.Append($"Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {(damage - target.def > 1 ? damage - target.def : 1)}] | ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("");
+            Console.WriteLine(" [ 전투 시작! ]\n");
+            Console.ResetColor();
+            sb.AppendLine($" {attacker.name} 의 공격!");
+            sb.Append($" Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {(damage - target.def > 1 ? damage - target.def : 1)}] | ");
+
 
             if (target.hp <= 0)
             {
                 _player.audio[4].Play();
                 //sb.Append($"Lv.{target.level} {target.name} |  ");
-                sb.AppendLine($"(HP {target.PreviousHP} -> Dead)");
+                sb.AppendLine($" (HP {target.PreviousHP} -> Dead)");
             }
             else
             {
+
 				// sb.Append($"Lv.{target.level} {target.name} |  ");
 				_player.audio[3].Play();
 				sb.AppendLine($"(HP {target.PreviousHP} -> {target.hp})");
+
             }
             Console.WriteLine(sb.ToString());
 
@@ -317,16 +396,18 @@ namespace Console_Text_RPG_Team
 		{
 			StringBuilder sb = new StringBuilder();
 
+
 			sb.AppendLine($"{attacker.name} 의 공격!");
 			sb.Append($"Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {(damage-target.def > 1 ? damage-target.def : 1)}] | ");
 
+
 			if (target.maxHp <= 0)
 			{
-				sb.AppendLine($"(HP {target.hp} -> Dead)");
+				sb.AppendLine($" (HP {target.hp} -> Dead)");
 			}
 			else
 			{
-				sb.AppendLine($"(HP {target.PreviousHP} -> {target.hp})");
+				sb.AppendLine($" (HP {target.PreviousHP} -> {target.hp})");
 			}
 
 			Console.WriteLine(sb.ToString());
@@ -369,12 +450,13 @@ namespace Console_Text_RPG_Team
             if (!isVictory)
             {
                 sceneBattle.clearCount = 0;
-                sb.AppendLine(" Battle!! - Result\n");
-                Console.Write(sb.ToString());
-                sb.Clear();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("");
+                Console.WriteLine(" [ 전투 결과.... ]\n");
+                Console.ResetColor();
                 Console.WriteLine(sb.ToString());
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(" You Lose\n");
+                Console.WriteLine(" [ 클리어에 실패하셨습니다. ]\n");
                 Console.ResetColor();
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
                 Console.WriteLine(" 0. 다음");
@@ -430,29 +512,34 @@ namespace Console_Text_RPG_Team
             player.Exp += totalExp;
             sceneBattle.AddDroppedItemsToInventory(player, droppedItems);
 
-            sb.AppendLine(" Battle!! - Result\n");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine();
+            Console.WriteLine(" [ 전투 결과 ]\n");
+            Console.ResetColor();
             sb.AppendLine(" Victory\n");
             sb.AppendLine($" 던전에서 몬스터 {killCount}마리를 잡았습니다.\n");
             Console.WriteLine(sb.ToString());
             sb.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(" [캐릭터 정보]");
+            Console.WriteLine(" [ 캐릭터 정보 ]");
             Console.ResetColor();
             sb.AppendLine(" =========================");
             sb.AppendLine($" Lv.{prevLevel} {player.name} -> Lv{player.level}. {player.name}");
             sb.AppendLine($" HP {prevHP} -> {player.hp}");
             sb.AppendLine($" exp {prevExp} -> {player.exp}\n");
-
-            sb.AppendLine("[캐릭터 정보]");
-            sb.AppendLine($"Lv.{prevLevel} {player.name}  -> Lv{player.level}. {player.name}");
-            sb.AppendLine($"HP {prevHP}  -> {player.maxHp}");
-            sb.AppendLine($"exp {prevExp}  -> ({totalExp}){player.exp}\n");
-
-            sb.AppendLine("[획득 아이템]");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            sb.AppendLine($"({prevGold} -> {player.Gold}) Gold");
+            Console.WriteLine(sb.ToString());
+            sb.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(" [ 캐릭터 변경 정보 ]");
             Console.ResetColor();
-
+            sb.AppendLine(" =========================");
+            sb.AppendLine($" Lv.{prevLevel} {player.name}  -> Lv{player.level}. {player.name}");
+            sb.AppendLine($" HP {prevHP}  -> {player.maxHp}");
+            sb.AppendLine($" exp {prevExp}  -> ({totalExp}){player.exp}\n");
+            sb.AppendLine(" [ 획득 아이템 ]");
+            sb.AppendLine($" ({prevGold} -> {player.Gold}) Gold");
+            Console.WriteLine(sb.ToString());
+            sb.Clear();
 
             var groupedItems = droppedItems.GroupBy(i => i.name).Select(g => new { Name = g.Key, Count = g.Count() });
             foreach (var item in groupedItems)
