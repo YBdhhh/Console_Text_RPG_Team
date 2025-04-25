@@ -34,12 +34,16 @@ namespace Console_Text_RPG_Team
 			playerCopy = player;
 			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine("퀘스트");
+            Console.WriteLine();
+            Console.WriteLine(" [ 퀘스트 술집 ]");
 			Console.ResetColor();
-			sb.Append("퀘스트의 정보가 표시됩니다").Append("\n");
-			sb.AppendLine("");
-
-			for (int i = 0; i < quest.Count; i++)
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+			Console.WriteLine($" 뒷골목의 제이엠: 어서 오시오, 용사여");
+            Console.WriteLine($" 이곳 퀘스트 술집에선 가장 위태로운 퀘스트 의뢰를 받으실 수 있소 ");
+            Console.WriteLine(" 흥미 있는 퀘스트를 골라보시게"); 
+            Console.ResetColor();
+            Console.WriteLine(" =======================================================");
+            for (int i = 0; i < quest.Count; i++)
 			{
 				string name = quest[i].name.Length > 6
 					? quest[i].name.Substring(0, 6) + "..."
@@ -52,13 +56,19 @@ namespace Console_Text_RPG_Team
 				string toString = quest[i].rewardExp.ToString();
 				string rewardExp = toString.Length > 5 ? toString.Substring(0, 5) : toString;
 
-				sb.Append($"{i + 1}. 제목 : {name,-6 - 2} 보상 : {rewardItem,-10 - 2} {rewardExp,-5 - 2} ").Append("\n");
-				
-			}
-			sb.Append("\n");
-			sb.Append("흥미 있는 퀘스트를 선택해주세요").Append("\n\n");
-			sb.Append("원하시는 행동을 입력해주세요.").Append("\n");
-			sb.Append(">> ");
+				sb.Append($" {i + 1}. 제목 : {name,-6 - 2} 보상 : {rewardItem,-10 - 2} {rewardExp,-5 - 2} ").Append("\n");
+				Console.Write(sb.ToString());
+				sb.Clear();
+            }
+            Console.WriteLine(" =======================================================");
+            Console.WriteLine();
+            sb.Append(" 원하시는 퀘스트의 번호를 입력해주세요.").Append("\n");
+            Console.Write(sb.ToString());
+            sb.Clear();
+			Console.ForegroundColor = ConsoleColor.DarkCyan;
+			Console.WriteLine(" 0. 마을로 돌아가기");
+            Console.ResetColor();
+            sb.Append( " >> ");
 			Console.Write(sb.ToString());
 			Quest();
 			sb.Clear();
@@ -83,14 +93,16 @@ namespace Console_Text_RPG_Team
 					}
 					else
 					{
-						Console.WriteLine("다시 입력해주십시오");
-						continue;
+						Console.WriteLine(" 다시 입력해주십시오");
+                        Console.Write(" >> ");
+                        continue;
 					}
 				}
 				catch (Exception)
 				{
-					Console.WriteLine("다시 입력해주십시오");
-					continue;
+					Console.WriteLine(" 다시 입력해주십시오");
+                    Console.Write(" >> ");
+                    continue;
 				}
 
 			}
@@ -99,9 +111,9 @@ namespace Console_Text_RPG_Team
 		{
 			StringBuilder sb = new StringBuilder();
 
-			sb.AppendLine($"{index + 1}");
-			sb.AppendLine($"퀘스트 : {quest[index].name}");
-			sb.AppendLine($"{quest[index].explain}");
+			sb.AppendLine($" {index + 1}");
+			sb.AppendLine($" 퀘스트 : {quest[index].name}");
+			sb.AppendLine($" {quest[index].explain}");
 			/*
 			sb.AppendLine($"보상 : {quest[index].rewardItem} {quest[index].rewardExp}");
 			*/
@@ -109,22 +121,22 @@ namespace Console_Text_RPG_Team
 			if ((player.quest.name != null) && (player.quest.name != quest[index].name))
 			{
 				StringBuilder sbb = new StringBuilder();
-				sbb.AppendLine($"{player.quest.name}을 수행중입니다.");
+				sbb.AppendLine($" {player.quest.name}을 수행중입니다.");
 				sbb.AppendLine("");
-				sbb.AppendLine("아무키나 눌러서 나가기");
+				sbb.AppendLine(" 아무키나 눌러서 마을로 돌아가기");
 				Console.WriteLine(sbb.ToString());
 				sbb.Clear();
 				Console.ReadLine();
 				return;
 			}
-
-			sb.AppendLine("1. 퀘스트 수락");
-			sb.AppendLine("2. 퀘스트 거절");
-			sb.AppendLine("3. 퀘스트 완료");
-			sb.AppendLine();
-			sb.Append(">> ");
-			Console.Write(sb.ToString());
-			sb.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("1. 퀘스트 수락");
+            Console.WriteLine("2. 퀘스트 거절");
+            Console.WriteLine("3. 퀘스트 완료");
+			Console.WriteLine();
+            Console.ResetColor();
+            Console.Write(" >> ");
+	
 			while (true)
 			{
 				try
@@ -136,19 +148,19 @@ namespace Console_Text_RPG_Team
 							return;
 
 						case 1:
-							Console.WriteLine($"[{quest[index].name}]퀘스트를 수락하셨습니다.");
+							Console.WriteLine($" [{quest[index].name}]퀘스트를 수락하셨습니다.");
 							player.quest = quest[index];
 							Thread.Sleep(500);
 							return;
 
 						case 2:
-							Console.WriteLine($"[{quest[index].name}]퀘스트를 거절하셨습니다.");
+							Console.WriteLine($" [{quest[index].name}]퀘스트를 거절하셨습니다.");
 							return;
 
 						case 3:
 							if (player.quest.name == null)
 							{
-								Console.WriteLine("받은 퀘스트가 존재하지 않습니다.");
+								Console.WriteLine(" 받은 퀘스트가 존재하지 않습니다.");
 								Thread.Sleep(500);
 								continue;
 							}
@@ -156,22 +168,22 @@ namespace Console_Text_RPG_Team
 							{
 								if(player.quest.curProgress >= player.quest.endProgress)
 								{
-									Console.WriteLine($"[{quest[index].name}]퀘스트를 완료하셨습니다.");
+									Console.WriteLine($" [{quest[index].name}]퀘스트를 완료하셨습니다.");
 									if (player.quest.item != null)
 									{
 										player.inventory.AddItem(player.quest.item);
-										Console.Write($"[{quest[index].name}]퀘스트 보상 : {player.quest.item.name}");
+										Console.Write($" [{quest[index].name}]퀘스트 보상 : {player.quest.item.name}");
 									}
 									else
 									{
-										Console.Write($"[{quest[index].name}]퀘스트 보상 : {player.quest.rewardExp}");
+										Console.Write($" [{quest[index].name}]퀘스트 보상 : {player.quest.rewardExp}");
 									}
 									int level = player.level; 
 									int exp = player.Exp;
 									player.Exp += player.quest.rewardExp;
 									Console.WriteLine($", {player.quest.rewardExp} 경험치를 얻었습니다.");
-									Console.WriteLine($"현재 레벨 : {level} -> {player.level}");
-									Console.WriteLine($"현재 경험치 : {exp} -> ({player.quest.rewardExp}){player.Exp}");
+									Console.WriteLine($" 현재 레벨 : {level} -> {player.level}");
+									Console.WriteLine($" 현재 경험치 : {exp} -> ({player.quest.rewardExp}){player.Exp}");
 
 									quest.RemoveAt(index);
 									player.quest = new Quest();
@@ -180,7 +192,7 @@ namespace Console_Text_RPG_Team
 								}
 								else
 								{
-									Console.WriteLine("퀘스트를 완료하지 못했습니다.");
+									Console.WriteLine(" 퀘스트를 완료하지 못했습니다.");
 									Thread.Sleep(500);
 									return;
 								}
@@ -188,13 +200,13 @@ namespace Console_Text_RPG_Team
 
 							default:
 
-								Console.WriteLine("다시 입력해주십시오");
+								Console.WriteLine(" 다시 입력해주십시오");
 							continue;
 					}
 				}
 				catch (Exception)
 				{
-					Console.WriteLine("다시 입력해주십시오");
+					Console.WriteLine(" 다시 입력해주십시오");
 					continue;
 				}
 			}

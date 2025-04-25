@@ -35,9 +35,9 @@ namespace Console_Text_RPG_Team
                 Console.Clear();
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine(" ====================== 인벤토리 ======================");
+                Console.WriteLine(" [ 인벤토리 ] ");               
                 Console.ResetColor();
-
+                Console.WriteLine(" ===================================================");
                 if (items.Count == 0)
                 {
                     sb.AppendLine(" 인벤토리가 비어 있습니다.");
@@ -118,9 +118,9 @@ namespace Console_Text_RPG_Team
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine();
-                Console.WriteLine(" ====================== 장착할 아이템 선택 ======================");
+                Console.WriteLine(" [ 장착할 아이템 선택 ]");
                 Console.ResetColor();
-
+                Console.WriteLine(" ===================================================");
                 for (int i = 0; i < items.Count; i++)
                 {
                     var item = items[i];
@@ -189,8 +189,9 @@ namespace Console_Text_RPG_Team
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine();
-                Console.WriteLine(" ====================== 해제할 아이템 선택 ======================");
+                Console.WriteLine(" [ 해제할 아이템 선택 ]");
                 Console.ResetColor();
+                Console.WriteLine(" ===================================================");
 
                 for (int i = 0; i < items.Count; i++)
                 {
@@ -228,12 +229,14 @@ namespace Console_Text_RPG_Team
                         else
                         {
                             Console.WriteLine(" 장착된 아이템이 아닙니다.");
+                            Console.Write(" >> ");
                         }
                         Thread.Sleep(500);
                         continue;
                     }
                 }
                 Console.WriteLine(" 잘못된 입력입니다.");
+                Console.Write(" >> ");
                 Thread.Sleep(500);
             }
         }
