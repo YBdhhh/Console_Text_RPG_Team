@@ -1,4 +1,0 @@
-[2022. 6. 25. 오전 2:34:35] layer "Se quence 01.00_10_18_16.Still001": Unsupported extension: still
-[2022. 6. 25. 오전 2:34:35] layer "Se quence 01.00_10_18_16.Still001": Invalid quality: 10
-[2022. 6. 25. 오전 2:34:35] layer "Sequence 01.00_00_42_14.Still003": Unsupported extension: still
-[2022. 6. 25. 오전 2:34:35] layer "Sequence 01.00_00_42_14.Still003": Invalid quality: 30
