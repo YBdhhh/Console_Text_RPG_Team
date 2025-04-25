@@ -161,85 +161,8 @@ namespace Console_Text_RPG_Team
                     Console.Write(" >> ");
                     continue;
                 }
-
-                //           if (choice == 1) // 공격 선택
-                //           {
-                //               // 공격할 몬스터 선택 로직
-                //               Console.WriteLine("\n 공격할 몬스터 번호를 선택하세요:");
-                //               string monsterInput = Console.ReadLine();
-                //               if (!int.TryParse(monsterInput, out int monsterChoice) || monsterChoice < 3 || monsterChoice > monsters.Count)
-                //               {
-                //                   Console.WriteLine(" 잘못된 입력입니다.");
-                //                   continue;
-                //               }
-
-                //               Monster target = monsters[monsterChoice - 1];
-                //               if (!target.IsAlive())
-                //               {
-                //                   Console.WriteLine(" 이미 죽은 몬스터입니다.");
-                //                   continue;
-                //               }
-                //               float damaged;
-
-                //while (true)
-                //               {
-                //                   (int result, _player) = WhatSelectDamage(_player);
-                //                   damaged = SelectDamage(result, _player);
-                //                   if (damaged != 0)
-                //                       break;
-                //               }
-                //               float criticalDamage = _player.CriticalDamage(_player, damaged);
-                //               float finalDamage = GetRandomDamage(criticalDamage);
-                //               target.TakeDamage(finalDamage);
-                //               PlayerAttackLog(_player, target, finalDamage);
-                //               break; // 공격 후 플레이어 턴 종료
-                //           }
-                //           else  if (choice >= 1 && choice <= monsters.Count) // 몬스터 공격 선택 (직접 번호 입력)
-                {
-
-                    // 공격할 몬스터 선택 로직
-                    Console.WriteLine("\n 공격할 몬스터 번호를 선택하세요:");
-                    Console.Write(" >> ");
-                    string monsterInput = Console.ReadLine();
-                    if (!int.TryParse(monsterInput, out int monsterChoice) || monsterChoice < 3 || monsterChoice > monsters.Count + 2)
-                    {
-                        Console.WriteLine(" 잘못된 입력입니다.");
-                        Console.Write(" >> ");
-                        continue;
-                    }
-
-                    Monster target = monsters[monsterChoice - 3];
-                    if (!target.IsAlive())
-                    {
-                        Console.WriteLine(" 이미 죽은 몬스터입니다.");
-                        Console.WriteLine(" 너무 잔인하시네요...");
-                        Console.Write(" >> ");
-                        continue;
-                    }
-                    float damaged;
-
-					while (true)
-                    {
-                        (int result, _player) = WhatSelectDamage(_player);
-                        damaged = SelectDamage(result, _player);
-                        if (damaged != 0)
-                            break;
-                    }
-                    float criticalDamage = _player.CriticalDamage(_player, damaged);
-                    float finalDamage = GetRandomDamage(criticalDamage);
-                    target.TakeDamage(finalDamage);
-                    PlayerAttackLog(_player, target, finalDamage);
-                    break; // 공격 후 플레이어 턴 종료
-                }
-                else if (choice == 2) // 포션 사용 선택
-                {
-                    _player.inventory.UsePotion(_player);
-                    Console.WriteLine("\n 계속하려면 아무 키나 누르세요...");
-                    Console.ReadKey();
-                    continue; // 포션 사용 후 다시 행동 선택
-                }
-                else if (choice >= 3 && choice <= monsters.Count + 2) // 몬스터 공격 선택 (직접 번호 입력)
-                {
+               
+             
                     Monster target = monsters[choice - 1];
                     if (!target.IsAlive())
                     {
@@ -268,7 +191,7 @@ namespace Console_Text_RPG_Team
 
                 }
             }
-        }
+        
 
         public void EnemyPhase(Player player)
         {
