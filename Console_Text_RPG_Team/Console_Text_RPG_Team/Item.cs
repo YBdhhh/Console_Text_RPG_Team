@@ -41,6 +41,9 @@ namespace Console_Text_RPG_Team
             this.Type = type;
             this.HealAmount = 0; // 기본값
         }
+        public Item()
+        {
+        }
 
         // 포션 생성자
         public Item(string name, string toolTip, int price, float healAmount)

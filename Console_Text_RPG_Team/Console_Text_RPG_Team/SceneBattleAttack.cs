@@ -67,6 +67,7 @@ namespace Console_Text_RPG_Team
                 }
                 sb.AppendLine();
                 sb.Append(" >> ");
+
                 Console.Write(sb.ToString());
                 string input = Console.ReadLine();                       //input 추가해서
                 bool isNumber = int.TryParse(input, out result);        //bool 값을 받아서
@@ -81,14 +82,18 @@ namespace Console_Text_RPG_Team
 
         public float SelectDamage(int result, Player player)
         {
-            float damage = 0;
-            if (result == 1)                                        //result = -2 에서 1로 수정
-                damage = player.atk;
-            else
+            while (true)
             {
-                damage = player.skill[result-2].UseSkill(player);   //result에서 result-2로 수정
+                float damage = 0;
+                if (result == 1)                                        //result = -2 에서 1로 수정
+                    damage = player.atk;
+                else
+                {
+                    damage = player.skill[result - 2].UseSkill(player);   //result에서 result-2로 수정
+                    
+				}
+                return damage;
             }
-            return damage;
         }
 
         public void PlayerAttack()
@@ -124,9 +129,15 @@ namespace Console_Text_RPG_Team
                         Console.WriteLine(" 이미 죽은 몬스터입니다.");
                         continue;
                     }
+                    float damaged;
 
-                    (int result, _player) = WhatSelectDamage(_player);
-                    float damaged = SelectDamage(result, _player);
+					while (true)
+                    {
+                        (int result, _player) = WhatSelectDamage(_player);
+                        damaged = SelectDamage(result, _player);
+                        if (damaged != 0)
+                            break;
+                    }
                     float criticalDamage = _player.CriticalDamage(_player, damaged);
                     float finalDamage = GetRandomDamage(criticalDamage);
                     target.TakeDamage(finalDamage);
@@ -271,11 +282,11 @@ namespace Console_Text_RPG_Team
 
 			if (target.maxHp <= 0)
 			{
-				sb.AppendLine($"(HP {target.PreviousHP} -> Dead)");
+				sb.AppendLine($"(HP {target.hp} -> Dead)");
 			}
 			else
 			{
-				sb.AppendLine($"(HP {target.PreviousHP} -> {target.maxHp})");
+				sb.AppendLine($"(HP {target.PreviousHP} -> {target.hp})");
 			}
 
 			Console.WriteLine(sb.ToString());
@@ -330,9 +341,9 @@ namespace Console_Text_RPG_Team
                 Console.ResetColor();
                 sb.AppendLine(" >> ");
                 Console.Write(sb.ToString());
-                sb.Clear();
                 Console.ReadLine();
-                return;
+                sb.Clear();
+				return;
             }
 
             List<Item> droppedItems = new List<Item>();
@@ -365,6 +376,7 @@ namespace Console_Text_RPG_Team
             {
                 if (sceneBattle.dungeonFloor.Exists(x => sceneBattle.currentFloor == sceneBattle.dungeonFloor.Count && sceneBattle.dungeonFloor.Count < 3))   //3층 이하일때 현재최고층 난이도를 깨야만 층이 추가되도록
                 {
+                    player.quest.PlayEvent(player.quest, monsters.Count ,monsters[0].name);
                     sceneBattle.dungeonFloor.Add(sceneBattle.currentFloor + 1);
                 }
                 sceneBattle.clearCount = 1;

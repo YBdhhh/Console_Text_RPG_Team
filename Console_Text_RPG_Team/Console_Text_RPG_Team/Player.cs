@@ -21,6 +21,9 @@ namespace Console_Text_RPG_Team
 		public float maxHp = 100;
 		public float hp;
 
+		public float itematk = 0;
+		public float itemdef = 0;
+
 		public float atk = 10;
 		public float def = 5;
 		public float mp = 10;
@@ -50,13 +53,12 @@ namespace Console_Text_RPG_Team
 		public void ViewStatus()
 		{
 			StringBuilder sb = new StringBuilder();
-			sb.AppendLine("캐릭터의 정보가 표시됩니다").Append("\n");
 			sb.AppendLine($"이름 : {name}");
 			sb.AppendLine($"레벨 : {level}");
 			sb.AppendLine($"직업 : {job}");
 			sb.AppendLine($"체력 : {hp} / {maxHp}");
-			sb.AppendLine($"공격력 : {atk}");
-			sb.AppendLine($"방어력 : {def}");
+			sb.AppendLine($"공격력 : {atk} (+{this.itematk})");
+			sb.AppendLine($"방어력 : {def} (+{this.itemdef})");
 			sb.AppendLine($"마나 : {mp}");
 			sb.AppendLine();
 			sb.AppendLine($"골드 : {gold}");
@@ -133,8 +135,10 @@ namespace Console_Text_RPG_Team
 
 		public void TakeDamage(float damage)
 		{
-			PreviousHP = maxHp;
+			PreviousHP = hp;
 			float reduced = damage - def;
+			this.quest.PlayEvent(quest, (int)reduced);
+
 			if (reduced <= 0)
 			{
 				reduced = 1;

@@ -64,7 +64,7 @@ namespace Console_Text_RPG_Team
 
 					StringBuilder sb = new StringBuilder();
 
-                    sb.AppendLine($" {index + 1, 4}. 직업 : {name, 15} 체력 : {hp,10} 공격력 : {atk,10} 방어력 : {def,-5}을 선택하셨습니다.");
+                    sb.AppendLine($" {index + 1}. 직업 : {name, -4} 체력 : {hp,-4} 공격력 : {atk, -4} 방어력 : {def, -4}을 선택하셨습니다.");
                     sb.Append("\n");
                     sb.AppendLine($" {player.name} 용사님 {player.job} 직업을 선택하셨습니다.");  
                     sb.Append(" 단풍 마을로 가실려면 아무 키나 눌러주십시오 ");

@@ -93,7 +93,7 @@ namespace Console_Text_RPG_Team
             }
             Console.ForegroundColor = ConsoleColor.Yellow;
 
-            Console.WriteLine($" [보유골드]: {player.gold}G\n");
+            Console.WriteLine($" [보유골드]: {player.Gold}G\n");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine(" 0: 마을로 돌아가기");

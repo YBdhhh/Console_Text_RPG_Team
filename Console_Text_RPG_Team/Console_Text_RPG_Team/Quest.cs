@@ -68,7 +68,10 @@ namespace Console_Text_RPG_Team
 			switch (quest.eventType)
 			{
 				case EventType.HitDamage:
-					EventHit(quest, value);
+					if (value > 0)
+					{
+						EventHit(quest, value);
+					}
 					break;
 
 				case EventType.UseGold:

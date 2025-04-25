@@ -27,7 +27,7 @@ namespace Console_Text_RPG_Team
 			sb.AppendLine($" 이  름	:{player.name}");
 			sb.AppendLine($" Lv.	: {player.level}");
 			sb.AppendLine($" 체  력	: {player.hp} / {player.maxHp}");
-			sb.AppendLine($" 돈	: {player.gold}");
+			sb.AppendLine($" 돈	: {player.Gold}");
             sb.AppendLine(" =====================");
             sb.AppendLine();
             Console.Write(sb.ToString());

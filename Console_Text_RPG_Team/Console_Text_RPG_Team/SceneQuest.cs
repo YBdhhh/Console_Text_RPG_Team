@@ -11,6 +11,8 @@ namespace Console_Text_RPG_Team
 	internal class SceneQuest
 	{
 		public Player playerCopy;
+		public int index;
+
 		public List<Quest> quest = new List<Quest>
 		{
 			new Quest("몬스터 잡기", "던전에 서식하는 몬스터를 10마리 잡아주세요", 0, 10,new Item("물컹물컹한 신발    ",  "일부 애호가에게 잘 팔리는 신발이다.        "  ,0   ,5,   500),EventType.KillOther, 10, ""),
@@ -69,9 +71,12 @@ namespace Console_Text_RPG_Team
 				try
 				{
 					int input = int.Parse(Console.ReadLine());
-					if (input > 0 && input <= quest.Count)
+					if (input == 0)
+						return;
+
+					if (input > 0 && input < quest.Count)
 					{
-						int index = input - 1;
+						index = input - 1;
 						ReturnQuest(index, playerCopy);
 						
 						return;
@@ -167,7 +172,9 @@ namespace Console_Text_RPG_Team
 									Console.WriteLine($", {player.quest.rewardExp} 경험치를 얻었습니다.");
 									Console.WriteLine($"현재 레벨 : {level} -> {player.level}");
 									Console.WriteLine($"현재 경험치 : {exp} -> ({player.quest.rewardExp}){player.Exp}");
-									player.quest = null;
+
+									quest.RemoveAt(index);
+									player.quest = new Quest();
 									Thread.Sleep(500);
 									return;
 								}
