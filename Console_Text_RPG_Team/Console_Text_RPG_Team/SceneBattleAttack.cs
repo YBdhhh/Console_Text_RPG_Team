@@ -30,6 +30,8 @@ namespace Console_Text_RPG_Team
         */
         public void BattleLoop(Player player, List<Monster> monster)
         {
+            player.inventory.UsePotion(player); // Player의 인벤토리 사용
+
             if (sceneBattle.clearCount >= sceneBattle.maxClearCount)        //보스방이면
             {
                 monsters.Add(new Monster(sceneBattle.bossMonsters[sceneBattle.currentFloor - 1]));
