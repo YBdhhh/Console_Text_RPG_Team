@@ -28,6 +28,7 @@ x86/
 [Aa][Rr][Mm]64/
 bld/
 [Bb]in/
+!bin/*.mp3
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
@@ -400,4 +401,3 @@ FodyWeavers.xsd
 *.sln.iml
 
 #. audio
-*.mp3
