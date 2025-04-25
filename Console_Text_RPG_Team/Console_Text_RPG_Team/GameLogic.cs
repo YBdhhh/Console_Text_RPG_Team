@@ -87,23 +87,23 @@ namespace Console_Text_RPG_Team
 
         public void Start(GameLogic gameLogic)
 		{
-			VolumeSetting();
-			if (player.audio.Count == 0)
-			{
-				this.player.audio.Add(audioManager[1]);
-				this.player.audio.Add(audioManager[2]);
-				this.player.audio.Add(audioManager[3]);
-				this.player.audio.Add(audioManager[4]);
-				this.player.audio.Add(audioManager[5]);
-				this.player.audio.Add(audioManager[6]);
-				this.player.audio.Add(audioManager[7]);
-			}
-			BGMStart();
 			if (player.name == null)
 			{
 				Reset();
-				
 			}
+			VolumeSetting();
+			if (player.audio.Count == 0)
+			{
+				player.audio.Add(audioManager[1]);
+				player.audio.Add(audioManager[2]);
+				player.audio.Add(audioManager[3]);
+				player.audio.Add(audioManager[4]);
+				player.audio.Add(audioManager[5]);
+				player.audio.Add(audioManager[6]);
+				player.audio.Add(audioManager[7]);
+			}
+			BGMStart();
+			
 
 			while (true)
 			{
