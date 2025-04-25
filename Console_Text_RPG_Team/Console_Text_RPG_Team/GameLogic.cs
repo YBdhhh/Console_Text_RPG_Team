@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Console_Text_RPG_Team
 {
+
 	internal class GameLogic
 	{
 		PlayerCreate playerCreate = new PlayerCreate();
@@ -61,6 +62,7 @@ namespace Console_Text_RPG_Team
 			audioManager[0].PlayLooping();
 		}
 
+
 		public GameLogic(GameLogic gameLogic)
 		{
 			this.player = gameLogic.player;
@@ -70,10 +72,12 @@ namespace Console_Text_RPG_Team
 
 		public void Reset()
 		{
+
 			Console.Clear();
 			player = new Player();
 			InitSceneStart(player);
 			playerCreate.Start(player);
+
 			jobSelect.Start();
 			while (player.job == null)
 			{

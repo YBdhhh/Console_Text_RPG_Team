@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Console_Text_RPG_Team
 {
+
 	internal class SceneInventory
 	{
 		private Inventory inventory;
@@ -172,10 +173,12 @@ namespace Console_Text_RPG_Team
 							selected.equippedItem = true;
 							player.quest.PlayEvent(player.quest, selected.name);
 							player.itematk += selected.atk;
+
 							player.itemdef += selected.def;
 							player.atk += selected.atk;
 							player.def += selected.def;
 							sb.AppendLine($" {selected.name}을(를) 장착했습니다.");
+
 							Console.WriteLine(sb.ToString());
 							sb.Clear();
 						}
@@ -229,6 +232,7 @@ namespace Console_Text_RPG_Team
 						{
 							selected.equippedItem = false;  // 장착 해제
 							Console.WriteLine($"{selected.name}을(를) 해제했습니다.");
+
 							player.itematk -= selected.atk;
 							player.itemdef -= selected.def;
 							player.atk -= selected.atk;
@@ -238,6 +242,7 @@ namespace Console_Text_RPG_Team
 						{
 							Console.WriteLine(" 장착된 아이템이 아닙니다.");
 						}
+
 						Thread.Sleep(500);
 						continue;
 					}

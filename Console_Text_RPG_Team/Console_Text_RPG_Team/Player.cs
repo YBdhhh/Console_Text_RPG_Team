@@ -19,8 +19,8 @@ namespace Console_Text_RPG_Team
 		[JsonIgnore]
 		public List<AudioManager> audio = new List<AudioManager>();
 
-		public float critical = 100; //10%
-		public float miss = 100; //10%
+		public float critical = 1000; //10%
+		public float miss = 1000; //10%
 		public float maxHp = 100;
 		public float hp;
 
@@ -61,16 +61,18 @@ namespace Console_Text_RPG_Team
 		public void ViewStatus()
 		{
 			StringBuilder sb = new StringBuilder();
-			sb.AppendLine($"이름 : {name}");
-			sb.AppendLine($"레벨 : {level}");
-			sb.AppendLine($"직업 : {job}");
-			sb.AppendLine($"체력 : {hp} / {maxHp}");
-			sb.AppendLine($"공격력 : {atk} (+{this.itematk})");
-			sb.AppendLine($"방어력 : {def} (+{this.itemdef})");
-			sb.AppendLine($"마나 : {mp} / {maxMp}");
-			sb.AppendLine();
-			sb.AppendLine($"골드 : {gold}");
-			Console.WriteLine(sb.ToString());
+
+			sb.AppendLine($" 이름   : {name}");
+			sb.AppendLine($" 레벨   : {level}");
+			sb.AppendLine($" 직업   : {job}");
+			sb.AppendLine($" 체력   : {hp} / {maxHp}");
+			sb.AppendLine($" 공격력 : {atk} (+{this.itematk})");
+			sb.AppendLine($" 방어력 : {def} (+{this.itemdef})");
+			sb.AppendLine($"마나    : {mp} / {maxMp}");
+			//sb.AppendLine();
+			sb.AppendLine($" 골드   : {gold}");
+			Console.Write(sb.ToString());
+
 		}
 
 		public void RegenerateMp()
@@ -193,8 +195,13 @@ namespace Console_Text_RPG_Team
 			{
 				damage = (int)(damage + damage * critical * 0.1f * 0.01f);
 				Console.ForegroundColor = ConsoleColor.Red; //크리티컬 데미지
-                Console.WriteLine(" 크리티컬 작렬!");
-				Console.ResetColor();
+                Console.Write(" 크리티컬 작렬");
+				Thread.Sleep(500);
+                Console.Write("!!");
+                Thread.Sleep(500);
+                Console.WriteLine("!!");
+                Console.WriteLine("");
+                Console.ResetColor();
                 Thread.Sleep(1000);
 			}
 
@@ -212,7 +219,10 @@ namespace Console_Text_RPG_Team
 			{
 				isMiss = true;
                 Console.ForegroundColor = ConsoleColor.Cyan; //크리티컬 데미지
-                Console.WriteLine(" 깔끔한 회피");
+                Console.Write(" 엄청나게!! ");
+                Thread.Sleep(500);
+                Console.WriteLine("깔끔한 회피!!");
+                Console.WriteLine("");
                 Console.ResetColor();
                 Thread.Sleep(500);
 			}

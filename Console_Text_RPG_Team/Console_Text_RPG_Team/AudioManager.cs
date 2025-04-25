@@ -27,7 +27,12 @@ namespace Console_Text_RPG_Team
 		}
 		public void Play()
 		{
-			outputDevice.Play();
+			if (outputDevice.PlaybackState != PlaybackState.Stopped)
+				outputDevice.Stop(); // 이전 재생 중단
+
+				audioFile.Position = 0;  // 위치 초기화
+				outputDevice.Init(audioFile); // Init은 Stop 후 재초기화 필요할 수 있음
+				outputDevice.Play();    // 다시 재생
 		}
 		public void PlayLooping()
 		{

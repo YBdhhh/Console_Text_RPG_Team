@@ -39,18 +39,19 @@ namespace Console_Text_RPG_Team
 			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine();
-            Console.WriteLine($" 단풍 마을에 오신 {player.name} 용사 환영합니다.");
-            Console.WriteLine(" 원하시는 행동을 하실 수 있습니다.");
+            Console.WriteLine($" 장로 스탄: 단풍 마을에 오신 {player.name} 용사여 환영하네.");
+            Console.WriteLine(" 여기서는 자유롭게 행동 할 수있네.");
 			Console.ResetColor();
             sb.AppendLine();
-			sb.AppendLine(" 1.상태 보기");
-			sb.AppendLine(" 2.전투 시작");
-            sb.AppendLine(" 3.인벤토리 보기");
-            sb.AppendLine(" 4.상점 이동");
-			sb.AppendLine(" 5.휴식 하기");
-			sb.AppendLine(" 6.퀘스트술집");
-			sb.AppendLine(" 7.게임리셋");
-			sb.AppendLine(" 0.게임 종료");
+
+			sb.AppendLine(" 1. 상태 보기");
+			sb.AppendLine(" 2. 전투 시작");
+            sb.AppendLine(" 3. 인벤토리 보기");
+            sb.AppendLine(" 4. 상점 이동");
+			sb.AppendLine(" 5. 휴식 하기");
+			sb.AppendLine(" 6. 퀘스트술집");
+            sb.AppendLine(" 0. 게임 종료");
+
 			sb.AppendLine();
 
 
@@ -108,7 +109,8 @@ namespace Console_Text_RPG_Team
 						return result;
 				}
 				Console.WriteLine(" 잘못된 입력입니다.");
-			}
+                Console.Write(" >> ");
+            }
 		}
 	}
 }
