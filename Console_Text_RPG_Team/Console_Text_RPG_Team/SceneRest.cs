@@ -57,6 +57,15 @@ namespace Console_Text_RPG_Team
 							return;
 						case 1:
 							Console.Clear();
+							if(player.Gold < 30)
+							{
+								Console.WriteLine(" 골드가 부족합니다.");
+								Thread.Sleep(500);
+								Console.WriteLine(" 저리가라 거렁뱅이");
+								Thread.Sleep(500);
+								return;
+							}
+
 							Console.ForegroundColor = ConsoleColor.Green;
 							Console.WriteLine(" 당신은 30G를 내고 치유의 요람에서 즐겁게 놀았습니다.");
 							Thread.Sleep(500);
