@@ -61,14 +61,18 @@ namespace Console_Text_RPG_Team
 							return;
 						default:
 							Console.WriteLine(" 다시 입력해주십시오");
-                            Console.Write(" >> ");
+
+                            Thread.Sleep(500);
+
                             continue;
 					}
 				}
 				catch (Exception)
 				{
 					Console.WriteLine(" 다시 입력해주십시오");
-                    Console.Write(" >> ");
+
+                    Thread.Sleep(500);
+
                     continue;
 				}
 				
@@ -80,6 +84,7 @@ namespace Console_Text_RPG_Team
 			while (true)
 			{
 				Console.Clear();
+
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine(" [ 스탯 분배 ]".PadLeft(10));
                 Console.ResetColor();
@@ -94,24 +99,27 @@ namespace Console_Text_RPG_Team
 				Console.WriteLine();
                 Console.ResetColor();
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
-                Console.WriteLine(" 1. 체력");
-                Console.WriteLine(" 2. 공격력");
-                Console.WriteLine(" 3. 방어력");
-                Console.WriteLine(" 4. 마력");
+                Console.WriteLine($" 1. {"체력",-5} {"(+10)",-5}");
+                Console.WriteLine($" 2. {"공격력",-5}{"(+3)",-5} ");
+                Console.WriteLine($" 3. {"방어력",-5}{"(+1)",-5}");
+                Console.WriteLine($" 4. {"마나",-5} {"(+1)",-5}");
                 Console.WriteLine(" 0. 나가기");
                 Console.ResetColor();
 				sb.AppendLine(" 원하시는 행동의 번호를 입력해주세요.");
 				sb.Append(" >> ");
                 Console.Write(sb.ToString());
+
 				sb.Clear();
 				try
 				{
 					int input = int.Parse(Console.ReadLine());
 					if (input > 4 || 0 > input)
 					{
-						Console.WriteLine(" 다시 입력해주십시오");
-                        Console.Write(" >> ");
-                        continue;
+
+						Console.WriteLine("다시 입력해주십시오");
+						Thread.Sleep(500);
+						continue;
+
 					}
 
 					if (input == 0)
@@ -120,8 +128,10 @@ namespace Console_Text_RPG_Team
 				}
 				catch (Exception)
 				{
-					Console.WriteLine(" 다시 입력해주십시오");
-                    Console.Write(" >> ");
+
+					Console.WriteLine("다시 입력해주십시오");
+                    Thread.Sleep(500);
+
                     continue;
 				}
 

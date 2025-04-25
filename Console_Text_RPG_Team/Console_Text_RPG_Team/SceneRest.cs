@@ -25,6 +25,7 @@ namespace Console_Text_RPG_Team
 			sb.AppendLine($" 이  름	: {player.name}");
 			sb.AppendLine($" Lv.	: {player.level}");
 			sb.AppendLine($" 체  력	: {player.hp} / {player.maxHp}");
+			sb.AppendLine($" 마  력	: {player.mp} / {player.maxMp}");
 			sb.AppendLine($" 돈	: {player.Gold}");
             sb.AppendLine(" =====================");
             sb.AppendLine();
@@ -60,6 +61,7 @@ namespace Console_Text_RPG_Team
 							Console.WriteLine(" 당신은 30G를 내고 치유의 요람에서 즐겁게 놀았습니다.");
 							Thread.Sleep(500);
 							Console.WriteLine("...");
+							player.audio[0].Play();
 							Thread.Sleep(500);
 							Console.ResetColor();
 							Console.WriteLine();
@@ -73,13 +75,26 @@ namespace Console_Text_RPG_Team
 							{
 								player.hp += (int)(player.maxHp * 0.3f);
 							}
-							
+
+							if (player.maxMp < player.mp * 1.3f)
+							{
+								player.mp = player.maxMp;
+							}
+							else
+							{
+								player.mp += (int)(player.maxMp * 0.3f);
+							}
+
 							player.Gold -= 30;
 							Thread.Sleep(500);
 							Console.WriteLine();
-							Console.WriteLine($" 현재 체력 : ({player.hp} / {player.maxHp})  | 현재 골드 : {player.Gold}");
 
-                            sb.AppendLine("");
+							Console.WriteLine($" 현재 체력 : ({player.hp} / {player.maxHp})  | 현재 골드 : {player.Gold}");
+							Console.WriteLine($" 현재 마나 : ({player.mp} / {player.maxMp})  |");
+
+
+
+							sb.AppendLine("");
                             sb.AppendLine(" 단풍 마을로 가실려면 아무 키나 눌러주십시오 ");
                             Console.Write(sb.ToString());
                             sb.Clear();

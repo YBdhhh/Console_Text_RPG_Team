@@ -12,6 +12,7 @@ namespace Console_Text_RPG_Team
 {
     internal class SceneBattle
     {
+        private Player player;
 
         SceneBattleAttack sceneBattleAttack;  //임시
 
@@ -57,6 +58,7 @@ namespace Console_Text_RPG_Team
 
         public void SelectDungeon(Player player)
         {
+            this.player = player;
             int choose = 1;
             while (choose != 0)
             {
@@ -193,17 +195,22 @@ namespace Console_Text_RPG_Team
             sceneBattleAttack = new SceneBattleAttack(this, player);
 
 
-            Console.Clear();
+            player.audio[0].Stop(); //일반전투 음악 정지
+			      player.audio[6].Play(); //보스전 음악
+            Thread.Sleep(3000);
+			      Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine();
             Console.WriteLine($" {player.name}: 앗! 어디서 거대한 그림자가...");
             Console.ResetColor();
+
             Thread.Sleep(1200);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($" [ 전투 시작! {currentFloor}층 - 보스 ]");
             Console.ResetColor();
             Console.WriteLine($" 야생의 머쉬맘이 나타났다!!\n");
             bossMonster.Add(new Monster (bossMonsters[currentFloor-1]));
+            player.audio[0].Play();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" [ 몬스터 ]");
             Console.ResetColor();
@@ -217,6 +224,7 @@ namespace Console_Text_RPG_Team
             Console.WriteLine(" [ 내정보 ]");
             Console.ResetColor();
             Console.WriteLine(" ====================");
+
             sb.AppendLine($" Lv.	: {player.level}");
             sb.AppendLine($" 직업	: {player.job}");
             sb.AppendLine($" 체  력	: {player.PreviousHP}/{player.hp}");
@@ -315,7 +323,13 @@ namespace Console_Text_RPG_Team
             foreach (var item in droppedItems)
             {
                 player.inventory.AddItem(item);
+                Console.WriteLine($"{item.name}을 획득했습니다.");
             }
+        }
+
+        public SceneBattle()
+        {
+            
         }
     }
 }

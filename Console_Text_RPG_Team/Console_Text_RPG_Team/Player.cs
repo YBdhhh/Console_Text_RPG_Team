@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -15,6 +16,8 @@ namespace Console_Text_RPG_Team
 
 
 		public Quest quest = new Quest();
+		[JsonIgnore]
+		public List<AudioManager> audio = new List<AudioManager>();
 
 		public float critical = 1000; //10%
 		public float miss = 1000; //10%
@@ -26,7 +29,8 @@ namespace Console_Text_RPG_Team
 
 		public float atk = 10;
 		public float def = 5;
-		public float mp = 10;
+		public float maxMp = 10;
+		public float mp;
 		public int stat = 5;
 		private int gold = 1500; 
 
@@ -40,9 +44,13 @@ namespace Console_Text_RPG_Team
 			{
 				int i = gold;
 				gold = value;
-				if (quest.name != null)
+				if (i - gold > 0)
 				{
-					if (i -gold > 0)
+					if (audio.Count != 0)
+					{
+						audio[1].Play();
+					}
+					if (quest.name != null)
 					{
 						quest.PlayEvent(quest, i-gold);
 					}
@@ -53,16 +61,30 @@ namespace Console_Text_RPG_Team
 		public void ViewStatus()
 		{
 			StringBuilder sb = new StringBuilder();
+
 			sb.AppendLine($" 이름   : {name}");
 			sb.AppendLine($" 레벨   : {level}");
 			sb.AppendLine($" 직업   : {job}");
 			sb.AppendLine($" 체력   : {hp} / {maxHp}");
 			sb.AppendLine($" 공격력 : {atk} (+{this.itematk})");
 			sb.AppendLine($" 방어력 : {def} (+{this.itemdef})");
-			sb.AppendLine($" 마나   : {mp}");
+			sb.AppendLine($"마나    : {mp} / {maxMp}");
 			//sb.AppendLine();
 			sb.AppendLine($" 골드   : {gold}");
 			Console.Write(sb.ToString());
+
+		}
+
+		public void RegenerateMp()
+		{
+			if (maxMp > mp + 0.2)
+			{
+				mp += 2;
+			}
+			else
+			{
+				mp = maxMp;
+			}
 		}
 
 		public int level = 1;
@@ -74,8 +96,9 @@ namespace Console_Text_RPG_Team
 		public Player()
 		{
 			inventory = new Inventory();
-			Gold = 1500;
+			gold = 1500;
 			hp = maxHp;
+			mp = maxMp;
 		}
 
 		public void HpUpSet(float value)
@@ -95,6 +118,7 @@ namespace Console_Text_RPG_Team
 		{
 			if (exp > expCount[level - 1])
 			{
+				audio[2].Play();
 				exp -= expCount[level - 1];
 				level += 1;
 				stat += 3;
@@ -110,22 +134,30 @@ namespace Console_Text_RPG_Team
 
 		public void StatAdd(int value)
 		{
-			switch(value)
+			if(stat > 0)
 			{
-				case 1:
-					HpUpSet(10);
-					break;
-				case 2:
-					this.atk += 3;
-					break;
-				case 3:
-					this.def += 1;
-					break;
-				case 4:
-					this.mp += 1;
-					break;	
-			}
-			this.stat -= 1;
+                switch (value)
+                {
+                    case 1:
+                        HpUpSet(10);
+                        break;
+                    case 2:
+                        this.atk += 3;
+                        break;
+                    case 3:
+                        this.def += 1;
+                        break;
+                    case 4:
+                        this.mp += 1;
+                        break;
+                }
+                this.stat -= 1;
+            }
+			else
+			{
+				Console.WriteLine("보유스탯이 부족합니다.");
+                Thread.Sleep(500);
+            }
 		}
 
 		public bool IsAlive()
@@ -199,6 +231,7 @@ namespace Console_Text_RPG_Team
 
 		public void Heal(float amount)
 		{
+			audio[0].Play();
 			hp += amount;
 			if (hp > maxHp) hp = maxHp;
 		}

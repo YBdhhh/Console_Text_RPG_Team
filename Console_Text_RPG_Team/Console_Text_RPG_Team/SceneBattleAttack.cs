@@ -30,6 +30,8 @@ namespace Console_Text_RPG_Team
         */
         public void BattleLoop(Player player, List<Monster> monster)
         {
+            player.inventory.UsePotion(player); // Player의 인벤토리 사용
+
             if (sceneBattle.clearCount >= sceneBattle.maxClearCount)        //보스방이면
             {
                 monsters.Add(new Monster(sceneBattle.bossMonsters[sceneBattle.currentFloor - 1]));
@@ -49,6 +51,34 @@ namespace Console_Text_RPG_Team
 
                 EnemyPhase(_player);
                 if (CheckBattleEnd(_player)) break;
+                player.RegenerateMp();
+            }
+
+            void BattleResult(Player player, List<Monster> deadMonster)  //이부분
+            {
+                // ... 기존 코드 ...
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("[획득 아이템]");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+
+                List<Item> totalDroppedItems = new List<Item>();
+                foreach (var monster in deadMonster)
+                {
+                    totalDroppedItems.AddRange(monster.GetDropItems(sceneBattle.currentFloor));
+                }
+
+                var groupedItems = totalDroppedItems.GroupBy(i => i.name).Select(g => new { Name = g.Key, Count = g.Count() });
+                foreach (var item in groupedItems)
+                {
+                    sb.AppendLine($" {item.Name} - {item.Count}");
+                }
+                Console.ResetColor();
+                Console.Write(sb.ToString());
+                sb.Clear();
+
+                sceneBattle.AddDroppedItemsToInventory(player, totalDroppedItems); // 획득한 아이템을 인벤토리에 추가
+
+                // ... 기존 코드 ...
             }
         }
 
@@ -60,14 +90,17 @@ namespace Console_Text_RPG_Team
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine(" 어떤 방식으로 공격하시겠습니까?");
                 sb.AppendLine("");
+
                 Console.Write(sb.ToString());
                 sb.Clear();
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
                 Console.WriteLine(" 1. 공격");
+                Console.WriteLine(" 2. 물약(회복)");
                 for (int i = 0; i < player.skill.Count; i++)
                 {
-                    Console.WriteLine($" {i + 2}. {player.skill[i].name}");
+                    Console.WriteLine($" {i + 3}. {player.skill[i].name}");
                     Console.ResetColor();
+
                 }
                 sb.AppendLine();
                 sb.Append(" >> ");
@@ -77,7 +110,7 @@ namespace Console_Text_RPG_Team
                 bool isNumber = int.TryParse(input, out result);        //bool 값을 받아서
                 if (isNumber)                                           //숫자일때만
                 {
-                    if (1 <= result && result <= player.skill.Count + 1)    //1~스킬개수만큼
+                    if (1 <= result && result <= player.skill.Count + 2)    //1~스킬개수만큼
                         return (result , player);
                 }
                 Console.WriteLine(" 잘못된 값을 입력하셨습니다.");
@@ -90,11 +123,22 @@ namespace Console_Text_RPG_Team
             while (true)
             {
                 float damage = 0;
+                if (result == 2)
+                {
+
+						_player.inventory.UsePotion(_player);
+						Console.WriteLine("\n 계속하려면 아무 키나 누르세요...");
+						Console.ReadKey();
+                        // 포션 사용 후 다시 행동 선택
+
+						return damage; //물약 사용
+                }
+
                 if (result == 1)                                        //result = -2 에서 1로 수정
                     damage = player.atk;
                 else
                 {
-                    damage = player.skill[result - 2].UseSkill(player);   //result에서 result-2로 수정
+                    damage = player.skill[result - 3].UseSkill(player);   //result에서 result-2로 수정
                     
 				}
                 return damage;
@@ -118,8 +162,41 @@ namespace Console_Text_RPG_Team
                     continue;
                 }
 
-                if (choice == 1) // 공격 선택
+                //           if (choice == 1) // 공격 선택
+                //           {
+                //               // 공격할 몬스터 선택 로직
+                //               Console.WriteLine("\n 공격할 몬스터 번호를 선택하세요:");
+                //               string monsterInput = Console.ReadLine();
+                //               if (!int.TryParse(monsterInput, out int monsterChoice) || monsterChoice < 3 || monsterChoice > monsters.Count)
+                //               {
+                //                   Console.WriteLine(" 잘못된 입력입니다.");
+                //                   continue;
+                //               }
+
+                //               Monster target = monsters[monsterChoice - 1];
+                //               if (!target.IsAlive())
+                //               {
+                //                   Console.WriteLine(" 이미 죽은 몬스터입니다.");
+                //                   continue;
+                //               }
+                //               float damaged;
+
+                //while (true)
+                //               {
+                //                   (int result, _player) = WhatSelectDamage(_player);
+                //                   damaged = SelectDamage(result, _player);
+                //                   if (damaged != 0)
+                //                       break;
+                //               }
+                //               float criticalDamage = _player.CriticalDamage(_player, damaged);
+                //               float finalDamage = GetRandomDamage(criticalDamage);
+                //               target.TakeDamage(finalDamage);
+                //               PlayerAttackLog(_player, target, finalDamage);
+                //               break; // 공격 후 플레이어 턴 종료
+                //           }
+                //           else  if (choice >= 1 && choice <= monsters.Count) // 몬스터 공격 선택 (직접 번호 입력)
                 {
+
                     // 공격할 몬스터 선택 로직
                     Console.WriteLine("\n 공격할 몬스터 번호를 선택하세요:");
                     Console.Write(" >> ");
@@ -163,27 +240,32 @@ namespace Console_Text_RPG_Team
                 }
                 else if (choice >= 3 && choice <= monsters.Count + 2) // 몬스터 공격 선택 (직접 번호 입력)
                 {
-                    Monster target = monsters[choice - 3];
+                    Monster target = monsters[choice - 1];
                     if (!target.IsAlive())
                     {
                         Console.WriteLine(" 이미 죽은 몬스터입니다.");
                         Console.WriteLine(" 너무 잔인하시네요...");
-                        Console.Write(" >> ");
+                        Thread.Sleep(700);
+
+
                         continue;
                     }
 
                     (int result, _player) = WhatSelectDamage(_player);
                     float damaged = SelectDamage(result, _player);
+                    if (damaged == 0) continue; // 물약 사용 시 턴 종료
                     float criticalDamage = _player.CriticalDamage(_player, damaged);
                     float finalDamage = GetRandomDamage(criticalDamage);
                     target.TakeDamage(finalDamage);
                     PlayerAttackLog(_player, target, finalDamage);
                     break; // 공격 후 플레이어 턴 종료
-                }
-                else
-                {
-                    Console.WriteLine(" 잘못된 입력입니다.");
-                    Console.Write(" >> ");
+
+                           //}
+                           //else
+                           //{
+                           //    Console.WriteLine(" 잘못된 입력입니다.");
+                           //}
+
                 }
             }
         }
@@ -241,6 +323,7 @@ namespace Console_Text_RPG_Team
         }
         public void BattleMenu()
         {
+
             Console.Clear();         
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine();
@@ -251,10 +334,12 @@ namespace Console_Text_RPG_Team
             {
                 var m = monsters[i];
                 string status = m.IsAlive() ? $" HP: {m.hp}" : "Dead";
+
                 Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.WriteLine($" {i + 3}. {m.name} (Lv.{m.level}) - {status}"); // 공격 선택지 번호 조정
+                Console.WriteLine($" {i + 1}. {m.name} (Lv.{m.level}) - {status}"); // 공격 선택지 번호 조정
                 Console.ResetColor();
  
+
             }
             Console.WriteLine(" =========================");
             //Console.WriteLine("\n0. 돌아가기");
@@ -278,22 +363,28 @@ namespace Console_Text_RPG_Team
             Console.Clear();
             StringBuilder sb = new StringBuilder();
 
+
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("");
             Console.WriteLine(" [ 전투 시작! ]\n");
             Console.ResetColor();
             sb.AppendLine($" {attacker.name} 의 공격!");
-            sb.Append($" Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {damage}] | ");
+            sb.Append($" Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {(damage - target.def > 1 ? damage - target.def : 1)}] | ");
+
 
             if (target.hp <= 0)
             {
+                _player.audio[4].Play();
                 //sb.Append($"Lv.{target.level} {target.name} |  ");
                 sb.AppendLine($" (HP {target.PreviousHP} -> Dead)");
             }
             else
             {
-               // sb.Append($"Lv.{target.level} {target.name} |  ");
-                sb.AppendLine($" (HP {target.PreviousHP} -> {target.hp})");
+
+				// sb.Append($"Lv.{target.level} {target.name} |  ");
+				_player.audio[3].Play();
+				sb.AppendLine($"(HP {target.PreviousHP} -> {target.hp})");
+
             }
             Console.WriteLine(sb.ToString());
 
@@ -305,8 +396,10 @@ namespace Console_Text_RPG_Team
 		{
 			StringBuilder sb = new StringBuilder();
 
-			sb.AppendLine($" {attacker.name} 의 공격!");
-			sb.Append($" Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {damage-target.def}] | ");
+
+			sb.AppendLine($"{attacker.name} 의 공격!");
+			sb.Append($"Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {(damage-target.def > 1 ? damage-target.def : 1)}] | ");
+
 
 			if (target.maxHp <= 0)
 			{
