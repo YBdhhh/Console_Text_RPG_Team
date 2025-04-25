@@ -273,12 +273,8 @@ namespace Console_Text_RPG_Team
             Console.WriteLine(" =========================");
             _player.ViewStatus();
             Console.WriteLine(" =========================");
-            Console.WriteLine(" 원하는 행동의 번호 선택하세요:");
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine(" 1. 공격");
-            Console.WriteLine(" 2. 포션 사용"); // 포션 사용 선택지 추가
-            Console.ResetColor();
-            Console.Write(" >> ");
+            Console.WriteLine();
+            Console.Write(" >>");
         }
 
         public void PlayerAttackLog(Player attacker, Monster target, float damage)
@@ -338,33 +334,6 @@ namespace Console_Text_RPG_Team
 
 		}
 
-		/*
-        public void MonsterAttackLog(Monster attacker, Player target, float damage)
-        {
-            Console.Clear();
-            StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine("Battle!!\n");
-            sb.AppendLine($"{attacker.name} 의 공격!");
-            sb.AppendLine($"Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {damage}]\n");
-
-            if (target.maxHp <= 0)
-            {
-                sb.AppendLine($"Lv.{target.level} {target.name}");
-                sb.AppendLine($"HP {target.PreviousHP} -> Dead");
-            }
-            else
-            {
-                sb.AppendLine($"Lv.{target.level} {target.name}");
-                sb.AppendLine($"HP {target.PreviousHP} -> {target.maxHp}");
-            }
-
-            sb.AppendLine("\n0. 다음\n>>");
-            Console.WriteLine(sb.ToString());
-            Console.ReadLine();
-
-        }
-        */
 		public void Result(bool isVictory, Player player, List<Monster> monsters)
         {
             Console.Clear();
