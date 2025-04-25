@@ -170,10 +170,10 @@ namespace Console_Text_RPG_Team
                         }
 
                         (int result, _player) = WhatSelectDamage(_player);
-                        float damaged = SelectDamage(result, _player);
+                        int damaged = SelectDamage(result, _player);
                         if (damaged == 0) continue; // 물약 사용 시 턴 종료
-                        float criticalDamage = _player.CriticalDamage(_player, damaged);
-                        float finalDamage = GetRandomDamage(criticalDamage);
+                        int criticalDamage = _player.CriticalDamage(_player, damaged);
+                        int finalDamage = GetRandomDamage(criticalDamage);
                         target.TakeDamage(finalDamage);
                         PlayerAttackLog(_player, target, finalDamage);
                         break; // 공격 후 플레이어 턴 종료

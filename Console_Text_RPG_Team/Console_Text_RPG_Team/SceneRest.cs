@@ -18,8 +18,8 @@ namespace Console_Text_RPG_Team
             Console.WriteLine(" [ 회복의 요람 ]");
 			Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine(" 시워언해: 30G만 내주신다면 용사님의 체력을 30%씩이나 회복시켜드립니다");
-            Console.WriteLine($" 용사님의 현재 상태입니다. 30G를 지불하시겠습니까?");
+            Console.WriteLine(" 시워언해: 600G만 내주신다면 용사님의 체력을 30%씩이나 회복시켜드립니다");
+            Console.WriteLine($" 용사님의 현재 상태입니다. 600G를 지불하시겠습니까?");
             Console.ResetColor();
 			sb.AppendLine(" =====================");
 			sb.AppendLine($" 이  름	: {player.name}");
@@ -32,7 +32,7 @@ namespace Console_Text_RPG_Team
             Console.Write(sb.ToString());
             sb.Clear();
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine(" 1. 30G를 지불하고 휴식하기");
+            Console.WriteLine(" 1. 600G를 지불하고 휴식하기");
             Console.WriteLine(" 0. 마을로 돌아가기");
             Console.ResetColor();
             sb.AppendLine();
@@ -57,7 +57,7 @@ namespace Console_Text_RPG_Team
 							return;
 						case 1:
 							Console.Clear();
-							if(player.Gold < 30)
+							if(player.Gold < 600)
 							{
 								Console.WriteLine(" 골드가 부족합니다.");
 								Thread.Sleep(500);
@@ -67,7 +67,7 @@ namespace Console_Text_RPG_Team
 							}
 
 							Console.ForegroundColor = ConsoleColor.Green;
-							Console.WriteLine(" 당신은 30G를 내고 치유의 요람에서 즐겁게 놀았습니다.");
+							Console.WriteLine(" 당신은 600G를 내고 치유의 요람에서 즐겁게 놀았습니다.");
 							Thread.Sleep(500);
 							Console.WriteLine("...");
 							player.audio[0].Play();
@@ -76,7 +76,7 @@ namespace Console_Text_RPG_Team
 							Console.WriteLine();
 
 							Console.WriteLine("요람의 신비한 힘이 당신을 회복시켰습니다.");
-							if (player.maxHp < player.hp * 1.3f)
+							if (player.maxHp < player.hp + player.maxHp * 0.3f)
 							{
 								player.hp = player.maxHp;
 							}
@@ -85,7 +85,7 @@ namespace Console_Text_RPG_Team
 								player.hp += (int)(player.maxHp * 0.3f);
 							}
 
-							if (player.maxMp < player.mp * 1.3f)
+							if (player.maxMp < player.mp + player.maxMp * 0.3f)
 							{
 								player.mp = player.maxMp;
 							}
@@ -94,7 +94,7 @@ namespace Console_Text_RPG_Team
 								player.mp += (int)(player.maxMp * 0.3f);
 							}
 
-							player.Gold -= 30;
+							player.Gold -= 600;
 							Thread.Sleep(500);
 							Console.WriteLine();
 

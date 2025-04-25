@@ -225,9 +225,7 @@ namespace Console_Text_RPG_Team
             Console.ResetColor();
             Console.WriteLine(" ====================");
 
-            sb.AppendLine($" Lv.	: {player.level}");
-            sb.AppendLine($" 직업	: {player.job}");
-            sb.AppendLine($" 체  력	: {player.PreviousHP}/{player.hp}");
+            player.ViewStatus();
             sb.AppendLine(" ====================");
             Console.Write(sb.ToString());
             sb.Clear();
