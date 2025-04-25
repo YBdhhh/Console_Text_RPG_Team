@@ -18,33 +18,33 @@ namespace Console_Text_RPG_Team
 
         public List<Monster> monsters = new List<Monster>
         {
-            new Monster("슬라임", 20, 6, 0, 4, 4, new List<Item> {new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 40, 400) }),
-            new Monster("초록버섯", 30, 6, 1, 6, 6, new List<Item> {new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 40, 400) }),
-            new Monster("리본돼지", 30, 6, 3, 8, 8, new List<Item> {new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 40, 400) }),
-            new Monster("스톤골렘", 40, 9, 3, 10, 10, new List<Item> {new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 40, 400) }),
-            new Monster("웨어울프", 60, 12, 4, 12, 12, new List<Item> {new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 40, 400) }),
-            new Monster("주황버섯", 100, 9, 5, 16, 16, new List<Item> {new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 40, 400) }),
+            new Monster("슬라임", 200, 60, 0, 4, 4, new List<Item> {new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 400, 400) }),
+            new Monster("초록버섯", 300, 60, 5, 6, 6, new List<Item> {new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 400, 400) }),
+            new Monster("리본돼지", 300, 60, 15, 8, 8, new List<Item> {new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 400, 400) }),
+            new Monster("스톤골렘", 400, 90, 15, 10, 10, new List<Item> {new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 400, 400) }),
+            new Monster("웨어울프", 600, 120, 20, 14, 14, new List<Item> {new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 400, 400) }),
+            new Monster("주황버섯", 500, 240, 25, 18, 18, new List<Item> {new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 400, 400) }),
         //1층몹
-            new Monster("좀비버섯", 130, 12, 5, 22, 22, new List<Item> {new Item("주황 포션", "체력을 회복해주는 주황 포션", 50, 500) }),
-            new Monster("고스트픽시", 100, 18, 4, 20, 20, new List<Item> {new Item("주황 포션", "체력을 회복해주는 주황 포션", 50, 500) }),
-            new Monster("브라운테니", 80, 9, 4, 15, 15, new List<Item> {new Item("주황 포션", "체력을 회복해주는 주황 포션", 50, 500) }),
-            new Monster("로보토이", 150, 12, 5, 24, 24, new List < Item > { new Item("주황 포션", "체력을 회복해주는 주황 포션", 50, 500) }),
-            new Monster("예티", 180, 9, 0, 21, 21, new List < Item > { new Item("주황 포션", "체력을 회복해주는 주황 포션", 50, 500) }),
-            new Monster("화이트팽", 110, 12, 3, 18, 18, new List < Item > { new Item("주황 포션", "체력을 회복해주는 주황 포션", 50, 500) }),
+            new Monster("좀비버섯", 900, 270, 20, 22, 22, new List<Item> {new Item("주황 포션", "체력을 회복해주는 주황 포션", 500, 500) }),
+            new Monster("고스트픽시", 1000, 180, 20, 20, 20, new List<Item> {new Item("주황 포션", "체력을 회복해주는 주황 포션", 500, 500) }),
+            new Monster("브라운테니", 800, 90, 20, 15, 15, new List<Item> {new Item("주황 포션", "체력을 회복해주는 주황 포션", 500, 500) }),
+            new Monster("로보토이", 1000, 270, 25, 24, 24, new List < Item > { new Item("주황 포션", "체력을 회복해주는 주황 포션", 500, 500) }),
+            new Monster("예티", 1000, 300, 5, 21, 21, new List < Item > { new Item("주황 포션", "체력을 회복해주는 주황 포션", 500, 500) }),
+            new Monster("화이트팽", 500, 360, 5, 18, 18, new List < Item > { new Item("주황 포션", "체력을 회복해주는 주황 포션", 500, 500) }),
         //2층몹
-            new Monster("블러드하프", 180, 27, 3, 30, 30, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 60, 600) }),
-            new Monster("붉은 켄타우로스", 220, 15, 5, 32, 32, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 60, 600) }),
-            new Monster("추억의 사제", 180, 12, 8, 30, 30, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 60, 600) }),
-            new Monster("훈련용 나무인형", 260, 3, 14, 41, 41, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 60, 600) }),
-            new Monster("부기", 100, 30, 5, 25, 25, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 60, 600) }),
-            new Monster("오파츠", 10, 12, 300, 35, 35, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 60, 600) })
+            new Monster("블러드하프", 1800, 270, 15, 30, 30, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 600, 600) }),
+            new Monster("붉은 켄타우로스", 800, 450, 45, 32, 32, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 600, 600) }),
+            new Monster("추억의 사제", 500, 540, 35, 30, 30, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 600, 600) }),
+            new Monster("훈련용 나무인형", 1600, 540, 35, 41, 41, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 600, 600) }),
+            new Monster("부기", 1000, 300, 25, 25, 25, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 600, 600) }),
+            new Monster("오파츠", 500, 600, 50, 35, 35, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 600, 600) })
         //3층몹
         };
         public List<Monster> bossMonsters = new List<Monster>(3)
         {
-            new Monster("머쉬맘", 230, 21, 10, 40, 40, new List < Item > { new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 40, 400) }),
-            new Monster("바이킹", 330, 51, 15, 65, 65, new List < Item > { new Item("주황 포션", "체력을 회복해주는 주황 포션", 50, 500) }),
-            new Monster("자쿰", 550, 75, 20, 100, 100, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 60, 600) }),
+            new Monster("머쉬맘", 2300, 210, 50, 40, 40, new List < Item > { new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 400, 400) }),
+            new Monster("바이킹", 3300, 510, 75, 65, 65, new List < Item > { new Item("주황 포션", "체력을 회복해주는 주황 포션", 500, 500) }),
+            new Monster("자쿰", 5500, 750, 100, 110, 110, new List < Item > { new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 600, 600) }),
         };
 
         public List<Monster> spawnList = new List<Monster>(6);      
