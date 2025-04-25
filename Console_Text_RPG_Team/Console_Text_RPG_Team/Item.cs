@@ -18,17 +18,17 @@ namespace Console_Text_RPG_Team
     {
         public string name;//아이템 이름
         public string toolTip; // 아이템 설명
-        public float atk; // 무기 공격력
-        public float def;// 갑옷 방어력
+        public int atk; // 무기 공격력
+        public int def;// 갑옷 방어력
         public int price; //아이템 가격
         public bool purchaseItem; // 상점 - 아이템 구매 가능 여부
         public bool equippedItem; // 인벤토리 - 아이템 창착 가능 여부
         public bool unEquippedItem; // 인벤토리 - 아이템 해제 가능 여부
         public ItemType Type { get; set; } // 아이템 종류
-        public float HealAmount { get; set; } // 포션 회복량 (포션일 경우)
+        public int HealAmount { get; set; } // 포션 회복량 (포션일 경우)
 
         // 무기 또는 방어구 생성자
-        public Item(string name, string toolTip, float atk, float def, int price, ItemType type = ItemType.Weapon)
+        public Item(string name, string toolTip, int atk, int def, int price, ItemType type = ItemType.Weapon)
         {
             this.name = name;
             this.toolTip = toolTip;
@@ -46,7 +46,7 @@ namespace Console_Text_RPG_Team
         }
 
         // 포션 생성자
-        public Item(string name, string toolTip, int price, float healAmount)
+        public Item(string name, string toolTip, int price, int healAmount)
 
         {
             this.name = name;
@@ -75,9 +75,9 @@ namespace Console_Text_RPG_Team
             new Item("메이플스노우보드    ", "스~노우보드                                 " ,20 ,0,  2000, ItemType.Weapon),
             new Item("카이세리움          ", "선대 카이저가 사용했던 명검이자 수호검      " ,50 ,0,  5000, ItemType.Weapon),
             new Item("화염의 카타나       ", "귀살대의 검으로 오니의 영혼이 깃들어 있다.  " ,100,0, 10000, ItemType.Weapon),
-            new Item("빨간 포션          ", "체력을 회복해주는 빨간 포션                    " , 40, 40f),
-            new Item("주황 포션          ", "체력을 회복해주는 주황 포션                    " , 50, 50f),
-            new Item("하얀 포션          ", "체력을 회복해주는 하얀 포션                    " , 60, 60f)
+            new Item("빨간 포션          ", "체력을 회복해주는 빨간 포션                    " , 40, 400),
+            new Item("주황 포션          ", "체력을 회복해주는 주황 포션                    " , 50, 500),
+            new Item("하얀 포션          ", "체력을 회복해주는 하얀 포션                    " , 60, 600)
         };
             return shopItemList;
         }

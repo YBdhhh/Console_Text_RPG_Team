@@ -56,9 +56,9 @@ namespace Console_Text_RPG_Team
 					player.atk = job[index].atk;
 					player.def = job[index].def;
 					player.job = job[index].name;
-					float hp = player.maxHp;
-					float atk = player.atk;
-					float def = player.def;
+					int hp = player.maxHp;
+					int atk = player.atk;
+					int def = player.def;
 					string name = player.job;
 
 

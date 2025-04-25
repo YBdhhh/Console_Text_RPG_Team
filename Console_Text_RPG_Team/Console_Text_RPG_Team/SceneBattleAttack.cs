@@ -118,11 +118,11 @@ namespace Console_Text_RPG_Team
             }
         }
 
-        public float SelectDamage(int result, Player player)
+        public int SelectDamage(int result, Player player)
         {
             while (true)
             {
-                float damage = 0;
+                int damage = 0;
                 if (result == 2)
                 {
 
@@ -197,7 +197,7 @@ namespace Console_Text_RPG_Team
             {
                 if (!monster.IsAlive()) continue;
 
-                float damage = GetRandomDamage(monster.atk);
+                int damage = GetRandomDamage(monster.atk);
                 player.TakeDamage(damage);
                 MonsterAttackLog(monster, player, damage);
             }
@@ -232,9 +232,9 @@ namespace Console_Text_RPG_Team
 
         private Random rand = new Random();
 
-        public float GetRandomDamage(float defaultDamage)
+        public int GetRandomDamage(int defaultDamage)
         {
-            float error = defaultDamage * 0.1f;
+            int error = (int)(defaultDamage * 0.1f);
             int roundedError = (int)(error + 0.999f); // 올림 작업
 
             int minDamage = (int)(defaultDamage - roundedError);
@@ -276,7 +276,7 @@ namespace Console_Text_RPG_Team
             Console.Write(" >>");
         }
 
-        public void PlayerAttackLog(Player attacker, Monster target, float damage)
+        public void PlayerAttackLog(Player attacker, Monster target, int damage)
         {
             Console.Clear();
             StringBuilder sb = new StringBuilder();
@@ -310,7 +310,7 @@ namespace Console_Text_RPG_Team
 
         }
 
-		public void MonsterAttackLog(Monster attacker, Player target, float damage)
+		public void MonsterAttackLog(Monster attacker, Player target, int damage)
 		{
 			StringBuilder sb = new StringBuilder();
 
@@ -396,7 +396,7 @@ namespace Console_Text_RPG_Team
             }
             int prevLevel = player.level;
             int prevExp = player.exp;
-            float prevHP = player.maxHp;
+            int prevHP = player.maxHp;
             int prevGold = player.Gold;
 
             player.Gold += totalGold;

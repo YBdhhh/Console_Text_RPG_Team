@@ -19,18 +19,18 @@ namespace Console_Text_RPG_Team
 		[JsonIgnore]
 		public List<AudioManager> audio = new List<AudioManager>();
 
-		public float critical = 100; //10%
-		public float miss = 100; //10%
-		public float maxHp = 100;
-		public float hp;
+		public int critical = 100; //10%
+		public int miss = 100; //10%
+		public int maxHp = 100;
+		public int hp;
 
-		public float itematk = 0;
-		public float itemdef = 0;
+		public int itematk = 0;
+		public int itemdef = 0;
 
-		public float atk = 10;
-		public float def = 5;
-		public float maxMp = 10;
-		public float mp;
+		public int atk = 10;
+		public int def = 5;
+		public int maxMp = 10;
+		public int mp;
 		public int stat = 5;
 		private int gold = 1500; 
 
@@ -77,9 +77,9 @@ namespace Console_Text_RPG_Team
 
 		public void RegenerateMp()
 		{
-			if (maxMp > mp + 0.2)
+			if (maxMp > mp + 2)
 			{
-				mp += 0.2f;
+				mp += 2;
 			}
 			else
 			{
@@ -100,7 +100,7 @@ namespace Console_Text_RPG_Team
 			mp = maxMp;
 		}
 
-		public void HpUpSet(float value)
+		public void HpUpSet(int value)
 		{
 			maxHp += value;
 			hp += value;
@@ -111,7 +111,7 @@ namespace Console_Text_RPG_Team
 			get { return exp; }
 			set { exp = value; IsLevelUp(); }
 		}
-		public float PreviousHP;
+		public int PreviousHP;
 
 		public void IsLevelUp()
 		{
@@ -164,10 +164,10 @@ namespace Console_Text_RPG_Team
 			return hp > 0;
 		}
 
-		public void TakeDamage(float damage)
+		public void TakeDamage(int damage)
 		{
 			PreviousHP = hp;
-			float reduced = damage - def;
+			int reduced = damage - def;
 			this.quest.PlayEvent(quest, (int)reduced);
 
 			if (reduced <= 0)
@@ -184,11 +184,11 @@ namespace Console_Text_RPG_Team
 			}
 		}
 
-		public float CriticalDamage(Player player, float damage)
+		public int CriticalDamage(Player player, int damage)
 		{
 			Random rand = new Random();
 			int percent = rand.Next(0, 1000);
-			float critical = player.critical;
+			int critical = player.critical;
 
 			if (percent < critical)
 			{
@@ -212,7 +212,7 @@ namespace Console_Text_RPG_Team
 			bool isMiss = false;
 			Random rand = new Random();
 			int percent = rand.Next(0, 1000);
-			float miss = player.miss;
+			int miss = player.miss;
 
 			if (percent < miss)
 			{
@@ -228,7 +228,7 @@ namespace Console_Text_RPG_Team
 			return isMiss;
 		}
 
-		public void Heal(float amount)
+		public void Heal(int amount)
 		{
 			audio[0].Play();
 			hp += amount;
