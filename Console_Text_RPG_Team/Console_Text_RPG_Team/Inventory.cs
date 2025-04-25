@@ -41,8 +41,17 @@ namespace Console_Text_RPG_Team
             {
                 Console.WriteLine($"{i + 1}. {availablePotions[i].name} - {availablePotions[i].toolTip} (회복량: {availablePotions[i].HealAmount})");
             }
-            Console.Write(" >> ");
+			Console.WriteLine("0. 포션 사용 안함");
+			Console.Write(" >> ");
             string input = Console.ReadLine();
+            if (input == "0")
+            {
+                Console.WriteLine("포션을 사용하지 않습니다.");
+                Thread.Sleep(500);
+				return;
+			}
+            
+
 
             if (int.TryParse(input, out int choice) && choice >= 1 && choice <= availablePotions.Count)
             {
