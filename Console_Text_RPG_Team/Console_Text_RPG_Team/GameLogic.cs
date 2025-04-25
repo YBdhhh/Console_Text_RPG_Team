@@ -111,13 +111,13 @@ namespace Console_Text_RPG_Team
 			}
 
 		}
-		public void SaveData(GameLogic gameLogic)
-		{
-			string filePath = "./DataSave.json";
-			var testList = new GameLogic(gameLogic);
-			var jsonSerializeTestList = JsonConvert.SerializeObject(testList);
-			File.WriteAllText(filePath, jsonSerializeTestList);
-		}
+		//public void SaveData(GameLogic gameLogic)
+		//{
+		//	string filePath = "./DataSave.json";
+		//	var testList = new GameLogic(gameLogic);
+		//	var jsonSerializeTestList = JsonConvert.SerializeObject(testList);
+		//	File.WriteAllText(filePath, jsonSerializeTestList);
+		//}
 
 	}
 }

@@ -35,7 +35,7 @@ namespace Console_Text_RPG_Team
 		StringBuilder sb = new StringBuilder();
 		public void Start(Player player, GameLogic gameLogic)
 		{
-			gameLogic.SaveData(gameLogic);
+			//gameLogic.SaveData(gameLogic);
 			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine();
