@@ -229,7 +229,7 @@ namespace Console_Text_RPG_Team
                         else
                         {
                             Console.WriteLine(" 장착된 아이템이 아닙니다.");
-                            Console.Write(" >>");
+                            Console.Write(" >> ");
                         }
                         Thread.Sleep(500);
                         continue;
