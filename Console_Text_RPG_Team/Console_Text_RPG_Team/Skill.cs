@@ -28,7 +28,7 @@ namespace Console_Text_RPG_Team
 		public int[] damage = new int[4] { 0, 0, 0, 0 };
 		public int damageType;
 		public int valueType;
-		public float value;
+		public int value;
 
 		public int price;
 
@@ -48,7 +48,7 @@ namespace Console_Text_RPG_Team
 			this.price = skill.price;
 		}
 
-		public Skill(string name, string explain, int damageType, int[] damage, int valueType, float value, int price)
+		public Skill(string name, string explain, int damageType, int[] damage, int valueType, int value, int price)
 		{
 			this.name = name;
 			this.explain = explain;

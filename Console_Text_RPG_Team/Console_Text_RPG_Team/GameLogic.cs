@@ -16,12 +16,12 @@ namespace Console_Text_RPG_Team
 		SceneStart sceneStart = new SceneStart();
 		List<Skill> skills = new List<Skill>
 		{//string name, string explain, int damageType, int[] damage, int valueMp, int price
-			new Skill("새비지 블로우", "단검으로 적을 타격한다. Mp 1.5 소모 | 공격력 3배의 피해", (int)DamageType.Atk , new int[] {300}, (int)ValueType.Mp ,1.5f ,1000),
-			new Skill("파워 스트라이크", "장착한 무기로 적에게 일격을 가한다. Mp 1.0 소모 | 공격력 1.2배의 피해", (int)DamageType.Atk , new int[] {120}, (int)ValueType.Mp, 1.0f ,1000),
-			new Skill("매직 클로", "마력을 활용하여 할퀸다. Mp 0.5 소모 | 공격력 1.2배의 피해", (int)DamageType.Atk , new int[] {120}, (int)ValueType.Mp ,0.5f ,1000),
-			new Skill("메소 익스플로전", "동전에 폭탄을 부착하여 던진다. Gold 500 소모 | 공격력의 1.5배의 피해", (int)DamageType.Atk , new int[] {150}, (int)ValueType.Gold, 0.5f ,1000),
-			new Skill("방패 밀치기", "방패로 상대를 밀친다. Mp 1.0 소모 | 방어력*5의 피해", (int)DamageType.Def , new int[] {500}, (int)ValueType.Mp, 1.0f ,1000),
-			new Skill("몸통박치기", "상대방에게 돌진한다. Hp를 1.0 소모 | 체력*2의 피해", (int)DamageType.Hp , new int[] {200}, (int)ValueType.Hp, 1.0f ,1000),
+			new Skill("새비지 블로우", "단검으로 적을 타격한다. Mp 1.5 소모 | 공격력 3배의 피해", (int)DamageType.Atk , new int[] {300}, (int)ValueType.Mp ,15 ,1000),
+			new Skill("파워 스트라이크", "장착한 무기로 적에게 일격을 가한다. Mp 1.0 소모 | 공격력 1.2배의 피해", (int)DamageType.Atk , new int[] {120}, (int)ValueType.Mp, 10 ,1000),
+			new Skill("매직 클로", "마력을 활용하여 할퀸다. Mp 0.5 소모 | 공격력 1.2배의 피해", (int)DamageType.Atk , new int[] {120}, (int)ValueType.Mp ,5 ,1000),
+			new Skill("메소 익스플로전", "동전에 폭탄을 부착하여 던진다. Gold 500 소모 | 공격력의 1.5배의 피해", (int)DamageType.Atk , new int[] {150}, (int)ValueType.Gold, 5 ,1000),
+			new Skill("방패 밀치기", "방패로 상대를 밀친다. Mp 1.0 소모 | 방어력*5의 피해", (int)DamageType.Def , new int[] {500}, (int)ValueType.Mp, 10 ,1000),
+			new Skill("몸통박치기", "상대방에게 돌진한다. Hp를 1.0 소모 | 체력*2의 피해", (int)DamageType.Hp , new int[] {200}, (int)ValueType.Hp, 10 ,1000),
 		};
 		public void InitSceneStart(Player player)
 		{

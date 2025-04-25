@@ -9,15 +9,15 @@ namespace Console_Text_RPG_Team
 	internal class Monster
 	{
 		public string name;
-		public float hp;
-		public float atk;
-		public float def;
+		public int hp;
+		public int atk;
+		public int def;
 		public int level;
 		public int expReward;
-		public float PreviousHP;
+		public int PreviousHP;
 		public List<Item> dropItems;
 
-		public Monster(string name, float hp, float atk, float def, int level, int expReward, List<Item> dropItems)
+		public Monster(string name, int hp, int atk, int def, int level, int expReward, List<Item> dropItems)
 		{
 			this.name = name;
 			this.hp = hp;
@@ -49,7 +49,7 @@ namespace Console_Text_RPG_Team
 			return hp > 0;
 		}
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(int damage)
         {
             PreviousHP = hp;            
             hp -= damage;
