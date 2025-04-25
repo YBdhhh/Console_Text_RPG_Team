@@ -12,13 +12,15 @@ namespace Console_Text_RPG_Team
 		public int hp;
 		public int atk;
 		public int def;
+		public int mp;
 
-		public Job(string name, int hp, int atk, int def)
+		public Job(string name, int hp, int atk, int def, int mp)
 		{
 			this.name = name;
 			this.hp = hp;
 			this.atk = atk;
 			this.def = def;
+			this.mp = mp;
 		}
 
 	}
