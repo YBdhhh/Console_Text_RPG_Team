@@ -316,8 +316,8 @@ namespace Console_Text_RPG_Team
 
 
 
-			sb.AppendLine($"{attacker.name} 의 공격!");
-			sb.Append($"Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {(damage-target.def > 1 ? damage-target.def : 1)}] | ");
+			sb.AppendLine($" {attacker.name} 의 공격!");
+			sb.Append($" Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {(damage-target.def > 1 ? damage-target.def : 1)}] | ");
 			Thread.Sleep(300);
 
 
