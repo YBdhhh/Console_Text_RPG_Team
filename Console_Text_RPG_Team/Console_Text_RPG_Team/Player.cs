@@ -106,6 +106,12 @@ namespace Console_Text_RPG_Team
 			hp += value;
 		}
 
+		public void MpUpSet(int value)
+		{
+			maxMp += value;
+			mp += value;
+		}
+
 		public int Exp
 		{
 			get { return exp; }
@@ -121,10 +127,10 @@ namespace Console_Text_RPG_Team
 				exp -= expCount[level - 1];
 				level += 1;
 				stat += 3;
-				maxHp += 100;
+				HpUpSet(100);
 				atk += 30;
 				def += 5;
-				maxMp += 5;
+				MpUpSet(5);
 				miss += 10;
 				critical += 10;
 				//Console.WriteLine($"레벨이 {level - 1} -> {level} 로 상승하셨습니다.!");
@@ -148,7 +154,7 @@ namespace Console_Text_RPG_Team
                         this.def += 5;
                         break;
                     case 4:
-                        this.mp += 5;
+						MpUpSet(5);
                         break;
                 }
                 this.stat -= 1;
@@ -196,13 +202,13 @@ namespace Console_Text_RPG_Team
 				damage = (int)(damage + damage * critical * 0.1f * 0.01f);
 				Console.ForegroundColor = ConsoleColor.Red; //크리티컬 데미지
                 Console.Write(" 크리티컬 작렬");
-				Thread.Sleep(300);
+				Thread.Sleep(200);
                 Console.Write("!!");
-                Thread.Sleep(300);
+                Thread.Sleep(200);
                 Console.WriteLine("!!");
                 Console.WriteLine("");
                 Console.ResetColor();
-                Thread.Sleep(500);
+                Thread.Sleep(200);
 			}
 
 			return damage;
@@ -220,11 +226,11 @@ namespace Console_Text_RPG_Team
 				isMiss = true;
                 Console.ForegroundColor = ConsoleColor.Cyan; //크리티컬 데미지
                 Console.Write(" 엄청나게!! ");
-                Thread.Sleep(300);
+                Thread.Sleep(200);
                 Console.WriteLine("깔끔한 회피!!");
                 Console.WriteLine("");
                 Console.ResetColor();
-                Thread.Sleep(500);
+                Thread.Sleep(200);
 			}
 			return isMiss;
 		}

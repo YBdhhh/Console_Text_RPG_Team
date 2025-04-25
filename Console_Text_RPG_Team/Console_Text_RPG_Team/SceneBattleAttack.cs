@@ -165,7 +165,7 @@ namespace Console_Text_RPG_Team
                         {
                             Console.WriteLine(" 이미 죽은 몬스터입니다.");
                             Console.WriteLine(" 너무 잔인하시네요...");
-                            Thread.Sleep(700);
+                            Thread.Sleep(600);
                             continue;
                         }
 
@@ -185,7 +185,7 @@ namespace Console_Text_RPG_Team
                     }
                 }
                 Console.WriteLine(" 잘못된 입력입니다.");
-                Thread.Sleep(700);
+                Thread.Sleep(600);
                 continue;
             }
         }
@@ -288,9 +288,9 @@ namespace Console_Text_RPG_Team
             Console.ResetColor();
             sb.AppendLine($" {attacker.name} 의 공격!");
             sb.Append($" Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {(damage - target.def > 1 ? damage - target.def : 1)}] | ");
+			Thread.Sleep(300);
 
-
-            if (target.hp <= 0)
+			if (target.hp <= 0)
             {
                 _player.audio[4].Play();
                 //sb.Append($"Lv.{target.level} {target.name} |  ");
@@ -306,7 +306,7 @@ namespace Console_Text_RPG_Team
             }
             Console.WriteLine(sb.ToString());
 
-            Thread.Sleep(1000);
+            Thread.Sleep(300);
 
         }
 
@@ -315,8 +315,10 @@ namespace Console_Text_RPG_Team
 			StringBuilder sb = new StringBuilder();
 
 
-			sb.AppendLine($" {attacker.name} 의 공격!");
-			sb.Append($" Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {(damage-target.def > 1 ? damage-target.def : 1)}] | ");
+
+			sb.AppendLine($"{attacker.name} 의 공격!");
+			sb.Append($"Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {(damage-target.def > 1 ? damage-target.def : 1)}] | ");
+			Thread.Sleep(300);
 
 
 			if (target.maxHp <= 0)
@@ -329,7 +331,7 @@ namespace Console_Text_RPG_Team
 			}
 
 			Console.WriteLine(sb.ToString());
-			Thread.Sleep(1000);
+			Thread.Sleep(300);
 
 		}
 
