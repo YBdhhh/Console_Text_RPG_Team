@@ -49,6 +49,7 @@ namespace Console_Text_RPG_Team
 
                 EnemyPhase(_player);
                 if (CheckBattleEnd(_player)) break;
+                player.RegenerateMp();
             }
         }
 
@@ -61,9 +62,10 @@ namespace Console_Text_RPG_Team
                 sb.AppendLine(" 어떤 방식으로 공격하시겠습니까?");
                 sb.AppendLine("");
                 sb.AppendLine(" 1. 공격");
+                sb.AppendLine(" 2. 물약(회복)");
                 for (int i = 0; i < player.skill.Count; i++)
                 {
-                    sb.AppendLine($" {i + 2}. {player.skill[i].name}");
+                    sb.AppendLine($" {i + 3}. {player.skill[i].name}");
                 }
                 sb.AppendLine();
                 sb.Append(" >> ");
@@ -73,7 +75,7 @@ namespace Console_Text_RPG_Team
                 bool isNumber = int.TryParse(input, out result);        //bool 값을 받아서
                 if (isNumber)                                           //숫자일때만
                 {
-                    if (1 <= result && result <= player.skill.Count + 1)    //1~스킬개수만큼
+                    if (1 <= result && result <= player.skill.Count + 2)    //1~스킬개수만큼
                         return (result , player);
                 }
                 Console.WriteLine(" 잘못된 값을 입력하셨습니다.");          //나머지 (범위밖 숫자, 문자 등)
@@ -85,11 +87,22 @@ namespace Console_Text_RPG_Team
             while (true)
             {
                 float damage = 0;
+                if (result == 2)
+                {
+
+						_player.inventory.UsePotion(_player);
+						Console.WriteLine("\n 계속하려면 아무 키나 누르세요...");
+						Console.ReadKey();
+                        // 포션 사용 후 다시 행동 선택
+
+						return damage; //물약 사용
+                }
+
                 if (result == 1)                                        //result = -2 에서 1로 수정
                     damage = player.atk;
                 else
                 {
-                    damage = player.skill[result - 2].UseSkill(player);   //result에서 result-2로 수정
+                    damage = player.skill[result - 3].UseSkill(player);   //result에서 result-2로 수정
                     
 				}
                 return damage;
@@ -112,65 +125,61 @@ namespace Console_Text_RPG_Team
                     continue;
                 }
 
-                if (choice == 1) // 공격 선택
-                {
-                    // 공격할 몬스터 선택 로직
-                    Console.WriteLine("\n 공격할 몬스터 번호를 선택하세요:");
-                    string monsterInput = Console.ReadLine();
-                    if (!int.TryParse(monsterInput, out int monsterChoice) || monsterChoice < 3 || monsterChoice > monsters.Count + 2)
-                    {
-                        Console.WriteLine(" 잘못된 입력입니다.");
-                        continue;
-                    }
+                //           if (choice == 1) // 공격 선택
+                //           {
+                //               // 공격할 몬스터 선택 로직
+                //               Console.WriteLine("\n 공격할 몬스터 번호를 선택하세요:");
+                //               string monsterInput = Console.ReadLine();
+                //               if (!int.TryParse(monsterInput, out int monsterChoice) || monsterChoice < 3 || monsterChoice > monsters.Count)
+                //               {
+                //                   Console.WriteLine(" 잘못된 입력입니다.");
+                //                   continue;
+                //               }
 
-                    Monster target = monsters[monsterChoice - 3];
+                //               Monster target = monsters[monsterChoice - 1];
+                //               if (!target.IsAlive())
+                //               {
+                //                   Console.WriteLine(" 이미 죽은 몬스터입니다.");
+                //                   continue;
+                //               }
+                //               float damaged;
+
+                //while (true)
+                //               {
+                //                   (int result, _player) = WhatSelectDamage(_player);
+                //                   damaged = SelectDamage(result, _player);
+                //                   if (damaged != 0)
+                //                       break;
+                //               }
+                //               float criticalDamage = _player.CriticalDamage(_player, damaged);
+                //               float finalDamage = GetRandomDamage(criticalDamage);
+                //               target.TakeDamage(finalDamage);
+                //               PlayerAttackLog(_player, target, finalDamage);
+                //               break; // 공격 후 플레이어 턴 종료
+                //           }
+                //           else  if (choice >= 1 && choice <= monsters.Count) // 몬스터 공격 선택 (직접 번호 입력)
+                {
+                    Monster target = monsters[choice - 1];
                     if (!target.IsAlive())
                     {
                         Console.WriteLine(" 이미 죽은 몬스터입니다.");
-                        continue;
-                    }
-                    float damaged;
-
-					while (true)
-                    {
-                        (int result, _player) = WhatSelectDamage(_player);
-                        damaged = SelectDamage(result, _player);
-                        if (damaged != 0)
-                            break;
-                    }
-                    float criticalDamage = _player.CriticalDamage(_player, damaged);
-                    float finalDamage = GetRandomDamage(criticalDamage);
-                    target.TakeDamage(finalDamage);
-                    PlayerAttackLog(_player, target, finalDamage);
-                    break; // 공격 후 플레이어 턴 종료
-                }
-                else if (choice == 2) // 포션 사용 선택
-                {
-                    _player.inventory.UsePotion(_player);
-                    Console.WriteLine("\n 계속하려면 아무 키나 누르세요...");
-                    Console.ReadKey();
-                    continue; // 포션 사용 후 다시 행동 선택
-                }
-                else if (choice >= 3 && choice <= monsters.Count + 2) // 몬스터 공격 선택 (직접 번호 입력)
-                {
-                    Monster target = monsters[choice - 3];
-                    if (!target.IsAlive())
-                    {
-                        Console.WriteLine(" 이미 죽은 몬스터입니다.");
+                        Thread.Sleep(700);
                         continue;
                     }
 
                     (int result, _player) = WhatSelectDamage(_player);
                     float damaged = SelectDamage(result, _player);
+                    if (damaged == 0) continue; // 물약 사용 시 턴 종료
                     float criticalDamage = _player.CriticalDamage(_player, damaged);
                     float finalDamage = GetRandomDamage(criticalDamage);
                     target.TakeDamage(finalDamage);
                     PlayerAttackLog(_player, target, finalDamage);
                     break; // 공격 후 플레이어 턴 종료
-                }
-                else
-                {
-                    Console.WriteLine(" 잘못된 입력입니다.");
+                           //}
+                           //else
+                           //{
+                           //    Console.WriteLine(" 잘못된 입력입니다.");
+                           //}
                 }
             }
         }
@@ -230,14 +239,14 @@ namespace Console_Text_RPG_Team
         {
             Console.Clear();
             Console.WriteLine(" 원하는 행동을 선택하세요:");
-            Console.WriteLine(" 1. 공격");
-            Console.WriteLine(" 2. 포션 사용"); // 포션 사용 선택지 추가
+            //Console.WriteLine(" 1. 공격");
+            //Console.WriteLine(" 2. 포션 사용"); // 포션 사용 선택지 추가
             Console.WriteLine("\n 공격할 몬스터를 선택하세요:");
             for (int i = 0; i < monsters.Count; i++)
             {
                 var m = monsters[i];
                 string status = m.IsAlive() ? $" HP: {m.hp}" : "Dead";
-                Console.WriteLine($" {i + 3}. {m.name} (Lv.{m.level}) - {status}"); // 공격 선택지 번호 조정
+                Console.WriteLine($" {i + 1}. {m.name} (Lv.{m.level}) - {status}"); // 공격 선택지 번호 조정
             }
 
             //Console.WriteLine("\n0. 돌아가기");
@@ -255,7 +264,7 @@ namespace Console_Text_RPG_Team
 
             sb.AppendLine("Battle!!\n");
             sb.AppendLine($"{attacker.name} 의 공격!");
-            sb.Append($"Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {damage}] | ");
+            sb.Append($"Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {(damage - target.def > 1 ? damage - target.def : 1)}] | ");
 
             if (target.hp <= 0)
             {
@@ -278,7 +287,7 @@ namespace Console_Text_RPG_Team
 			StringBuilder sb = new StringBuilder();
 
 			sb.AppendLine($"{attacker.name} 의 공격!");
-			sb.Append($"Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {damage-target.def}] | ");
+			sb.Append($"Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {(damage-target.def > 1 ? damage-target.def : 1)}] | ");
 
 			if (target.maxHp <= 0)
 			{
