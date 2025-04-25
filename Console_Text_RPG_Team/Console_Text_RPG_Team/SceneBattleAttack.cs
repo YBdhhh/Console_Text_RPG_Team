@@ -148,12 +148,39 @@ namespace Console_Text_RPG_Team
 
                 if (input == "0") return; // 0번을 누르면 전투 턴 종료 (임시)
 
-                if (!int.TryParse(input, out int choice))
+                if (int.TryParse(input, out int choice))
+                {
+                    if (choice >= 1 && choice <= monsters.Count)
+                    {
+                        Monster target = monsters[choice - 1];
+                        if (!target.IsAlive())
+                        {
+                            Console.WriteLine(" 이미 죽은 몬스터입니다.");
+                            Thread.Sleep(700);
+                            continue;
+                        }
+
+                        (int result, _player) = WhatSelectDamage(_player);
+                        float damaged = SelectDamage(result, _player);
+                        if (damaged == 0) continue; // 물약 사용 시 턴 종료
+                        float criticalDamage = _player.CriticalDamage(_player, damaged);
+                        float finalDamage = GetRandomDamage(criticalDamage);
+                        target.TakeDamage(finalDamage);
+                        PlayerAttackLog(_player, target, finalDamage);
+                        break; // 공격 후 플레이어 턴 종료
+                               //}
+                               //else
+                               //{
+                               //    Console.WriteLine(" 잘못된 입력입니다.");
+                               //}
+                    }
+                }
+                else
                 {
                     Console.WriteLine(" 잘못된 입력입니다.");
+                    Thread.Sleep(700);
                     continue;
                 }
-
                 //           if (choice == 1) // 공격 선택
                 //           {
                 //               // 공격할 몬스터 선택 로직
@@ -187,29 +214,6 @@ namespace Console_Text_RPG_Team
                 //               break; // 공격 후 플레이어 턴 종료
                 //           }
                 //           else  if (choice >= 1 && choice <= monsters.Count) // 몬스터 공격 선택 (직접 번호 입력)
-                {
-                    Monster target = monsters[choice - 1];
-                    if (!target.IsAlive())
-                    {
-                        Console.WriteLine(" 이미 죽은 몬스터입니다.");
-                        Thread.Sleep(700);
-                        continue;
-                    }
-
-                    (int result, _player) = WhatSelectDamage(_player);
-                    float damaged = SelectDamage(result, _player);
-                    if (damaged == 0) continue; // 물약 사용 시 턴 종료
-                    float criticalDamage = _player.CriticalDamage(_player, damaged);
-                    float finalDamage = GetRandomDamage(criticalDamage);
-                    target.TakeDamage(finalDamage);
-                    PlayerAttackLog(_player, target, finalDamage);
-                    break; // 공격 후 플레이어 턴 종료
-                           //}
-                           //else
-                           //{
-                           //    Console.WriteLine(" 잘못된 입력입니다.");
-                           //}
-                }
             }
         }
 
