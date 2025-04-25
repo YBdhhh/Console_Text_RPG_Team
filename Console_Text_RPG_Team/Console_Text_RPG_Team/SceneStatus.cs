@@ -61,13 +61,15 @@ namespace Console_Text_RPG_Team
 							return;
 						default:
 							Console.WriteLine(" 다시 입력해주십시오");
-							continue;
+                            Thread.Sleep(500);
+                            continue;
 					}
 				}
 				catch (Exception)
 				{
 					Console.WriteLine(" 다시 입력해주십시오");
-					continue;
+                    Thread.Sleep(500);
+                    continue;
 				}
 				
 			}
@@ -84,11 +86,11 @@ namespace Console_Text_RPG_Team
 				sb.AppendLine("스탯을 분배합니다");
 				sb.AppendLine($"현재 스탯포인트 : {player.stat}");
 				sb.AppendLine();
-				sb.AppendLine("1. 체력");
-				sb.AppendLine("2. 공격력");
-				sb.AppendLine("3. 방어력");
-				sb.AppendLine("4. 마력");
-				sb.AppendLine("0. 나가기");
+				sb.AppendLine($"1. {"체력",-5} {"(+10)",-5}");
+				sb.AppendLine($"2. {"공격력",-5}{"(+3)",-5} ");
+				sb.AppendLine($"3. {"방어력",-5}{"(+1)",-5}");
+				sb.AppendLine($"4. {"마나",-5} {"(+1)",-5}");
+				sb.AppendLine($"0. 나가기");
 				sb.Append("원하시는 행동을 입력해주세요.").Append("\n");
 				Console.Write(sb.ToString());
 				sb.Clear();
@@ -98,6 +100,7 @@ namespace Console_Text_RPG_Team
 					if (input > 4 || 0 > input)
 					{
 						Console.WriteLine("다시 입력해주십시오");
+						Thread.Sleep(500);
 						continue;
 					}
 
@@ -108,7 +111,8 @@ namespace Console_Text_RPG_Team
 				catch (Exception)
 				{
 					Console.WriteLine("다시 입력해주십시오");
-					continue;
+                    Thread.Sleep(500);
+                    continue;
 				}
 
 			}

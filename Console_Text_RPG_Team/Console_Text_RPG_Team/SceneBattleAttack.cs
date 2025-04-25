@@ -30,6 +30,8 @@ namespace Console_Text_RPG_Team
         */
         public void BattleLoop(Player player, List<Monster> monster)
         {
+            player.inventory.UsePotion(player); // Player의 인벤토리 사용
+
             if (sceneBattle.clearCount >= sceneBattle.maxClearCount)        //보스방이면
             {
                 monsters.Add(new Monster(sceneBattle.bossMonsters[sceneBattle.currentFloor - 1]));
@@ -50,6 +52,33 @@ namespace Console_Text_RPG_Team
                 EnemyPhase(_player);
                 if (CheckBattleEnd(_player)) break;
                 player.RegenerateMp();
+            }
+
+            void BattleResult(Player player, List<Monster> deadMonster)  //이부분
+            {
+                // ... 기존 코드 ...
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("[획득 아이템]");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+
+                List<Item> totalDroppedItems = new List<Item>();
+                foreach (var monster in deadMonster)
+                {
+                    totalDroppedItems.AddRange(monster.GetDropItems(sceneBattle.currentFloor));
+                }
+
+                var groupedItems = totalDroppedItems.GroupBy(i => i.name).Select(g => new { Name = g.Key, Count = g.Count() });
+                foreach (var item in groupedItems)
+                {
+                    sb.AppendLine($" {item.Name} - {item.Count}");
+                }
+                Console.ResetColor();
+                Console.Write(sb.ToString());
+                sb.Clear();
+
+                sceneBattle.AddDroppedItemsToInventory(player, totalDroppedItems); // 획득한 아이템을 인벤토리에 추가
+
+                // ... 기존 코드 ...
             }
         }
 
