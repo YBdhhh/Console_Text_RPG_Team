@@ -76,13 +76,13 @@ namespace Console_Text_RPG_Team
                 switch (currentFloor)
                 {
                     case 1:
-                        potionToDrop = new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 40, 40f);
+                        potionToDrop = new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 0, 0, 0, ItemType.Potion) { HealAmount = 40 };
                         break;
                     case 2:
-                        potionToDrop = new Item("주황 포션", "체력을 회복해주는 주황 포션", 50, 50f);
+                        potionToDrop = new Item("주황 포션", "체력을 회복해주는 주황 포션", 0, 0, 0, ItemType.Potion) { HealAmount = 50 };
                         break;
                     case 3:
-                        potionToDrop = new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 60, 60f);
+                        potionToDrop = new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 0, 0, 0, ItemType.Potion) { HealAmount = 60 };
                         break;
                     default:
                         break;

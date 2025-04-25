@@ -17,12 +17,13 @@ namespace Console_Text_RPG_Team
 
 	internal class SceneStart
 	{
-		SceneStatus sceneStatus = new SceneStatus();
-		SceneBattle sceneBattle = new SceneBattle();
+		SceneStatus sceneStatus = new SceneStatus();		
 		SceneRest sceneRest = new SceneRest();
 		SceneQuest SceneQuest = new SceneQuest();
-        private SceneShop sceneShop = new SceneShop();
-        private SceneInventory sceneInventory = new SceneInventory();
+		private Player player;
+		private SceneShop sceneShop;
+		private SceneBattle sceneBattle;
+        private SceneInventory sceneInventory;
         private Inventory inventory = new Inventory();
 
         List<Skill> skills = new List<Skill>
@@ -36,6 +37,10 @@ namespace Console_Text_RPG_Team
 		};
 		public SceneStart(Player player)
 		{
+			this.player = player;
+			this.sceneShop = new SceneShop();
+			this.sceneBattle = new SceneBattle();
+			this.sceneInventory = new SceneInventory();
 			player.skill.Add(new Skill(skills[0]));
 		}
 
@@ -77,10 +82,10 @@ namespace Console_Text_RPG_Team
 					sceneBattle.SelectDungeon(player);
 					break;
 				case 3:
-                    sceneInventory.Start(inventory, player);
+                    sceneInventory.Start(player.inventory, player);
                     break;
                 case 4:
-                    sceneShop.Start(player, inventory);
+                    sceneShop.Start(player, player.inventory);
                     break;
 				case 5:
 					sceneRest.Start(player);

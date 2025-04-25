@@ -26,7 +26,8 @@ namespace Console_Text_RPG_Team
 
 		public float atk = 10;
 		public float def = 5;
-		public float mp = 10;
+		public float maxMp = 10;
+		public float mp;
 		public int stat = 5;
 		private int gold = 1500; 
 
@@ -59,10 +60,22 @@ namespace Console_Text_RPG_Team
 			sb.AppendLine($"체력 : {hp} / {maxHp}");
 			sb.AppendLine($"공격력 : {atk} (+{this.itematk})");
 			sb.AppendLine($"방어력 : {def} (+{this.itemdef})");
-			sb.AppendLine($"마나 : {mp}");
+			sb.AppendLine($"마나 : {mp} / {maxMp}");
 			sb.AppendLine();
 			sb.AppendLine($"골드 : {gold}");
 			Console.WriteLine(sb.ToString());
+		}
+
+		public void RegenerateMp()
+		{
+			if (maxMp > mp + 0.2)
+			{
+				mp += 2;
+			}
+			else
+			{
+				mp = maxMp;
+			}
 		}
 
 		public int level = 1;
@@ -76,6 +89,7 @@ namespace Console_Text_RPG_Team
 			inventory = new Inventory();
 			Gold = 1500;
 			hp = maxHp;
+			mp = maxMp;
 		}
 
 		public void HpUpSet(float value)
