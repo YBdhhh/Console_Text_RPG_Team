@@ -70,19 +70,19 @@ namespace Console_Text_RPG_Team
             List<Item> dropItems = new List<Item>();
             Random rand = new Random();
 
-            if (rand.Next(0, 100) < 50) // 50% 확률로 아이템 드랍
+            if (rand.Next(0, 100) < 20) // 20% 확률로 아이템 드랍
             {
                 Item potionToDrop = null;
                 switch (currentFloor)
                 {
                     case 1:
-                        potionToDrop = new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 0, 0, 0, ItemType.Potion) { HealAmount = 40 };
+                        potionToDrop = new Item("빨간 포션", "체력을 회복해주는 빨간 포션", 0, 0, 0, ItemType.Potion) { HealAmount = 400 };
                         break;
                     case 2:
-                        potionToDrop = new Item("주황 포션", "체력을 회복해주는 주황 포션", 0, 0, 0, ItemType.Potion) { HealAmount = 50 };
+                        potionToDrop = new Item("주황 포션", "체력을 회복해주는 주황 포션", 0, 0, 0, ItemType.Potion) { HealAmount = 500 };
                         break;
                     case 3:
-                        potionToDrop = new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 0, 0, 0, ItemType.Potion) { HealAmount = 60 };
+                        potionToDrop = new Item("하얀 포션", "체력을 회복해주는 하얀 포션", 0, 0, 0, ItemType.Potion) { HealAmount = 600 };
                         break;
                     default:
                         break;
