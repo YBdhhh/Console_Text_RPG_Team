@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -15,6 +16,8 @@ namespace Console_Text_RPG_Team
 
 
 		public Quest quest = new Quest();
+		[JsonIgnore]
+		public List<AudioManager> audio = new List<AudioManager>();
 
 		public float critical = 100; //10%
 		public float miss = 100; //10%
@@ -41,9 +44,13 @@ namespace Console_Text_RPG_Team
 			{
 				int i = gold;
 				gold = value;
-				if (quest.name != null)
+				if (i - gold > 0)
 				{
-					if (i -gold > 0)
+					if (audio.Count != 0)
+					{
+						audio[1].Play();
+					}
+					if (quest.name != null)
 					{
 						quest.PlayEvent(quest, i-gold);
 					}
@@ -87,7 +94,7 @@ namespace Console_Text_RPG_Team
 		public Player()
 		{
 			inventory = new Inventory();
-			Gold = 1500;
+			gold = 1500;
 			hp = maxHp;
 			mp = maxMp;
 		}
@@ -109,6 +116,7 @@ namespace Console_Text_RPG_Team
 		{
 			if (exp > expCount[level - 1])
 			{
+				audio[2].Play();
 				exp -= expCount[level - 1];
 				level += 1;
 				stat += 3;
@@ -213,6 +221,7 @@ namespace Console_Text_RPG_Team
 
 		public void Heal(float amount)
 		{
+			audio[0].Play();
 			hp += amount;
 			if (hp > maxHp) hp = maxHp;
 		}

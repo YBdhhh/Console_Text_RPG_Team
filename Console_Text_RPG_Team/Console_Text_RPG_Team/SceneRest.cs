@@ -64,6 +64,7 @@ namespace Console_Text_RPG_Team
 							Console.WriteLine(" 당신은 30G를 내고 치유의 요람에서 즐겁게 놀았습니다.");
 							Thread.Sleep(500);
 							Console.WriteLine("...");
+							player.audio[0].Play();
 							Thread.Sleep(500);
 							Console.ResetColor();
 							Console.WriteLine();

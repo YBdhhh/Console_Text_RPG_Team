@@ -12,11 +12,8 @@ namespace Console_Text_RPG_Team
 			Console.SetBufferSize(120, 100);
 			Console.SetWindowSize(120, 30);
             GameLogic gameLogic = new GameLogic();
-			AudioManager audioManager = new AudioManager("./BGM01.mp3");
-			audioManager.PlayLooping();
-			audioManager.SetVolume(0.05f);
 			LoadData(ref gameLogic);
-			gameLogic.Start();
+			gameLogic.Start(gameLogic);
 
         }
 		static void LoadData(ref GameLogic gameLogic)

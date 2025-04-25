@@ -297,13 +297,15 @@ namespace Console_Text_RPG_Team
 
             if (target.hp <= 0)
             {
+                _player.audio[4].Play();
                 //sb.Append($"Lv.{target.level} {target.name} |  ");
                 sb.AppendLine($"(HP {target.PreviousHP} -> Dead)");
             }
             else
             {
-               // sb.Append($"Lv.{target.level} {target.name} |  ");
-                sb.AppendLine($"(HP {target.PreviousHP} -> {target.hp})");
+				// sb.Append($"Lv.{target.level} {target.name} |  ");
+				_player.audio[3].Play();
+				sb.AppendLine($"(HP {target.PreviousHP} -> {target.hp})");
             }
             Console.WriteLine(sb.ToString());
 
