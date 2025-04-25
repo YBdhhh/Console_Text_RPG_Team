@@ -184,12 +184,9 @@ namespace Console_Text_RPG_Team
                                //}
                     }
                 }
-                else
-                {
-                    Console.WriteLine(" 잘못된 입력입니다.");
-                    Thread.Sleep(700);
-                    continue;
-                }
+                Console.WriteLine(" 잘못된 입력입니다.");
+                Thread.Sleep(700);
+                continue;
             }
         }
 
