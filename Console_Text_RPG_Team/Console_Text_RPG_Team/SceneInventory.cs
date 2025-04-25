@@ -151,6 +151,15 @@ namespace Console_Text_RPG_Team
 					if (choice >= 1 && choice <= items.Count)
 					{
 						var selected = items[choice - 1];
+
+						if (selected.Type == ItemType.Potion)
+						{
+							sb.AppendLine($"[!]{selected.name}은(는) 포션이므로 장착할 수 없습니다.");
+							Console.WriteLine(sb.ToString());
+							sb.Clear();
+							Thread.Sleep(1000);
+							continue;
+						}
 						if (selected
 							.equippedItem)
 						{
