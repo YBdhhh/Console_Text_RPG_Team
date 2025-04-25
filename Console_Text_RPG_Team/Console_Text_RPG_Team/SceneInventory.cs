@@ -33,14 +33,14 @@ namespace Console_Text_RPG_Team
 		{
 			while (true)
 			{
-				Console.Clear();
-				Console.WriteLine();
-				Console.ForegroundColor = ConsoleColor.Green;
-				Console.WriteLine(" ====================== 인벤토리 ======================");
-				Console.ResetColor();
-
-				if (items.Count == 0)
-				{
+                Console.Clear();
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(" [ 인벤토리 ] ");
+                Console.ResetColor();
+                Console.WriteLine(" ===================================================");
+                if (items.Count == 0)
+                {
 					sb.AppendLine(" 인벤토리가 비어 있습니다.");
 					Console.WriteLine(sb.ToString());
 					sb.Clear();
@@ -117,13 +117,13 @@ namespace Console_Text_RPG_Team
 		{
 			while (true)
 			{
-				Console.Clear();
-				Console.ForegroundColor = ConsoleColor.Green;
-				Console.WriteLine();
-				Console.WriteLine(" ====================== 장착할 아이템 선택 ======================");
-				Console.ResetColor();
-
-				for (int i = 0; i < items.Count; i++)
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine();
+                Console.WriteLine(" [ 장착할 아이템 선택 ]");
+                Console.ResetColor();
+                Console.WriteLine(" ===================================================");
+                for (int i = 0; i < items.Count; i++)
 				{
 					var item = items[i];
                     string statTxt = item.Type == ItemType.Potion
@@ -157,7 +157,7 @@ namespace Console_Text_RPG_Team
 
 						if (selected.Type == ItemType.Potion)
 						{
-							sb.AppendLine($"[!]{selected.name}은(는) 포션이므로 장착할 수 없습니다.");
+							sb.AppendLine($" [!]{selected.name}은(는) 포션이므로 장착할 수 없습니다.");
 							Console.WriteLine(sb.ToString());
 							sb.Clear();
 							Thread.Sleep(1000);
@@ -200,13 +200,14 @@ namespace Console_Text_RPG_Team
 		{
 			while (true)
 			{
-				Console.Clear();
-				Console.ForegroundColor = ConsoleColor.Green;
-				Console.WriteLine();
-				Console.WriteLine(" ====================== 해제할 아이템 선택 ======================");
-				Console.ResetColor();
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine();
+                Console.WriteLine(" [ 해제할 아이템 선택 ]");
+                Console.ResetColor();
+                Console.WriteLine(" ===================================================");
 
-				for (int i = 0; i < items.Count; i++)
+                for (int i = 0; i < items.Count; i++)
 				{
 					var item = items[i];
 					// 해제 대상만 보여주기 위해, 장착된 아이템만 리스트업
@@ -233,7 +234,7 @@ namespace Console_Text_RPG_Team
 						if (selected.equippedItem)
 						{
 							selected.equippedItem = false;  // 장착 해제
-							Console.WriteLine($"{selected.name}을(를) 해제했습니다.");
+							Console.WriteLine($" {selected.name}을(를) 해제했습니다.");
 
 							player.itematk -= selected.atk;
 							player.itemdef -= selected.def;
