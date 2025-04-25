@@ -196,9 +196,9 @@ namespace Console_Text_RPG_Team
 
 
             player.audio[0].Stop(); //일반전투 음악 정지
-			      player.audio[6].Play(); //보스전 음악
-            Thread.Sleep(3000);
-			      Console.Clear();
+            player.audio[5].Play(); //보스전 음악
+            Thread.Sleep(1000);
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine();
             Console.WriteLine($" {player.name}: 앗! 어디서 거대한 그림자가...");
@@ -244,7 +244,7 @@ namespace Console_Text_RPG_Team
             switch (choose)
             {
                 case 0:
-                    Console.WriteLine($" 이런! {monsters[(currentFloor * 2) - 1].name} 무리가 통로를 막고있다!");
+                    Console.WriteLine($" 이런! {monsters[(currentFloor * 6) - 1].name} 무리가 통로를 막고있다!");
                     Thread.Sleep(1200);
                     sceneBattleAttack.BattleLoop(player, bossMonster);
                     break;
