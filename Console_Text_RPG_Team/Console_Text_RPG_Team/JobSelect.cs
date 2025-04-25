@@ -56,12 +56,11 @@ namespace Console_Text_RPG_Team
 					player.atk = job[index].atk;
 					player.def = job[index].def;
 					player.job = job[index].name;
-					player.maxMp = job[index].mp;
-					player.mp = player.maxMp;
+					player.MpUpSet(job[index].mp - player.mp);
 					int hp = player.maxHp;
 					int atk = player.atk;
 					int def = player.def;
-					int mp = player.mp;
+					int mp = player.maxMp;
 					string name = player.job;
 
 
