@@ -21,17 +21,17 @@ namespace Console_Text_RPG_Team
 
 		public int critical = 100; //10%
 		public int miss = 100; //10%
-		public int maxHp = 100;
+		public int maxHp = 1000;
 		public int hp;
 
 		public int itematk = 0;
 		public int itemdef = 0;
 
-		public int atk = 10;
-		public int def = 5;
-		public int maxMp = 10;
+		public int atk = 100;
+		public int def = 0;
+		public int maxMp = 50;
 		public int mp;
-		public int stat = 5;
+		public int stat = 3;
 		private int gold = 1500; 
 
 		public int Gold
@@ -88,7 +88,7 @@ namespace Console_Text_RPG_Team
 		}
 
 		public int level = 1;
-		public int[] expCount = new int[5] { 10, 35, 65, 100, 150 };
+		public int[] expCount = new int[20] { 10, 35, 65, 100, 150, 195, 245, 300, 360, 425, 495, 570, 650, 735, 825, 920, 1020, 1125, 1235, 999999};
 		public int exp = 0;
 
 		public Inventory inventory = new Inventory();
@@ -121,9 +121,10 @@ namespace Console_Text_RPG_Team
 				exp -= expCount[level - 1];
 				level += 1;
 				stat += 3;
-				maxHp += 10;
-				atk += 3;
-				def += 1;
+				maxHp += 100;
+				atk += 30;
+				def += 5;
+				maxMp += 5;
 				miss += 10;
 				critical += 10;
 				//Console.WriteLine($"레벨이 {level - 1} -> {level} 로 상승하셨습니다.!");

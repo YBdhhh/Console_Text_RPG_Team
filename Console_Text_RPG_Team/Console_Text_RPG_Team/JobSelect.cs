@@ -13,10 +13,10 @@ namespace Console_Text_RPG_Team
 		StringBuilder sb = new StringBuilder();
 		List<Job> job = new List<Job>(4)
 		{
-			new Job("전사  "        , 100+50, 15+ 3, 0+4),
-			new Job("궁수  "        , 100+20, 15+12, 0+3),
-			new Job("마법사"		, 100+10, 15+ 6, 0+2),
-			new Job("도적  "        , 100+30, 15+12, 0+3)
+			new Job("전사  "        , 1000+500, 150+ 30, 0+20, 25),
+			new Job("궁수  "        , 1000+200, 150+120, 0+15, 30),
+			new Job("마법사"		, 1000+100, 150+ 60, 0+10, 50),
+			new Job("도적  "        , 1000+300, 150+120, 0+15, 25)
 		};
 
 		public void Start()
@@ -30,12 +30,12 @@ namespace Console_Text_RPG_Team
             Console.WriteLine($" 장로 스탄: 직업을 선택해주게나");
 			Console.ResetColor();
 
-            sb.AppendLine(" ============================================================");
+            sb.AppendLine(" =========================================================================");
             for (int i = 0; i < job.Count; i++)
 			{
-				sb.AppendFormat($" | {(i + 1)}. 직업: {job[i].name}" + ("체력 :").PadLeft(8) + $"{job[i].hp, -4} 공격력 : {job[i].atk, -4} 방어력 : {job[i].def, -4}|").Append("\n");
+				sb.AppendFormat($" | {(i + 1)}. 직업: {job[i].name}" + ("체력 :").PadLeft(8) + $"{job[i].hp, -4} 공격력 : {job[i].atk, -4} 방어력 : {job[i].def, -4} 마나 : {job[i].mp,-4}||").Append("\n");
 			}
-            sb.AppendLine(" ============================================================");
+            sb.AppendLine(" =========================================================================");
             sb.Append("\n");
             sb.Append(" 원하시는 직업의 번호를 선택해주세요.").Append("\n");
 			Console.Write(sb.ToString());
@@ -56,15 +56,18 @@ namespace Console_Text_RPG_Team
 					player.atk = job[index].atk;
 					player.def = job[index].def;
 					player.job = job[index].name;
+					player.maxMp = job[index].mp;
+					player.mp = player.maxMp;
 					int hp = player.maxHp;
 					int atk = player.atk;
 					int def = player.def;
+					int mp = player.mp;
 					string name = player.job;
 
 
 					StringBuilder sb = new StringBuilder();
 
-                    sb.AppendLine($" {index + 1}. 직업 : {name, -4} 체력 : {hp,-4} 공격력 : {atk, -4} 방어력 : {def, -4}을 선택하셨습니다.");
+                    sb.AppendLine($" {index + 1}. 직업 : {name, -4} 체력 : {hp,-4} 공격력 : {atk, -4} 방어력 : {def, -4} 마력 : {mp, -4} 을 선택하셨습니다.");
                     sb.Append("\n");
                     sb.AppendLine($" {player.name} 용사님 {player.job} 직업을 선택하셨습니다.");
                     Console.Write(sb.ToString());
