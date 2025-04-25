@@ -4,23 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NAudio.Wave;
+using Newtonsoft.Json;
 
 namespace Console_Text_RPG_Team
 {
 	internal class AudioManager
 	{
 		string audioFilePath;
-
+		
 		AudioFileReader audioFile;
+
 		WaveOutEvent outputDevice;
 		public AudioManager(string filePath)
 		{
-			audioFilePath = filePath;
-			audioFile = new AudioFileReader(audioFilePath);
-			outputDevice = new WaveOutEvent();
+				audioFilePath = filePath;
+				audioFile = new AudioFileReader(audioFilePath);
+				outputDevice = new WaveOutEvent();
 
-			// 초기 필수
-			outputDevice.Init(audioFile);
+
+				// 초기 필수
+				outputDevice.Init(audioFile);
 		}
 		public void Play()
 		{

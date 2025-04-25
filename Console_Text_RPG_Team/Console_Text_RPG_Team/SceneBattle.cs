@@ -180,16 +180,19 @@ namespace Console_Text_RPG_Team
 
             sceneBattleAttack = new SceneBattleAttack(this, player);
 
-
-            Console.Clear();
-            Console.WriteLine("앗 어디서 그림자가...");
+            player.audio[0].Stop(); //일반전투 음악 정지
+			player.audio[6].Play(); //보스전 음악
+            Thread.Sleep(3000);
+			Console.Clear();
+            
+			Console.WriteLine("앗 어디서 그림자가...");
             Thread.Sleep(1200);
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine($"Battle!! {currentFloor}층 - Boss!!\n");
             Console.WriteLine($"야생의 머쉬맘이 나타났다!!\n");
             Console.ResetColor();
             bossMonster.Add(new Monster (bossMonsters[currentFloor-1]));        //보스몹 소환
-            
+            player.audio[0].Play();
             sb.AppendLine($" Lv.{bossMonsters[currentFloor-1].level} {bossMonsters[currentFloor-1].name}  HP  {bossMonsters[currentFloor - 1].hp}\n");
             sb.AppendLine(" [내정보]");
             sb.AppendLine($" Lv.	: {player.level}");
@@ -288,6 +291,11 @@ namespace Console_Text_RPG_Team
                 player.inventory.AddItem(item);
                 Console.WriteLine($"{item.name}을 획득했습니다.");
             }
+        }
+
+        public SceneBattle()
+        {
+            
         }
     }
 }
