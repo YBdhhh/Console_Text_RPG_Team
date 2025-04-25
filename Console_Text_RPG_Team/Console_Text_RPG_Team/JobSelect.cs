@@ -27,7 +27,7 @@ namespace Console_Text_RPG_Team
             Console.WriteLine("[ 직업 선택 ]".PadLeft(10));
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine($" 용사님의 직업을 선택하여 주세요.");
+            Console.WriteLine($" 장로 스탄: 직업을 선택해주게나");
 			Console.ResetColor();
 
             sb.AppendLine(" ============================================================");
@@ -66,25 +66,31 @@ namespace Console_Text_RPG_Team
 
                     sb.AppendLine($" {index + 1}. 직업 : {name, -4} 체력 : {hp,-4} 공격력 : {atk, -4} 방어력 : {def, -4}을 선택하셨습니다.");
                     sb.Append("\n");
-                    sb.AppendLine($" {player.name} 용사님 {player.job} 직업을 선택하셨습니다.");  
-                    sb.Append(" 단풍 마을로 가실려면 아무 키나 눌러주십시오 ");
-					Console.Write(sb.ToString());
+                    sb.AppendLine($" {player.name} 용사님 {player.job} 직업을 선택하셨습니다.");
+                    Console.Write(sb.ToString());
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+					Console.Write(" 장로 스탄: 단풍 마을로 가기 위해서  나를 따라오게나 ");
+				    Console.ResetColor();	
+                    Thread.Sleep(500);
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("...");
 					Thread.Sleep(500);
-					Console.Write("...");
-					Thread.Sleep(500);
-					Console.Write("입장 중");
-					Thread.Sleep(500);
+					Console.Write(" 이동 중");
+                    Console.ResetColor();
+                    Thread.Sleep(1000);
 					return;
 				}
 				else
 				{
 					Console.WriteLine(" 다시 입력해주십시오");
-				}
+                    Console.Write(" >> ");
+                }
 			}
 			catch (Exception)
 			{
 				Console.WriteLine(" 다시 입력해주십시오");
-			}
+                Console.Write(" >> ");
+            }
 
 		}
 	}

@@ -9,10 +9,11 @@ namespace Console_Text_RPG_Team
 
         public void Start(Player player)
         {
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow; //npc가 말할 때는 DarkYellow로
             Console.WriteLine();
-            Console.WriteLine("단풍 마을에 오신 여러분 환영합니다.".PadLeft(21));
-            Console.WriteLine("용사님의 이름을 알려주세요.".PadLeft(16));
+            Console.WriteLine(" 장로스탄: 단풍 마을에 오신 용사들이여 환영하네.".PadLeft(21));
+            Console.WriteLine(" 이름을 알려주시게나.");
             Console.ResetColor();
             Console.WriteLine(sb.ToString());
             sb.Clear();
@@ -33,7 +34,7 @@ namespace Console_Text_RPG_Team
 
                 if (string.IsNullOrWhiteSpace(playername))
                 {
-                    sb.AppendLine(" 이름을 다시 입력해주세요.");
+                    sb.AppendLine(" 이름을 말씀해주셔야 됩니다.");
                     sb.Append(" >> "); Console.Write(sb.ToString());
                     sb.Clear();
                     continue;
@@ -43,7 +44,9 @@ namespace Console_Text_RPG_Team
 
                 while (true)
                 {
-                    Console.WriteLine($" {player.name} 용사님이 맞나요?");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine($" 장로스탄: {player.name} 용사라고 부르면 되는건가?");
+                    Console.ResetColor();
                     Console.ForegroundColor = ConsoleColor.DarkCyan; //선택지는 DarkCyan
                     Console.WriteLine($" [1. 네  2. 아니요]");
                     Console.ResetColor();
@@ -53,8 +56,8 @@ namespace Console_Text_RPG_Team
                     string input = Console.ReadLine();
                     if (!int.TryParse(input, out int choice))//tryparse는 bool형으로 성공여부를 반환합니다.    
                     {
-                        sb.AppendLine("올바른 숫자를 입력해주세요.");
-                        sb.Append(">> ");
+                        sb.AppendLine(" 올바른 숫자를 입력해주세요.");
+                        sb.Append(" >> ");
                         Console.Write(sb.ToString());
                         sb.Clear();
                         continue;
@@ -62,23 +65,26 @@ namespace Console_Text_RPG_Team
                     if (choice == 1)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkYellow; //npc가 말할 때는 DarkYellow로
-                        Console.WriteLine($" {player.name} 용사님, 전설이 시작됩니다.");
-                        Console.WriteLine(" 마지막에 엄청난 보상이 있을 수도, 없을 수도…? 그건 직접 겪어보셔야죠!");
+                        Console.WriteLine($" 장로 스탄: {player.name} 용사여 환영하네");
+                        Console.WriteLine(" 마지막에 엄청난 보상이 있을 수도, 없을 수도…? 그건 직접 겪어보시게나!");
+                        Console.ResetColor();
                         Thread.Sleep(1500);
                         return;
                     }
                     else if (choice == 2)
                     {
-                        sb.AppendLine("이름을 다시 입력해주세요.");
-                        sb.Append(">> ");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine(" 장로스탄: 이름을 다시 말해주시게.");
+                        Console.ResetColor();
+                        sb.Append(" >> ");
                         Console.Write(sb.ToString());
                         sb.Clear();
                         break;  // 외부 while 루프로 이동
                     }
                     else
                     {
-                        sb.AppendLine("올바른 숫자를 입력해주세요.");
-                        sb.Append(">> ");
+                        sb.AppendLine(" 올바른 숫자를 입력해주세요.");
+                        sb.Append(" >> ");
                         Console.Write(sb.ToString());
                         sb.Clear();
                     }
