@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,13 +52,21 @@ namespace Console_Text_RPG_Team
 
         public void TakeDamage(float damage)
         {
-            PreviousHP = hp;            
-            hp -= damage;
-            if (hp < 0)
-            {
-                hp = 0;
-            }
-        }
+			PreviousHP = hp;
+			float reduced = damage - def;
+
+			if (reduced <= 0)
+			{
+				reduced = 1;
+			}
+			
+			hp -= reduced;
+			
+			if (hp < 0)
+			{
+				hp = 0;
+			}
+		}
 
 		public Reward GetReward()
 		{
