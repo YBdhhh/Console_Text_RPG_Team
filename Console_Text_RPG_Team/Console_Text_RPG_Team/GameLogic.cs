@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,27 +11,52 @@ namespace Console_Text_RPG_Team
 	{
 		PlayerCreate playerCreate = new PlayerCreate();
 		JobSelect jobSelect = new JobSelect();
-		Player player = new Player();
-		SceneStart sceneStart;
+		public Player player = new Player();
+		SceneStart sceneStart = new SceneStart();
 
+		public GameLogic()
+		{
 
+		}
+
+		public GameLogic(GameLogic gameLogic)
+		{
+			this.player = gameLogic.player;
+			this.sceneStart = gameLogic.sceneStart;
+		}
+
+		public void Reset()
+		{
+			player = new Player();
+			sceneStart.InitSceneStart(player);
+			playerCreate.Start(player);
+			jobSelect.Start();
+		}
 
         public void Start()
 		{
-			//player.Example();
-			sceneStart = new SceneStart(player);
-			playerCreate.Start(player);
-			jobSelect.Start();
-			while (player.job == null)
+			if (player.name == null)
 			{
-				jobSelect.Input(player);
+				Reset();
+				while (player.job == null)
+				{
+					jobSelect.Input(player);
+				}
 			}
 
 			while (true)
 			{
-				sceneStart.Start(player);
+				sceneStart.Start(player, this);
 			}
 
 		}
+		public void SaveData(GameLogic gameLogic)
+		{
+			string filePath = "./DataSave.json";
+			var testList = new GameLogic(gameLogic);
+			var jsonSerializeTestList = JsonConvert.SerializeObject(testList);
+			File.WriteAllText(filePath, jsonSerializeTestList);
+		}
+
 	}
 }

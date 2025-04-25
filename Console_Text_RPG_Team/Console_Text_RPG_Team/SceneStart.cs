@@ -35,18 +35,15 @@ namespace Console_Text_RPG_Team
 			new Skill("방패 밀치기", "방패로 상대를 밀친다. Mp 1.0 소모 | 방어력*5의 피해", (int)DamageType.Def , new int[] {500}, (int)ValueType.Mp, 1.0f ,1000),
 			new Skill("몸통박치기", "상대방에게 돌진한다. Hp를 1.0 소모 | 체력*2의 피해", (int)DamageType.Hp , new int[] {200}, (int)ValueType.Hp, 1.0f ,1000),
 		};
-		public SceneStart(Player player)
+		public void InitSceneStart(Player player)
 		{
-			this.player = player;
-			this.sceneShop = new SceneShop();
-			this.sceneBattle = new SceneBattle();
-			this.sceneInventory = new SceneInventory();
-			player.skill.Add(new Skill(skills[0]));
+			player.skill.Add(skills[0]);
 		}
 
 		StringBuilder sb = new StringBuilder();
-		public void Start(Player player)
+		public void Start(Player player, GameLogic gameLogic)
 		{
+			gameLogic.SaveData(gameLogic);
 			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine();
@@ -60,7 +57,8 @@ namespace Console_Text_RPG_Team
             sb.AppendLine(" 4.상점 이동");
 			sb.AppendLine(" 5.휴식 하기");
 			sb.AppendLine(" 6.퀘스트술집");
-            sb.AppendLine(" 0.게임 종료");
+			sb.AppendLine(" 7.게임리셋");
+			sb.AppendLine(" 0.게임 종료");
 			sb.AppendLine();
 
 
@@ -75,6 +73,9 @@ namespace Console_Text_RPG_Team
 
 			switch (result)
 			{
+				case 0:
+					Environment.Exit(0);
+					break;
 				case 1:
 					sceneStatus.Start(player);
                     break;
@@ -92,6 +93,9 @@ namespace Console_Text_RPG_Team
 					break;
 				case 6:
 					SceneQuest.Start(player);
+					break;
+				case 7:
+					gameLogic.Reset();
 					break;
 
 
