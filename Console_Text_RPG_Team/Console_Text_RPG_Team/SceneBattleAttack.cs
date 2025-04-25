@@ -53,6 +53,33 @@ namespace Console_Text_RPG_Team
                 if (CheckBattleEnd(_player)) break;
                 player.RegenerateMp();
             }
+
+            void BattleResult(Player player, List<Monster> deadMonster)  //이부분
+            {
+                // ... 기존 코드 ...
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("[획득 아이템]");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+
+                List<Item> totalDroppedItems = new List<Item>();
+                foreach (var monster in deadMonster)
+                {
+                    totalDroppedItems.AddRange(monster.GetDropItems(sceneBattle.currentFloor));
+                }
+
+                var groupedItems = totalDroppedItems.GroupBy(i => i.name).Select(g => new { Name = g.Key, Count = g.Count() });
+                foreach (var item in groupedItems)
+                {
+                    sb.AppendLine($" {item.Name} - {item.Count}");
+                }
+                Console.ResetColor();
+                Console.Write(sb.ToString());
+                sb.Clear();
+
+                sceneBattle.AddDroppedItemsToInventory(player, totalDroppedItems); // 획득한 아이템을 인벤토리에 추가
+
+                // ... 기존 코드 ...
+            }
         }
 
         public (int, Player) WhatSelectDamage(Player player)
