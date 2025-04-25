@@ -12,20 +12,20 @@ namespace Console_Text_RPG_Team
 			Console.SetBufferSize(120, 100);
 			Console.SetWindowSize(120, 30);
             GameLogic gameLogic = new GameLogic();
-			LoadData(ref gameLogic);
+			//LoadData(ref gameLogic);
 			gameLogic.Start(gameLogic);
 
         }
-		static void LoadData(ref GameLogic gameLogic)
-		{
-			string filePath = "./DataSave.json";
-			if (File.Exists(filePath))
-			{
-				string json = File.ReadAllText(filePath);
-				var jsonDeserializeList = JsonConvert.DeserializeObject<GameLogic>(json);
-				gameLogic = jsonDeserializeList;
-			}
-		}
+		//static void LoadData(ref GameLogic gameLogic)
+		//{
+		//	string filePath = "./DataSave.json";
+		//	if (File.Exists(filePath))
+		//	{
+		//		string json = File.ReadAllText(filePath);
+		//		var jsonDeserializeList = JsonConvert.DeserializeObject<GameLogic>(json);
+		//		gameLogic = jsonDeserializeList;
+		//	}
+		//}
 	}
     
 }
