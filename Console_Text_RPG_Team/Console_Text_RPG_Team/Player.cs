@@ -124,22 +124,30 @@ namespace Console_Text_RPG_Team
 
 		public void StatAdd(int value)
 		{
-			switch(value)
+			if(stat > 0)
 			{
-				case 1:
-					HpUpSet(10);
-					break;
-				case 2:
-					this.atk += 3;
-					break;
-				case 3:
-					this.def += 1;
-					break;
-				case 4:
-					this.mp += 1;
-					break;	
-			}
-			this.stat -= 1;
+                switch (value)
+                {
+                    case 1:
+                        HpUpSet(10);
+                        break;
+                    case 2:
+                        this.atk += 3;
+                        break;
+                    case 3:
+                        this.def += 1;
+                        break;
+                    case 4:
+                        this.mp += 1;
+                        break;
+                }
+                this.stat -= 1;
+            }
+			else
+			{
+				Console.WriteLine("보유스탯이 부족합니다.");
+                Thread.Sleep(500);
+            }
 		}
 
 		public bool IsAlive()
