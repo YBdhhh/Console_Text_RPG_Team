@@ -342,7 +342,9 @@ namespace Console_Text_RPG_Team
 
             if (!isVictory)
             {
-                sceneBattle.clearCount = 0;
+                sceneBattle.clearCount = -1;
+                player.hp = player.maxHp * 2 / 10;
+                player.Gold = player.Gold * 9 / 10;
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("");
                 Console.WriteLine(" [ 전투 결과.... ]\n");
@@ -351,6 +353,8 @@ namespace Console_Text_RPG_Team
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(" [ 클리어에 실패하셨습니다. ]\n");
                 Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("???: 아니 이런곳에 쓰러진 호ㄱ.. 아니 모험가가! ...자 치료도 해줬으니 포션값 정도는 받아가겠네.\n");
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
                 Console.WriteLine(" 0. 다음");
                 Console.ResetColor();
@@ -394,7 +398,7 @@ namespace Console_Text_RPG_Team
                     player.quest.PlayEvent(player.quest, monsters.Count ,monsters[0].name);
                     sceneBattle.dungeonFloor.Add(sceneBattle.currentFloor + 1);
                 }
-                sceneBattle.clearCount = 0;
+                sceneBattle.clearCount = -1;
             }
             int prevLevel = player.level;
             int prevExp = player.exp;
