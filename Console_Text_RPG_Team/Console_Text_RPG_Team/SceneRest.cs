@@ -17,6 +17,7 @@ namespace Console_Text_RPG_Team
             Console.WriteLine();
             Console.WriteLine(" ========회복의 요람======== ");
 			Console.ResetColor();
+
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine(" 30G만 내주신다면 용사님의 체력을 30%씩이나 회복시켜드립니다");
 			Console.WriteLine("");
@@ -25,8 +26,8 @@ namespace Console_Text_RPG_Team
 			sb.AppendLine(" =====================");
 			sb.AppendLine($" 이  름	:{player.name}");
 			sb.AppendLine($" Lv.	: {player.level}");
-			sb.AppendLine($" 체  력	: {player.hp}");
-			sb.AppendLine($" 돈	: {player.gold}");
+			sb.AppendLine($" 체  력	: {player.hp} / {player.maxHp}");
+			sb.AppendLine($" 돈	: {player.Gold}");
             sb.AppendLine(" =====================");
             sb.AppendLine();
             Console.Write(sb.ToString());
@@ -37,6 +38,7 @@ namespace Console_Text_RPG_Team
             Console.ResetColor();
             sb.AppendLine();
 			sb.AppendLine(" 원하시는 행동의 번호를 입력해주세요.");
+
 			sb.Append(">> ");
 			Console.Write(sb.ToString());
 			sb.Clear();
@@ -64,16 +66,27 @@ namespace Console_Text_RPG_Team
 							Thread.Sleep(500);
 							Console.ResetColor();
 							Console.WriteLine();
-							Console.WriteLine(" 요람의 신비한 힘이 당신을 회복시켰습니다.");
-							player.hp += (int)(player.hp * 0.3f);
-							player.gold -= 30;
+
+							Console.WriteLine("요람의 신비한 힘이 당신을 회복시켰습니다.");
+							if (player.maxHp < player.hp * 1.3f)
+							{
+								player.hp = player.maxHp;
+							}
+							else
+							{
+								player.hp += (int)(player.maxHp * 0.3f);
+							}
+							
+							player.Gold -= 30;
 							Thread.Sleep(500);
-							sb.AppendLine();
-                            sb.AppendLine($" 현재 체력 : {player.hp} / 현재 골드 : {player.gold}");
+							Console.WriteLine();
+							Console.WriteLine($"현재 체력 : ({player.hp} / {player.maxHp})  | 현재 골드 : {player.Gold}");
+
                             sb.AppendLine("");
                             sb.AppendLine(" 단풍 마을로 가실려면 아무 키나 눌러주십시오 ");
                             Console.Write(sb.ToString());
                             sb.Clear();
+
 							Console.ReadLine();
                             return;
 

@@ -11,6 +11,7 @@ namespace Console_Text_RPG_Team
     internal class SceneBattleAttack
     {
         SceneBattle sceneBattle;
+
         public Player _player;
         public SceneBattleAttack(SceneBattle _sceneBattle, Player player)
         {
@@ -66,6 +67,7 @@ namespace Console_Text_RPG_Team
                 }
                 sb.AppendLine();
                 sb.Append(" >> ");
+
                 Console.Write(sb.ToString());
                 string input = Console.ReadLine();                       //input 추가해서
                 bool isNumber = int.TryParse(input, out result);        //bool 값을 받아서
@@ -80,14 +82,18 @@ namespace Console_Text_RPG_Team
 
         public float SelectDamage(int result, Player player)
         {
-            float damage = 0;
-            if (result == 1)                                        //result = -2 에서 1로 수정
-                damage = player.atk;
-            else
+            while (true)
             {
-                damage = player.skill[result-2].UseSkill(player);   //result에서 result-2로 수정
+                float damage = 0;
+                if (result == 1)                                        //result = -2 에서 1로 수정
+                    damage = player.atk;
+                else
+                {
+                    damage = player.skill[result - 2].UseSkill(player);   //result에서 result-2로 수정
+                    
+				}
+                return damage;
             }
-            return damage;
         }
 
         public void PlayerAttack()
@@ -123,9 +129,15 @@ namespace Console_Text_RPG_Team
                         Console.WriteLine(" 이미 죽은 몬스터입니다.");
                         continue;
                     }
+                    float damaged;
 
-                    (int result, _player) = WhatSelectDamage(_player);
-                    float damaged = SelectDamage(result, _player);
+					while (true)
+                    {
+                        (int result, _player) = WhatSelectDamage(_player);
+                        damaged = SelectDamage(result, _player);
+                        if (damaged != 0)
+                            break;
+                    }
                     float criticalDamage = _player.CriticalDamage(_player, damaged);
                     float finalDamage = GetRandomDamage(criticalDamage);
                     target.TakeDamage(finalDamage);
@@ -172,8 +184,10 @@ namespace Console_Text_RPG_Team
                 float damage = GetRandomDamage(monster.atk);
                 player.TakeDamage(damage);
                 MonsterAttackLog(monster, player, damage);
-                if (!player.IsAlive()) return;
             }
+            Console.WriteLine("계속 하려면 아무키나 입력");
+            Console.ReadLine();
+			if (!player.IsAlive()) return;
         }
 
         public bool CheckBattleEnd(Player player)
@@ -225,8 +239,12 @@ namespace Console_Text_RPG_Team
                 string status = m.IsAlive() ? $" HP: {m.hp}" : "Dead";
                 Console.WriteLine($" {i + 3}. {m.name} (Lv.{m.level}) - {status}"); // 공격 선택지 번호 조정
             }
-            Console.WriteLine("\n 0. 돌아가기");
-            Console.Write(" >> ");
+
+            //Console.WriteLine("\n0. 돌아가기");
+            Console.WriteLine("\n");
+            _player.ViewStatus();
+            
+            Console.Write(">> ");
         }
 
         public void PlayerAttackLog(Player attacker, Monster target, float damage)
@@ -234,28 +252,49 @@ namespace Console_Text_RPG_Team
             Console.Clear();
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine(" Battle!!\n");
-            sb.AppendLine($" {attacker.name} 의 공격!");
-            sb.AppendLine($" Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {damage}]\n");
+
+            sb.AppendLine("Battle!!\n");
+            sb.AppendLine($"{attacker.name} 의 공격!");
+            sb.Append($"Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {damage}] | ");
 
             if (target.hp <= 0)
             {
-                sb.AppendLine($" Lv.{target.level} {target.name}");
-                sb.AppendLine($" HP {target.PreviousHP} -> Dead");
+                //sb.Append($"Lv.{target.level} {target.name} |  ");
+                sb.AppendLine($"(HP {target.PreviousHP} -> Dead)");
             }
             else
             {
-                sb.AppendLine($" Lv.{target.level} {target.name}");
-                sb.AppendLine($" HP {target.PreviousHP} -> {target.hp}");
+               // sb.Append($"Lv.{target.level} {target.name} |  ");
+                sb.AppendLine($"(HP {target.PreviousHP} -> {target.hp})");
             }
-
-            sb.AppendLine("\n0. 다음\n>>");
             Console.WriteLine(sb.ToString());
 
-            Console.ReadLine();
+            Thread.Sleep(1000);
 
         }
 
+		public void MonsterAttackLog(Monster attacker, Player target, float damage)
+		{
+			StringBuilder sb = new StringBuilder();
+
+			sb.AppendLine($"{attacker.name} 의 공격!");
+			sb.Append($"Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {damage-target.def}] | ");
+
+			if (target.maxHp <= 0)
+			{
+				sb.AppendLine($"(HP {target.hp} -> Dead)");
+			}
+			else
+			{
+				sb.AppendLine($"(HP {target.PreviousHP} -> {target.hp})");
+			}
+
+			Console.WriteLine(sb.ToString());
+			Thread.Sleep(1000);
+
+		}
+
+		/*
         public void MonsterAttackLog(Monster attacker, Player target, float damage)
         {
             Console.Clear();
@@ -265,7 +304,7 @@ namespace Console_Text_RPG_Team
             sb.AppendLine($"{attacker.name} 의 공격!");
             sb.AppendLine($"Lv.{target.level} {target.name} 을(를) 맞췄습니다. [데미지 : {damage}]\n");
 
-            if (target.hp <= 0)
+            if (target.maxHp <= 0)
             {
                 sb.AppendLine($"Lv.{target.level} {target.name}");
                 sb.AppendLine($"HP {target.PreviousHP} -> Dead");
@@ -273,7 +312,7 @@ namespace Console_Text_RPG_Team
             else
             {
                 sb.AppendLine($"Lv.{target.level} {target.name}");
-                sb.AppendLine($"HP {target.PreviousHP} -> {target.hp}");
+                sb.AppendLine($"HP {target.PreviousHP} -> {target.maxHp}");
             }
 
             sb.AppendLine("\n0. 다음\n>>");
@@ -281,8 +320,8 @@ namespace Console_Text_RPG_Team
             Console.ReadLine();
 
         }
-
-        public void Result(bool isVictory, Player player, List<Monster> monsters)
+        */
+		public void Result(bool isVictory, Player player, List<Monster> monsters)
         {
             Console.Clear();
             StringBuilder sb = new StringBuilder();
@@ -302,9 +341,9 @@ namespace Console_Text_RPG_Team
                 Console.ResetColor();
                 sb.AppendLine(" >> ");
                 Console.Write(sb.ToString());
-                sb.Clear();
                 Console.ReadLine();
-                return;
+                sb.Clear();
+				return;
             }
 
             List<Item> droppedItems = new List<Item>();
@@ -315,7 +354,7 @@ namespace Console_Text_RPG_Team
 
             foreach (var monster in monsters)
             {
-                if (!monster.IsAlive()) continue;
+                if (monster.IsAlive()) continue;
 
                 Reward reward = monster.GetReward();
                 totalGold += reward.gold;
@@ -337,16 +376,18 @@ namespace Console_Text_RPG_Team
             {
                 if (sceneBattle.dungeonFloor.Exists(x => sceneBattle.currentFloor == sceneBattle.dungeonFloor.Count && sceneBattle.dungeonFloor.Count < 3))   //3층 이하일때 현재최고층 난이도를 깨야만 층이 추가되도록
                 {
+                    player.quest.PlayEvent(player.quest, monsters.Count ,monsters[0].name);
                     sceneBattle.dungeonFloor.Add(sceneBattle.currentFloor + 1);
                 }
                 sceneBattle.clearCount = 1;
             }
             int prevLevel = player.level;
             int prevExp = player.exp;
-            float prevHP = player.hp;
+            float prevHP = player.maxHp;
+            int prevGold = player.Gold;
 
-            player.gold += totalGold;
-            player.exp += totalExp;
+            player.Gold += totalGold;
+            player.Exp += totalExp;
             sceneBattle.AddDroppedItemsToInventory(player, droppedItems);
 
             sb.AppendLine(" Battle!! - Result\n");
@@ -362,12 +403,16 @@ namespace Console_Text_RPG_Team
             sb.AppendLine($" HP {prevHP} -> {player.hp}");
             sb.AppendLine($" exp {prevExp} -> {player.exp}\n");
 
-            sb.AppendLine(" [획득 아이템]");
-            Console.WriteLine(sb.ToString());
-            sb.Clear();
+            sb.AppendLine("[캐릭터 정보]");
+            sb.AppendLine($"Lv.{prevLevel} {player.name}  -> Lv{player.level}. {player.name}");
+            sb.AppendLine($"HP {prevHP}  -> {player.maxHp}");
+            sb.AppendLine($"exp {prevExp}  -> ({totalExp}){player.exp}\n");
+
+            sb.AppendLine("[획득 아이템]");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($" {totalGold} G");
+            sb.AppendLine($"({prevGold} -> {player.Gold}) Gold");
             Console.ResetColor();
+
 
             var groupedItems = droppedItems.GroupBy(i => i.name).Select(g => new { Name = g.Key, Count = g.Count() });
             foreach (var item in groupedItems)

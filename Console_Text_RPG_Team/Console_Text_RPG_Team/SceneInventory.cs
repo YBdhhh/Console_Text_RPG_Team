@@ -139,7 +139,7 @@ namespace Console_Text_RPG_Team
                 Console.Write(sb.ToString());
                 sb.Clear();
                 string input = Console.ReadLine();
-
+               
 
                 if (int.TryParse(input, out int choice))
                 {
@@ -151,7 +151,8 @@ namespace Console_Text_RPG_Team
                     if (choice >= 1 && choice <= items.Count)
                     {
                         var selected = items[choice - 1];
-                        if (selected.equippedItem)
+                        if (selected
+                            .equippedItem)
                         {
                             sb.AppendLine(" 이미 장착된 아이템입니다.");
                             Console.WriteLine(sb.ToString());
@@ -160,7 +161,12 @@ namespace Console_Text_RPG_Team
                         else
                         {
                             selected.equippedItem = true;
-                            sb.AppendLine($" {selected.name}을(를) 장착했습니다.");
+                            player.quest.PlayEvent(player.quest, selected.name);
+                            player.itematk += selected.atk;
+							player.itemdef += selected.def;
+                            player.atk += player.itematk;
+                            player.def += player.itemdef;
+							sb.AppendLine($" {selected.name}을(를) 장착했습니다.");
                             Console.WriteLine(sb.ToString());
                             sb.Clear();
                         }
@@ -214,7 +220,11 @@ namespace Console_Text_RPG_Team
                         {
                             selected.equippedItem = false;  // 장착 해제
                             Console.WriteLine($"{selected.name}을(를) 해제했습니다.");
-                        }
+							player.itematk -= selected.atk;
+							player.itemdef -= selected.def;
+							player.atk -= player.itematk;
+							player.def -= player.itemdef;
+						}
                         else
                         {
                             Console.WriteLine(" 장착된 아이템이 아닙니다.");

@@ -132,13 +132,15 @@ namespace Console_Text_RPG_Team
                 Console.WriteLine($" 앗! {currentFloor}층 - {clearCount}스테이지에서 몬스터가 나타났다!\n");
                 Console.ResetColor();
                 SpawnMonster();
+
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("[내정보]");
                 Console.ResetColor();
                 sb.AppendLine(" ====================");
-                sb.AppendLine($" Lv.	: {player.level}");
-                sb.AppendLine($" 직업	: {player.job}");
-                sb.AppendLine($" 체  력	: {player.PreviousHP}/{player.hp}");
+                player.ViewStatus();
+                //sb.AppendLine($" Lv.	: {player.level}");
+                //sb.AppendLine($" 직업	: {player.job}");
+                //sb.AppendLine($" 체  력	: {player.PreviousHP}/{player.hp}");
                 Console.Write(sb.ToString());
                 sb.Clear();
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -147,6 +149,7 @@ namespace Console_Text_RPG_Team
                 Console.ResetColor();
                 sb.AppendLine(" 원하시는 행동을 입력해주세요.");
                 sb.Append(" >> ");
+
                 Console.Write(sb.ToString());
                 sb.Clear();
                 int choose = Checkinput(1, 1);
@@ -184,6 +187,7 @@ namespace Console_Text_RPG_Team
             Console.WriteLine($"야생의 머쉬맘이 나타났다!!\n");
             Console.ResetColor();
             bossMonster.Add(new Monster (bossMonsters[currentFloor-1]));        //보스몹 소환
+            
             sb.AppendLine($" Lv.{bossMonsters[currentFloor-1].level} {bossMonsters[currentFloor-1].name}  HP  {bossMonsters[currentFloor - 1].hp}\n");
             sb.AppendLine(" [내정보]");
             sb.AppendLine($" Lv.	: {player.level}");
@@ -196,6 +200,7 @@ namespace Console_Text_RPG_Team
             Console.WriteLine(" 0. 돌아가기\n");
             Console.WriteLine(" 원하시는 행동의 번호를 입력해주세요.");
             Console.ResetColor();
+
             sb.Append(">> ");
             Console.Write(sb.ToString());
             sb.Clear();

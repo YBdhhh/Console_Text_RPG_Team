@@ -34,6 +34,7 @@ namespace Console_Text_RPG_Team
 			hp = monster.hp;
 			atk = monster.atk;
 			level = monster.level;
+			this.expReward = monster.expReward;
 			PreviousHP = monster.PreviousHP;
 			this.dropItems = monster.dropItems;
 		}

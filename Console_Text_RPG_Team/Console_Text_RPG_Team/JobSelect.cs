@@ -52,24 +52,28 @@ namespace Console_Text_RPG_Team
 				if (input > 0 && input <= job.Count)
 				{
 					int index = input - 1;
-					player.hp = job[index].hp;
-					player.maxHp = job[index].hp;
+					player.HpUpSet(job[index].hp - player.hp);
 					player.atk = job[index].atk;
 					player.def = job[index].def;
 					player.job = job[index].name;
-					float hp = player.hp;
+					float hp = player.maxHp;
 					float atk = player.atk;
 					float def = player.def;
 					string name = player.job;
 
 
 					StringBuilder sb = new StringBuilder();
-                    sb.AppendLine($" {index + 1, 4}. 직업 : {name, 15} 체력 : {hp,10} 공격력 : {atk,10} 방어력 : {def,-5}을 선택하셨습니다.");
+
+                    sb.AppendLine($" {index + 1}. 직업 : {name, -4} 체력 : {hp,-4} 공격력 : {atk, -4} 방어력 : {def, -4}을 선택하셨습니다.");
                     sb.Append("\n");
                     sb.AppendLine($" {player.name} 용사님 {player.job} 직업을 선택하셨습니다.");  
                     sb.Append(" 단풍 마을로 가실려면 아무 키나 눌러주십시오 ");
 					Console.Write(sb.ToString());
-					Console.ReadLine();
+					Thread.Sleep(500);
+					Console.Write("...");
+					Thread.Sleep(500);
+					Console.Write("입장 중");
+					Thread.Sleep(500);
 					return;
 				}
 				else

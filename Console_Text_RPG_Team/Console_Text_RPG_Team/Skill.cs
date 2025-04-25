@@ -54,7 +54,7 @@ namespace Console_Text_RPG_Team
 			this.explain = explain;
 			this.damageType = damageType;
 			this.valueType = valueType;
-				this.damage = damage;
+			this.damage = damage;
 			this.value = value;
 			this.price = price;
 		}
@@ -62,7 +62,14 @@ namespace Console_Text_RPG_Team
 		public int UseSkill(Player player)
 		{
 			string value = UseSkillValue(player);
-			int damage = UseSkillDamage(player);
+			int damage = 0;
+			if (value == "")
+			{
+				Console.WriteLine("선택하신 스킬은 사용할 수 없습니다.");
+				Thread.Sleep(500);
+				return damage;
+			}
+			damage = UseSkillDamage(player);
 			SkillText(player, value, damage);
 			return damage;
 		}
@@ -102,7 +109,7 @@ namespace Console_Text_RPG_Team
 
 			if (type >= (int)DamageType.Hp)
 			{
-				damage2 += (int)(damage[i++] * 0.01f * player.hp);
+				damage2 += (int)(damage[i++] * 0.01f * player.maxHp);
 				type -= (int)DamageType.Hp;
 			}
 
@@ -115,23 +122,32 @@ namespace Console_Text_RPG_Team
 			int type = valueType;
 			if (type >= (int)ValueType.Mp)
 			{
-				player.mp -= value;
-				type -= (int)ValueType.Mp;
-				typeName += "마나";
+				if (player.mp - value > 0)
+				{
+					player.mp -= value;
+					type -= (int)ValueType.Mp;
+					typeName += "마나";
+				}
 			}
 
 			if (type >= (int)ValueType.Gold)
 			{
-				player.gold -= (int)value;
-				type -= (int)ValueType.Gold;
-				typeName += "골드";
+				if (player.Gold - value > 0)
+				{
+					player.Gold -= (int)value;
+					type -= (int)ValueType.Gold;
+					typeName += "골드";
+				}
 			}
 
 			if (type >= (int)ValueType.Hp)
 			{
-				player.hp -= (int)value;
-				type -= (int)ValueType.Hp;
-				typeName += "체력";
+				if (player.hp - value > 0)
+				{
+					player.hp -= (int)value;
+					type -= (int)ValueType.Hp;
+					typeName += "체력";
+				}
 			}
 			return typeName;
 		}

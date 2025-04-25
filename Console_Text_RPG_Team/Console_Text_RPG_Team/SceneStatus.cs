@@ -21,30 +21,31 @@ namespace Console_Text_RPG_Team
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine(" 용사님의 정보가 표시됩니다.");
             Console.ResetColor();
-            sb.AppendLine(" ====================");
-            sb.Append($" 이  름	: {player.name}").Append("\n");
-			sb.Append($" Lv.	: {player.level}").Append("\n");
-			sb.Append($" 직업	: {player.job}").Append("\n");
-			sb.Append($" 체  력	: {player.hp}").Append("\n"); 
-			sb.Append($" 공격력	: {player.atk}").Append("\n"); 
-			sb.Append($" 방어력	: {player.def}").Append("\n"); 
-			sb.Append($" 돈	: {player.gold}").Append("\n");
-            sb.AppendLine(" ====================");
+           Console.WriteLine(" ====================");
+			player.ViewStatus();
+			//	sb.Append($" 이  름	: {player.name}").Append("\n");
+			//sb.Append($" Lv.	: {player.level}").Append("\n");
+			//sb.Append($" 직업	: {player.job}").Append("\n");
+			//sb.Append($" 체  력	: {player.hp}").Append("\n"); 
+			//sb.Append($" 공격력	: {player.atk}").Append("\n"); 
+			//sb.Append($" 방어력	: {player.def}").Append("\n"); 
+			//sb.Append($" 돈	: {player.Gold}").Append("\n");
+			sb.AppendLine($"스탯포인트 : {player.stat}");
+			Console.WriteLine(" ====================");
             sb.Append("\n");
             Console.Write(sb.ToString());
             sb.Clear();
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-			Console.WriteLine(" 0. 나가기\n");
-			Console.ResetColor();
-            sb.Append(" 원하시는 행동을 입력해주세요.").Append("\n");
-			sb.Append(" >> ");
-			Console.Write(sb.ToString());
-			sb.Clear();
+			Console.WriteLine("1. 스탯분배");
+			Console.WriteLine("0. 나가기\n");
 
-			Input();
+			Console.ResetColor();
+
+
+			Input(player);
 		}
 
-		public void Input()
+		public void Input(Player player)
 		{
 			while (true)
 			{
@@ -53,6 +54,9 @@ namespace Console_Text_RPG_Team
 					int input = int.Parse(Console.ReadLine());
 					switch (input)
 					{
+						case 1:
+							StatSelect(player);
+							return;
 						case 0:
 							return;
 						default:
@@ -66,6 +70,47 @@ namespace Console_Text_RPG_Team
 					continue;
 				}
 				
+			}
+		}
+
+		public void StatSelect(Player player)
+		{
+			while (true)
+			{
+				Console.Clear();
+				Console.WriteLine(" [ 스탯 분배 ]".PadLeft(10));
+				Console.WriteLine(" 용사님의 정보가 표시됩니다.\n");
+				player.ViewStatus();
+				sb.AppendLine("스탯을 분배합니다");
+				sb.AppendLine($"현재 스탯포인트 : {player.stat}");
+				sb.AppendLine();
+				sb.AppendLine("1. 체력");
+				sb.AppendLine("2. 공격력");
+				sb.AppendLine("3. 방어력");
+				sb.AppendLine("4. 마력");
+				sb.AppendLine("0. 나가기");
+				sb.Append("원하시는 행동을 입력해주세요.").Append("\n");
+				Console.Write(sb.ToString());
+				sb.Clear();
+				try
+				{
+					int input = int.Parse(Console.ReadLine());
+					if (input > 4 || 0 > input)
+					{
+						Console.WriteLine("다시 입력해주십시오");
+						continue;
+					}
+
+					if (input == 0)
+						return;
+					player.StatAdd(input);
+				}
+				catch (Exception)
+				{
+					Console.WriteLine("다시 입력해주십시오");
+					continue;
+				}
+
 			}
 		}
 	}

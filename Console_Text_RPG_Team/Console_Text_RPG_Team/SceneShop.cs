@@ -92,11 +92,13 @@ namespace Console_Text_RPG_Team
                 }
             }
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($" [보유골드]: {player.gold}G\n");
+
+            Console.WriteLine($" [보유골드]: {player.Gold}G\n");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine(" 0: 마을로 돌아가기");
             Console.WriteLine(" 1: 아이템 구매");
+
             Console.ResetColor();
             sb.Append(">> ");
             Console.Write(sb.ToString());
@@ -140,7 +142,7 @@ namespace Console_Text_RPG_Team
                 }
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"[보유골드]: {player.gold}G\n");
+                Console.WriteLine($"[보유골드]: {player.Gold}G\n");
                 Console.ResetColor();
 
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -167,14 +169,14 @@ namespace Console_Text_RPG_Team
                         {
                             Console.WriteLine("이미 구매 완료된 아이템입니다.");
                         }
-                        else if (player.gold < selected.price)
+                        else if (player.Gold < selected.price)
                         {
                             Console.WriteLine("골드가 부족합니다.");
                         }
                         else
                         {
                             // 구매 처리
-                            player.gold -= selected.price;
+                            player.Gold -= selected.price;
                             selected.purchaseItem = true;
                             Console.WriteLine($"{selected.name}을(를) 구매했습니다.");
                             inventory.AddItem(selected);
