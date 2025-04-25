@@ -18,7 +18,7 @@ namespace Console_Text_RPG_Team
             Console.WriteLine(" [ 회복의 요람 ]");
 			Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine(" 시워언해: 600G만 내주신다면 용사님의 체력을 30%씩이나 회복시켜드립니다");
+            Console.WriteLine(" 시워언해: 600G만 내주신다면 용사님의 체력과 마나를 30%씩이나 회복시켜드립니다");
             Console.WriteLine($" 용사님의 현재 상태입니다. 600G를 지불하시겠습니까?");
             Console.ResetColor();
 			sb.AppendLine(" =====================");

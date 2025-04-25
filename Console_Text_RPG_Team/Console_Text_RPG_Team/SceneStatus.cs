@@ -99,10 +99,10 @@ namespace Console_Text_RPG_Team
 				Console.WriteLine();
                 Console.ResetColor();
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
-                Console.WriteLine($" 1. {"체력",-5} {"(+10)",-5}");
-                Console.WriteLine($" 2. {"공격력",-5}{"(+3)",-5} ");
-                Console.WriteLine($" 3. {"방어력",-5}{"(+1)",-5}");
-                Console.WriteLine($" 4. {"마나",-5} {"(+1)",-5}");
+                Console.WriteLine($" 1. {"체력",-5} {"(+100)",-5}");
+                Console.WriteLine($" 2. {"공격력",-5}{"(+30)",-5} ");
+                Console.WriteLine($" 3. {"방어력",-5}{"(+5)",-5}");
+                Console.WriteLine($" 4. {"마나",-5} {"(+5)",-5}");
                 Console.WriteLine(" 0. 나가기");
                 Console.ResetColor();
 				sb.AppendLine(" 원하시는 행동의 번호를 입력해주세요.");

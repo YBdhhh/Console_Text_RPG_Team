@@ -139,16 +139,16 @@ namespace Console_Text_RPG_Team
                 switch (value)
                 {
                     case 1:
-                        HpUpSet(10);
+                        HpUpSet(100);
                         break;
                     case 2:
-                        this.atk += 3;
+                        this.atk += 30;
                         break;
                     case 3:
-                        this.def += 1;
+                        this.def += 5;
                         break;
                     case 4:
-                        this.mp += 1;
+                        this.mp += 5;
                         break;
                 }
                 this.stat -= 1;
