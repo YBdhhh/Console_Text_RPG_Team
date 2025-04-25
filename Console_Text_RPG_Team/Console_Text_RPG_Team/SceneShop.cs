@@ -71,7 +71,9 @@ namespace Console_Text_RPG_Team
             {
                 var item = shopItems[i];
                 //string flag = item.purchaseItem ? " | - 구매 완료" : $" | 가격: {item.price}G";             
-                string statTxt = item.atk > 0 ? $"| 공격력:{item.atk}" : item.def > 0 ? $"| 방어력:{item.def}" : "";
+                string statTxt = item.Type == ItemType.Potion
+                    ? $"| 회복량:{item.HealAmount}"
+                    : item.atk > 0 ? $"| 공격력:{item.atk}" : item.def > 0 ? $"| 방어력:{item.def}" : "";
                 if (item.purchaseItem)
                 {
                     sb.Append($" {i + 1,-1}. {item.name,-6}| {item.toolTip,-15}{statTxt,-16} | ");
@@ -120,7 +122,9 @@ namespace Console_Text_RPG_Team
                 {
                     var item = shopItems[i];
                     //string flag = item.purchaseItem ? " | - 구매 완료" : $" | 가격: {item.price}G";             
-                    string statTxt = item.atk > 0 ? $"| 공격력:{item.atk}" : item.def > 0 ? $"| 방어력:{item.def}" : "";
+                    string statTxt = item.Type == ItemType.Potion
+                    ? $"| 회복량:{item.HealAmount}"
+                    : item.atk > 0 ? $"| 공격력:{item.atk}" : item.def > 0 ? $"| 방어력:{item.def}" : "";
                     if (item.purchaseItem)
                     {
                         sb.Append($" {i + 1,-1}. {item.name,-6}| {item.toolTip,-15}{statTxt,-16} | ");
