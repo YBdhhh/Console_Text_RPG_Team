@@ -286,6 +286,7 @@ namespace Console_Text_RPG_Team
             foreach (var item in droppedItems)
             {
                 player.inventory.AddItem(item);
+                Console.WriteLine($"{item.name}을 획득했습니다.");
             }
         }
     }
