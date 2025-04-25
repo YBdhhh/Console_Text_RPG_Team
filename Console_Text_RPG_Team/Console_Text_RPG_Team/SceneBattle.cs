@@ -208,8 +208,8 @@ namespace Console_Text_RPG_Team
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($" [ 전투 시작! {currentFloor}층 - 보스 ]");
             Console.ResetColor();
-            Console.WriteLine($" 야생의 머쉬맘이 나타났다!!\n");
             bossMonster.Add(new Monster (bossMonsters[currentFloor-1]));
+            Console.WriteLine($" 야생의 {bossMonsters[currentFloor-1].name}이 나타났다!!\n");
             player.audio[0].Play();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" [ 몬스터 ]");
@@ -244,7 +244,7 @@ namespace Console_Text_RPG_Team
             switch (choose)
             {
                 case 0:
-                    Console.WriteLine(" 이런! 주황버섯 무리가 통로를 막고있다!");
+                    Console.WriteLine($" 이런! {monsters[(currentFloor * 2) - 1].name} 무리가 통로를 막고있다!");
                     Thread.Sleep(1200);
                     sceneBattleAttack.BattleLoop(player, bossMonster);
                     break;
