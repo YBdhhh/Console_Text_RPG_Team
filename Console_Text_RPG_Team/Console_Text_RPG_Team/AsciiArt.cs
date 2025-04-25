@@ -53,7 +53,7 @@ namespace Console_Text_RPG_Team
             Console.ResetColor();
             Console.WriteLine("...로딩 중");
             Thread.Sleep(1000);
-            Console.WriteLine("...로딩 성공!");
+            Console.WriteLine("...로딩 성공!!!");
             Thread.Sleep(1000);
 
 
