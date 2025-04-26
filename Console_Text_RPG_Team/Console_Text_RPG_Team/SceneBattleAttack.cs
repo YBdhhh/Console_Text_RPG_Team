@@ -393,12 +393,13 @@ namespace Console_Text_RPG_Team
             sceneBattle.clearCount++;
             if (sceneBattle.clearCount > sceneBattle.maxClearCount) // 보스방 깻다면
             {
+                player.audio[0].Stop();
                 if (sceneBattle.dungeonFloor.Exists(x => sceneBattle.currentFloor == sceneBattle.dungeonFloor.Count && sceneBattle.dungeonFloor.Count < 3))   //3층 이하일때 현재최고층 난이도를 깨야만 층이 추가되도록
                 {
-                    player.quest.PlayEvent(player.quest, monsters.Count ,monsters[0].name);
                     sceneBattle.dungeonFloor.Add(sceneBattle.currentFloor + 1);
                 }
                 sceneBattle.clearCount = -1;
+                Thread.Sleep(1000);
                 player.audio[6].Play();
             }
             int prevLevel = player.level;
@@ -416,7 +417,11 @@ namespace Console_Text_RPG_Team
             Console.ResetColor();
             sb.AppendLine(" Victory\n");
             sb.AppendLine($" 던전에서 몬스터 {killCount}마리를 잡았습니다.\n");
-            Console.WriteLine(sb.ToString());
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                player.quest.PlayEvent(player.quest, 1, monsters[i].name);
+            }
+			Console.WriteLine(sb.ToString());
             sb.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" [ 캐릭터 정보 ]");

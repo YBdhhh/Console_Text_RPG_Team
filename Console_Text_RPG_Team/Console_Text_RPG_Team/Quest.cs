@@ -85,6 +85,7 @@ namespace Console_Text_RPG_Team
 			switch (quest.eventType)
 			{
 				case EventType.KillOther:
+				case EventType.KillBoss:
 					EventKill(quest, value, name);
 					break;
 			}
@@ -97,11 +98,7 @@ namespace Console_Text_RPG_Team
 
 		public void EventKill(Quest quest, int kill, string name)
 		{
-			if (quest.pickName == null)
-			{
-				quest.curProgress += kill;
-			}
-			if (name.Contains(quest.pickName))
+			if (name.Replace(" ", "").Contains(quest.pickName.Replace(" ", "")))
 			{
 				quest.curProgress += kill;
 			}
@@ -114,11 +111,8 @@ namespace Console_Text_RPG_Team
 
 		public void EventEquipItem(Quest quest, string name)
 		{
-			if (quest.pickName == null)
-			{
-				quest.curProgress++;
-			}
-			if (name.Contains(quest.pickName))
+
+			if (name.Replace(" ", "").Contains(quest.pickName.Replace(" ", "")))
 			{
 				quest.curProgress++;
 			}
