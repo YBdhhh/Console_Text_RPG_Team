@@ -15,14 +15,19 @@ namespace Console_Text_RPG_Team
 
 		public List<Quest> quest = new List<Quest>
 		{
-			new Quest("몬스터 잡기", "던전에 서식하는 몬스터를 10마리 잡아주세요", 0, 10,new Item("물컹물컹한 신발    ",  "일부 애호가에게 잘 팔리는 신발이다.        "  ,0   ,5,   500),EventType.KillOther, 10, ""),
-			new Quest("500골드 사용", "상점에서 500골드를 사용하세요", 0, 500, new Item("물컹물컹한 신발    ",  "일부 애호가에게 잘 팔리는 신발이다.        "  ,0   ,5,   500), EventType.UseGold, 100, ""),
-			new Quest("노가다 목장갑 착용", "노가다하는 당신께 선물을 준비하세요", 0, 1,new Item("물컹물컹한 신발    ",  "일부 애호가에게 잘 팔리는 신발이다.        "  ,0   ,5,   500), EventType.EquipItem, 500, "노가다 목장갑"),
-			new Quest("1층 보스 잡기!", "1층 보스를 만나고 그를 이기세요", 0, 1, new Item("물컹물컹한 신발    ",  "일부 애호가에게 잘 팔리는 신발이다.        "  ,0   ,5,   500), EventType.KillBoss, 100, "머쉬맘"),
+			
 		};
 		public Quest? selectedQuest = null;
 			
 		StringBuilder sb = new StringBuilder();
+
+		public void QuestLoad()
+		{
+			quest.Add(new Quest("몬스터 잡기", "던전에 서식하는 몬스터를 10마리 잡아주세요", 0, 10, Item.ShopItems(5), EventType.KillOther, 10, ""));
+			quest.Add(new Quest("500골드 사용", "상점에서 500골드를 사용하세요", 0, 500, Item.ShopItems(2), EventType.UseGold, 100, ""));
+			quest.Add(new Quest("노가다 목장갑 착용", "노가다하는 당신께 선물을 준비하세요", 0, 1, Item.ShopItems(1), EventType.EquipItem, 500, "노가다 목장갑"));
+			quest.Add(new Quest("1층 보스 잡기!", "1층 보스를 만나고 그를 이기세요", 0, 1, Item.ShopItems(7), EventType.KillBoss, 100, "머쉬맘"));
+		}
 
 		public void RewardQuest()
 		{
@@ -114,9 +119,9 @@ namespace Console_Text_RPG_Team
 			sb.AppendLine($" {index + 1}");
 			sb.AppendLine($" 퀘스트 : {quest[index].name}");
 			sb.AppendLine($" {quest[index].explain}");
-			/*
-			sb.AppendLine($"보상 : {quest[index].rewardItem} {quest[index].rewardExp}");
-			*/
+			
+			sb.AppendLine($"보상 : {quest[index].item.name} 경험치 : {quest[index].rewardExp}");
+			
 			sb.AppendLine();
 			if ((player.quest.name != null) && (player.quest.name != quest[index].name))
 			{
@@ -130,7 +135,8 @@ namespace Console_Text_RPG_Team
 				return;
 			}
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("1. 퀘스트 수락");
+			Console.WriteLine(sb.ToString());
+			Console.WriteLine("1. 퀘스트 수락");
             Console.WriteLine("2. 퀘스트 거절");
             Console.WriteLine("3. 퀘스트 완료");
 			Console.WriteLine();

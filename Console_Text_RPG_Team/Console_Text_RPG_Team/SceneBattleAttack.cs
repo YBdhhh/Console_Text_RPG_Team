@@ -98,9 +98,8 @@ namespace Console_Text_RPG_Team
                 Console.WriteLine(" 2. 물약(회복)");
                 for (int i = 0; i < player.skill.Count; i++)
                 {
-                    Console.WriteLine($" {i + 3}. {player.skill[i].name}");
+                    Console.WriteLine($" {i + 3}. {player.skill[i].name} | {player.skill[i].explain}");
                     Console.ResetColor();
-
                 }
                 sb.AppendLine();
                 sb.Append(" >> ");
