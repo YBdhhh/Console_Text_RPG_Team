@@ -106,7 +106,7 @@ namespace Console_Text_RPG_Team
 
 		public void EventUseGold(Quest quest, int gold)
 		{
-			curProgress = gold;
+			curProgress += gold;
 		}
 
 		public void EventEquipItem(Quest quest, string name)
