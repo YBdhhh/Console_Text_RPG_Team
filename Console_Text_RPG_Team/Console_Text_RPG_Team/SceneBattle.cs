@@ -197,20 +197,20 @@ namespace Console_Text_RPG_Team
 
             player.audio[0].Stop(); //일반전투 음악 정지
             player.audio[5].Play(); //보스전 음악
-            Thread.Sleep(1000);
-            Console.Clear();
+			Thread.Sleep(500);
+			Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine();
             Console.WriteLine($" {player.name}: 앗! 어디서 거대한 그림자가...");
             Console.ResetColor();
-
-            Thread.Sleep(1200);
+            Thread.Sleep(500);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($" [ 전투 시작! {currentFloor}층 - 보스 ]");
             Console.ResetColor();
             bossMonster.Add(new Monster (bossMonsters[currentFloor-1]));
             Console.WriteLine($" 야생의 {bossMonsters[currentFloor-1].name}이 나타났다!!\n");
-            player.audio[0].Play();
+			Thread.Sleep(1000);
+			player.audio[0].Play();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" [ 몬스터 ]");
             Console.ResetColor();
