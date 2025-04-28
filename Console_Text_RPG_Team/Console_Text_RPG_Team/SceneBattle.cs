@@ -53,8 +53,8 @@ namespace Console_Text_RPG_Team
         public List<int> dungeonFloor = new List<int>(3) { 1 };           //최대층 3층, 초기 1층
 
         public int currentFloor = 1;       //현재 층수
-        public int clearCount = 1;         
-        public int maxClearCount = 5;       //보스포함 5번 전투
+        public int clearCount = 0;         
+        public int maxClearCount = 4;       //보스까지 4번 전투
 
         public void SelectDungeon(Player player)
         {
@@ -125,8 +125,8 @@ namespace Console_Text_RPG_Team
         }
         public void StartBattle(Player player)
         {
-            clearCount = 1;
-            while (clearCount < maxClearCount && clearCount != 0 )      //보스포함 5번 전투 
+            clearCount = 0;
+            while (clearCount < maxClearCount && clearCount != -1 )      //보스포함 5번 전투 
             {
                 StringBuilder sb = new StringBuilder();
 
@@ -139,7 +139,7 @@ namespace Console_Text_RPG_Team
                 Console.WriteLine($" {player.name}: 앗! 몬스터가 나타났다!\n");
                 Console.ResetColor();
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($" [ {currentFloor}층 - {clearCount}스테이지 ]");
+                Console.WriteLine($" [ {currentFloor}층 - {clearCount + 1}스테이지 ]");
                 Console.WriteLine();
                 Console.WriteLine(" [ 몬스터 ]");
                 Console.ResetColor();
@@ -172,7 +172,7 @@ namespace Console_Text_RPG_Team
                 switch (choose)
                 {
                     case 0:
-                        clearCount = 0;
+                        clearCount = -1;
                         spawnList.Clear();
                         break;
                     case 1:
@@ -196,21 +196,21 @@ namespace Console_Text_RPG_Team
 
 
             player.audio[0].Stop(); //일반전투 음악 정지
-			      player.audio[6].Play(); //보스전 음악
-            Thread.Sleep(3000);
-			      Console.Clear();
+            player.audio[5].Play(); //보스전 음악
+			Thread.Sleep(500);
+			Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine();
             Console.WriteLine($" {player.name}: 앗! 어디서 거대한 그림자가...");
             Console.ResetColor();
-
-            Thread.Sleep(1200);
+            Thread.Sleep(500);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($" [ 전투 시작! {currentFloor}층 - 보스 ]");
             Console.ResetColor();
-            Console.WriteLine($" 야생의 머쉬맘이 나타났다!!\n");
             bossMonster.Add(new Monster (bossMonsters[currentFloor-1]));
-            player.audio[0].Play();
+            Console.WriteLine($" 야생의 {bossMonsters[currentFloor-1].name}이 나타났다!!\n");
+			Thread.Sleep(1000);
+			player.audio[0].Play();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" [ 몬스터 ]");
             Console.ResetColor();
@@ -244,7 +244,7 @@ namespace Console_Text_RPG_Team
             switch (choose)
             {
                 case 0:
-                    Console.WriteLine(" 이런! 주황버섯 무리가 통로를 막고있다!");
+                    Console.WriteLine($" 이런! {monsters[(currentFloor * 6) - 1].name} 무리가 통로를 막고있다!");
                     Thread.Sleep(1200);
                     sceneBattleAttack.BattleLoop(player, bossMonster);
                     break;

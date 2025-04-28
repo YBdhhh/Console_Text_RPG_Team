@@ -98,9 +98,8 @@ namespace Console_Text_RPG_Team
                 Console.WriteLine(" 2. 물약(회복)");
                 for (int i = 0; i < player.skill.Count; i++)
                 {
-                    Console.WriteLine($" {i + 3}. {player.skill[i].name}");
+                    Console.WriteLine($" {i + 3}. {player.skill[i].name} | {player.skill[i].explain}");
                     Console.ResetColor();
-
                 }
                 sb.AppendLine();
                 sb.Append(" >> ");
@@ -342,7 +341,9 @@ namespace Console_Text_RPG_Team
 
             if (!isVictory)
             {
-                sceneBattle.clearCount = 0;
+                sceneBattle.clearCount = -1;
+                player.hp = player.maxHp * 3 / 10;
+                player.Gold = player.Gold * 9 / 100 *10;    //일의 자리 버림
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("");
                 Console.WriteLine(" [ 전투 결과.... ]\n");
@@ -351,6 +352,8 @@ namespace Console_Text_RPG_Team
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(" [ 클리어에 실패하셨습니다. ]\n");
                 Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("???: 아니 이런곳에 쓰러진 호ㄱ.. 아니 모험가가! ...자 치료도 해줬으니 포션값 정도는 받아가겠네.\n");
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
                 Console.WriteLine(" 0. 다음");
                 Console.ResetColor();
@@ -387,14 +390,16 @@ namespace Console_Text_RPG_Team
                 }
             }
             sceneBattle.clearCount++;
-            if (sceneBattle.clearCount > sceneBattle.maxClearCount) //
+            if (sceneBattle.clearCount > sceneBattle.maxClearCount) // 보스방 깻다면
             {
+                player.audio[0].Stop();
                 if (sceneBattle.dungeonFloor.Exists(x => sceneBattle.currentFloor == sceneBattle.dungeonFloor.Count && sceneBattle.dungeonFloor.Count < 3))   //3층 이하일때 현재최고층 난이도를 깨야만 층이 추가되도록
                 {
-                    player.quest.PlayEvent(player.quest, monsters.Count ,monsters[0].name);
                     sceneBattle.dungeonFloor.Add(sceneBattle.currentFloor + 1);
                 }
-                sceneBattle.clearCount = 1;
+                sceneBattle.clearCount = -1;
+                Thread.Sleep(1000);
+                player.audio[6].Play();
             }
             int prevLevel = player.level;
             int prevExp = player.exp;
@@ -411,7 +416,11 @@ namespace Console_Text_RPG_Team
             Console.ResetColor();
             sb.AppendLine(" Victory\n");
             sb.AppendLine($" 던전에서 몬스터 {killCount}마리를 잡았습니다.\n");
-            Console.WriteLine(sb.ToString());
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                player.quest.PlayEvent(player.quest, 1, monsters[i].name);
+            }
+			Console.WriteLine(sb.ToString());
             sb.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" [ 캐릭터 정보 ]");
@@ -448,6 +457,7 @@ namespace Console_Text_RPG_Team
             sb.Append(" >> ");
             Console.Write(sb.ToString());
             sb.Clear();
+            Console.ReadKey();
         }
 
         public void AddItem(Dictionary<string, int> items, List<string> dropItems)

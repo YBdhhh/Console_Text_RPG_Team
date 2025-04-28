@@ -95,7 +95,7 @@ namespace Console_Text_RPG_Team
 
 		public Player()
 		{
-			Gold = 1500;
+			Gold = 1900;
 			hp = maxHp;
 			mp = maxMp;
 		}
